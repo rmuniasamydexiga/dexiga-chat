@@ -1,0 +1,76 @@
+# Resolve react_native_pods.rb with node to allow for hoisting
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
+
+$RNFirebaseAsStaticFramework = true
+platform :ios, min_ios_version_supported
+prepare_react_native_project!
+
+use_frameworks!
+
+linkage = ENV['USE_FRAMEWORKS']
+if linkage != nil
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! :linkage => linkage.to_sym
+end
+
+pre_install do |installer|
+  installer.pod_targets.each do |pod|
+    if pod.name.eql?('RNScreens') || 
+       pod.name.eql?('RNReanimated') || 
+       pod.name.eql?('RNPermissions') || 
+       pod.name.start_with?('Permission-')
+      def pod.build_type
+        Pod::BuildType.static_library
+      end
+    end
+  end
+end
+
+target 'DexigaChat' do
+  config = use_native_modules!
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    :hermes_enabled => false,
+    # :fabric_enabled => flags[:fabric_enabled],
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  target 'DexigaChatTests' do
+    inherit! :complete
+    # Pods for testing
+  end
+
+post_install do |installer|
+  react_native_post_install(
+    installer,
+    config[:reactNativePath],
+    :mac_catalyst_enabled => false,
+  )
+
+  installer.pods_project.build_configurations.each do |config|
+    config.build_settings["CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES"] = true
+    config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
+    
+  end
+
+  # 🔧 Remove -G flag from all BoringSSL-GRPC build settings
+  installer.pods_project.targets.each do |target|
+    if target.name == 'BoringSSL-GRPC'
+      target.source_build_phase.files.each do |file|
+        if file.settings && file.settings['COMPILER_FLAGS']
+          flags = file.settings['COMPILER_FLAGS'].split
+          flags.reject! { |flag| flag == '-GCC_WARN_INHIBIT_ALL_WARNINGS' }
+          file.settings['COMPILER_FLAGS'] = flags.join(' ')
+        end
+      end
+    end
+  end
+
+end
+
+end
