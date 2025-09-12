@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "376452017396",
+    "project_id": "dexigachat-15c9e",
+    "storage_bucket": "dexigachat-15c9e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376452017396:android:aa0bdeff03e3f9ffb282a1",
+        "android_client_info": {
+          "package_name": "com.dexigachat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALj3zi9CbRdyQDiRqxarQFjLqImXw9Z4g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
