@@ -1,0 +1,159 @@
+import {
+  ReactElement,
+  JSXElementConstructor,
+  ReactNode,
+  ReactPortal,
+} from 'react';
+import {
+  Alert,
+  FlatList,
+  Image,
+  ImageBackground,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {Col, Grid, Row} from 'react-native-easy-grid';
+import {dayFormatwithUnix} from '../../Helper/DayHelper';
+import ListEmptyComponent from './ListEmptyCompont';
+import {GetTheme} from '../../Constant/Colors';
+import {FONTS} from '../../Constant/Fonts';
+import {CHAT_OPTIONS} from '../../Constant/Constant';
+import {checkPlayerBlockOrNot, getMessage, getName} from '../../Helper/common';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {SCREEN_NAMES} from '../../Constant/ScreenName';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
+const ListComponent = (props: {
+  data: any;
+  userId: string;
+  selectedUser: any[];
+  fromNavigation: string;
+  onFriendItemPress: (data: any) => void;
+  EmptyListMesage: string;
+  chatList: any;
+}) => {
+  const {
+    data,
+    userId,
+    onFriendItemPress,
+    fromNavigation,
+    selectedUser,
+    EmptyListMesage,
+    chatList,
+  } = props;
+  const colors = GetTheme();
+  return (
+    <FlatList
+      data={data}
+      keyboardShouldPersistTaps="always"
+      ListEmptyComponent={
+        <ListEmptyComponent message={EmptyListMesage || 'No Chat Found'} />
+      }
+      renderItem={({item, index}) => {
+        return (
+          <TouchableOpacity
+            style={{height: 80}}
+            onPress={() => onFriendItemPress(item)}>
+            <Grid style={{maxHeight: 80}}>
+              <Col
+                style={{
+                  width: 80,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <ImageBackground
+                  style={{
+                    width: 65,
+                    height: 65,
+                    borderRadius: 65,
+                  }}
+                  source={require('../../Assets/Images/user.png')}
+                  resizeMode="cover">
+                  {selectedUser &&
+                    selectedUser.find(
+                      (ele: {userId: any}) => ele.userId === item.userId,
+                    ) && (
+                      <View style={{alignSelf: 'flex-end', marginTop: 30}}>
+                        <AntDesign
+                          style={{fontWeight: 'bold', fontSize: 30}}
+                          color={colors.headerTheme}
+                          size={20}
+                          name="checkcircleo"></AntDesign>
+                      </View>
+                    )}
+                </ImageBackground>
+              </Col>
+              <Col style={{marginLeft: 10}}>
+                <Row style={{alignItems: 'center'}}>
+                  <Col>
+                    <Text
+                      style={{
+                        fontFamily: FONTS.OpenSans_Bold,
+                        fontSize: 16,
+                        color: colors.text,
+                      }}>
+                      {getName(item)}
+                    </Text>
+                  </Col>
+                  {fromNavigation === SCREEN_NAMES.CHAT_LIST ? (
+                    <Col style={{alignItems: 'flex-end', paddingEnd: 10}}>
+                      <Text
+                        style={{
+                          color: colors.secondaryText,
+                          fontSize: 11,
+                          fontFamily: FONTS.OpenSans_Regular,
+                        }}>
+                        {dayFormatwithUnix(item.lastMessageDate, 'HH,MM A')}
+                      </Text>
+                    </Col>
+                  ) : (
+                    <></>
+                  )}
+                </Row>
+                {fromNavigation === SCREEN_NAMES.CHAT_LIST ? (
+                  <Row style={{marginTop: -5}}>
+                    <View style={{flex: 0.8}}>
+                      <Text
+                        style={{
+                          color: colors.secondaryText,
+                          fontSize: 13,
+                          fontFamily: FONTS.OpenSans_Regular,
+                        }}>
+                        {getMessage(item.lastMessage)}
+                      </Text>
+                    </View>
+                    <View style={{flex: 0.2}}>
+                      {item.mutedBy === userId ||
+                      item.mutedBy === CHAT_OPTIONS.BOTH ? (
+                        <Ionicons name={'volume-mute'} size={20} />
+                      ) : (
+                        <></>
+                      )}
+                    </View>
+                  </Row>
+                ) : (
+                  <Row style={{marginTop: -5}}>
+                    <View style={{flex: 0.8}}>
+                      <Text
+                        style={{
+                          color: colors.secondaryText,
+                          fontSize: 13,
+                          fontFamily: FONTS.OpenSans_Regular,
+                        }}>
+                        {checkPlayerBlockOrNot(chatList, userId, item.userId)}
+                      </Text>
+                    </View>
+                  </Row>
+                )}
+              </Col>
+            </Grid>
+          </TouchableOpacity>
+        );
+      }}
+      keyExtractor={(item, index) => index.toString()}
+    />
+  );
+};
+
+export default ListComponent;
