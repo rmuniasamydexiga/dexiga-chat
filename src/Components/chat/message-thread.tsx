@@ -3,7 +3,7 @@
 import React, { FC } from "react";
 import { FlatList, Text, View } from "react-native";
 import dynamicStyles from "../../Screens/Viewer/Chat/styles";
-import ThreadItem from "./ThreadItem";
+import ThreadItem from "./thread-item";
 import { IUser } from "../../Interfaces/Chat";
 import { useSelector } from "react-redux";
 import { selectedChannelDetails } from "../../redux/chatSlice";
@@ -18,7 +18,6 @@ interface props {
   thread: any,
   user: IUser,
   onChatMediaPress: (obj: any) => void,
-  appStyles: any,
   onSenderProfilePicturePress: any,
   onMessageLongPress: (item: any) => void,
 

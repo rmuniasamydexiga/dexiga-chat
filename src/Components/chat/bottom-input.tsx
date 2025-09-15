@@ -28,7 +28,6 @@ interface props {
   onSend: () => void;
   onAddMediaPress: () => void;
   uploadProgress: () => void;
-  appStyles: any;
   trackInteractive: any;
   inReplyToItem: any;
   onReplyingToDismiss: () => void;
@@ -48,7 +47,6 @@ const BottomInput: FC<props> = props => {
     onChangeText,
     onSend,
     onAddMediaPress,
-    appStyles,
     
     inReplyToItem,
     onReplyingToDismiss,
@@ -77,12 +75,7 @@ const BottomInput: FC<props> = props => {
     setCustomKeyboard({component: undefined, initialProps: undefined});
   };
 
-  const showKeyboardView = (component: any) => {
-    setCustomKeyboard({
-      component,
-      initialProps: {appStyles},
-    });
-  };
+  
 
 
 

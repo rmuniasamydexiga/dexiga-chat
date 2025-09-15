@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity, ImageBackground, TextInput, } from 'react-native';
 
-import HeaderSeven from '../../../Components/Header/HeaderSeven';
+import HeaderSeven from '../../../Components/chat/header/header-seven';
 import { Button, useStylesheet, wp } from 'react-native-dex-moblibs';
 
 

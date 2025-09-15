@@ -3,7 +3,7 @@ import {View, Text,  FlatList, Image, TouchableOpacity,Alert, ImageBackground} f
 
 import { CHAT_DETAILS_CONFIGURE, MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
 import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
-import HeaderSix from '../../../Components/Header/HeaderSix';
+import HeaderSix from '../../../Components/chat/header/header-six';
 import { PageContainer, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
 interface User {

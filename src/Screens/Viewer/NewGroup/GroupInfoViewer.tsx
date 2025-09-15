@@ -1,11 +1,12 @@
 import React from 'react';
 import {View, Text,  FlatList, Image, TouchableOpacity,Alert, ImageBackground} from 'react-native';
-import HeaderFive from '../../../Components/Header/HeaderFive';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import ActionSheet from 'react-native-actionsheet';
 import { CHAT_DETAILS_CONFIGURE, MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
 import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
 import { PageContainer, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
+import ChatHeader from '../../../Components/chat/header/chat-header';
+import HeaderFive from '../../../Components/chat/header/header-five';
 
 interface User {
   name: string;
@@ -91,7 +92,7 @@ const{theme}=useStylesheet()
 
   return (
     <PageContainer>
-          <HeaderFive 
+         <HeaderFive 
       title={channel?.name} 
       subTitle={`Group ${groupParticpantsList.length} participants`}
       isHideDot={false}
@@ -99,15 +100,10 @@ const{theme}=useStylesheet()
       onPress={()=>navigationGoBack()} 
       onPressmenuVisible={()=>onPressmenuVisible()}
       menuVisible={menuVisible} menuList={[CHAT_DETAILS_CONFIGURE.CHANGE_GROUP_NAME]} onPressMenu={(data)=>{
-      
         onPressMenu(data)
-   
-
       }
       } 
-      onPressDeleteMessage={function (): void {
-        throw new Error('Function not implemented.');
-      } }
+     
       ></HeaderFive>
       {groupUserDetails?.isAdmin&&groupUserDetails.isExit!==true?
       <View style={{height:60,margin:10,flexDirection:'row',backgroundColor:theme.colors.background,borderColor:'grey',borderRadius:10}}>

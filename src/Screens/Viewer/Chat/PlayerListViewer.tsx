@@ -8,15 +8,16 @@ import {
   Alert,
   KeyboardAvoidingView,
 } from 'react-native';
-import HeaderFive from '../../../Components/Header/HeaderFive';
 
 import chatStyles from '../../Style/ChatListStyle';
 
-import ListComponent from '../../../Components/chat/ListComponents';
+import ChatUserList from '../../../Components/chat/chat-user-list-card';
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 
 import dynamicStyles from './styles';
 import { PageContainer } from 'react-native-dex-moblibs';
+import ChatHeader from '../../../Components/chat/header/chat-header';
+import HeaderFive from '../../../Components/chat/header/header-five';
 
 interface IPlayerListViewer {
   users: any;
@@ -80,7 +81,7 @@ const PlayerListViewer: React.FC<IPlayerListViewer> = props => {
         } } onPressmenuVisible={function (): void {
           throw new Error('Function not implemented.');
         } } isHideSearch={false}      />
-      <ListComponent
+      <ChatUserList
         fromNavigation={fromNavigation || SCREEN_NAMES.PLAYER_LIST}
         data={users}
         EmptyListMesage={'No Users Founds'}

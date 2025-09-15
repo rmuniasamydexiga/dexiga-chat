@@ -2,10 +2,9 @@ import React, {FC} from 'react';
 import {View, Text, TextInput, Dimensions} from 'react-native';
 
 import {USER_TYPE} from '../../../Constant/Constant';
-import RadioButton from '../../../Components/Buttons/RadioButton';
 import {useNavigation} from '@react-navigation/native';
 import authStyles from '../../Style/LoginStyle';
-import { Button, PageContainer, wp,SpinnerModal, useStylesheet } from 'react-native-dex-moblibs';
+import { Button, PageContainer, wp,SpinnerModal, useStylesheet, RadioButton } from 'react-native-dex-moblibs';
 
 interface props {
   selectedOption: string;

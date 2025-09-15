@@ -1,10 +1,11 @@
 import React from 'react';
 import {View, Text,  FlatList, Image, TouchableOpacity, ImageBackground} from 'react-native';
-import HeaderFive from '../../../Components/Header/HeaderFive';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import { MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
 import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
 import { PageContainer, useStylesheet,SpinnerModal, VectorIcon } from 'react-native-dex-moblibs';
+import ChatHeader from '../../../Components/chat/header/chat-header';
+import HeaderFive from '../../../Components/chat/header/header-five';
 
 interface User {
   name: string;
@@ -81,7 +82,7 @@ const {theme}=useStylesheet()
 
   return (
     <PageContainer>
-          <HeaderFive 
+        <HeaderFive 
         title={channel?.name}
         isHideSearch={true}
         subTitle={`BroadCast List ${groupParticpantsList.length} recipients`}

@@ -3,8 +3,8 @@
 import React,{FC} from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image, ImageBackground } from 'react-native'
 
-import {  verticalScale } from "../../Constant/Metrics";
-import { PopupMenu } from "../Menu/Menu";
+import {  verticalScale } from "../../../Constant/Metrics";
+import { PopupMenu } from "../../Menu/Menu";
 import { useStylesheet, VectorIcon } from "react-native-dex-moblibs";
 
 
@@ -27,7 +27,7 @@ const HeaderOne: FC<props> = (props) => {
 
     return(
         <ImageBackground
-        source={require('../../Assets/Images/background.jpg')}
+        source={require('../../../Assets/Images/background.jpg')}
         style={{ height: verticalScale(70), flexDirection:'row', alignItems:'center', backgroundColor: theme.colors.background, elevation: 3}}>
             <View style={{flex:0.15, justifyContent: 'center'}}>
                 <TouchableOpacity style={{ alignItems:'center',width:'100%', height:'70%', justifyContent:'center'}}
@@ -37,7 +37,7 @@ const HeaderOne: FC<props> = (props) => {
                 </TouchableOpacity>
 			</View>
 			<View style={{flex: 0.15, alignItems:'flex-start'}}>
-          		<Image source={require('../../Assets/Images/user.png')} style={{height:45, width:45, borderRadius: 45/2}} />
+          		<Image source={require('../../../Assets/Images/user.png')} style={{height:45, width:45, borderRadius: 45/2}} />
 			</View>
 			<TouchableOpacity disabled={props.isTitleBtnDisable===true} style={{flex:0.55,alignItems:'flex-start', marginRight:'12%'}} onPress={()=>props.navigationTitlePress()}>
 				<Text style={styles.HeaderText} numberOfLines={2}>

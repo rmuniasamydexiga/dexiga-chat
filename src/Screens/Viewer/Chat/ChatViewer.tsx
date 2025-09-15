@@ -6,11 +6,11 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import dynamicStyles from './styles';
-import MessageThread from '../../../Components/chat/MessageThread';
+import MessageThread from '../../../Components/chat/message-thread';
 import BottomInput from '../../../Components/chat/bottom-input';
 import ActionSheet from 'react-native-actionsheet';
-import HeaderOne from '../../../Components/Header/HeaderOne';
-import HeaderThree from '../../../Components/Header/HeaderThree';
+import HeaderOne from '../../../Components/chat/header/header-one';
+import HeaderThree from '../../../Components/chat/header/header-three';
 
 import {
   ERROR_MESSAGE_CONTENT,
@@ -36,7 +36,6 @@ interface IChatViewer {
   privateSettingsActionSheetRef: any;
   showRenameDialog: (item: boolean) => void;
   onLeave: () => void;
-  appStyles: any;
   onUserBlockPress: () => void;
   onUserReportPress: () => void;
   onSenderProfilePicturePress: () => void;
@@ -99,7 +98,6 @@ const ChatViewer: React.FC<IChatViewer> = props => {
     privateSettingsActionSheetRef,
     showRenameDialog,
     onLeave,
-    appStyles,
     onUserBlockPress,
     onSenderProfilePicturePress,
     onReplyActionPress,
@@ -249,7 +247,6 @@ const {theme} = useStylesheet();
           sharedKey={sharedKey}
           uploadProgress={uploadProgress}
           messageSelectionList={selectedMessage}
-          appStyles={appStyles}
           messageUnSelect={data => messageUnSelect(data)}
           onChatMediaPress={data => onChatMediaPress(data)}
           onSenderProfilePicturePress={onSenderProfilePicturePress}
@@ -280,7 +277,6 @@ const {theme} = useStylesheet();
             value={inputValue}
             onChangeText={onChangeText}
             onSend={onSend}
-            appStyles={appStyles}
             trackInteractive={TrackInteractive}
             onAddMediaPress={() => {
               if (channel?.participants?.[0]?.blockedBy === user?.id) {

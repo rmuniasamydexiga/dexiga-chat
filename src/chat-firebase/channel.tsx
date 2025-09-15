@@ -387,6 +387,8 @@ export const sendMessage = async (
       ) {
         await addDoc(messageInfoRef, threadData);
       }
+      console.log('threadData', threadData);
+
       return { success: true, data: threadData };
     }
   } catch (error) {

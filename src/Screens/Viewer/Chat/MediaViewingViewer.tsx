@@ -2,7 +2,7 @@ import React from 'react';
 import { Image} from 'react-native';
 
 import {HEIGHT, MESSAGE_TYPE, WIDTH} from '../../../Constant/Constant';
-import HeaderTwo from '../../../Components/Header/HeaderTwo';
+import HeaderTwo from '../../../Components/chat/header/header-two';
 import Video from 'react-native-video';
 
 import {

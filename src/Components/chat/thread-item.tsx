@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import dynamicStyles from '../../Screens/Viewer/Chat/styles';
-import ThreadMediaItem from './ThreadMediaItem';
+import ThreadMediaItem from './thread-media-item';
 import {dayFormatwithUnix} from '../../chat-services/DayHelper';
 import {
   CHAT_OPTIONS,

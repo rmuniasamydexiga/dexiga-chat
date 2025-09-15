@@ -2,9 +2,9 @@
 import React,{FC} from "react";
 import { View, Text, TouchableOpacity, ImageBackground } from 'react-native'
 
-import {  verticalScale } from "../../Constant/Metrics";
+import {  verticalScale } from "../../../Constant/Metrics";
 import { FlatList } from "react-native";
-import { WIDTH } from "../../Constant/Constant";
+import { WIDTH } from "../../../Constant/Constant";
 import { useStylesheet, VectorIcon } from "react-native-dex-moblibs";
 
 
@@ -32,7 +32,7 @@ const HeaderSeven: FC<props> = (props) => {
 
     return(
         <ImageBackground
-        source={require('../../Assets/Images/background.jpg')}
+        source={require('../../../Assets/Images/background.jpg')}
         style={{ height: verticalScale(isMediaHeader?120:60),backgroundColor: theme.colors.background, elevation: 3}}>
                       <View style={{flex:0.1}}></View>
 

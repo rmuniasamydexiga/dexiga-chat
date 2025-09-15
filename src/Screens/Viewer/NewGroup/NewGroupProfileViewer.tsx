@@ -10,7 +10,7 @@ import {
 import {Col, Grid} from 'react-native-easy-grid';
 
 import {WIDTH} from '../../../Constant/Constant';
-import HeaderSeven from '../../../Components/Header/HeaderSeven';
+import HeaderSeven from '../../../Components/chat/header/header-seven';
 
 import {getName} from '../../../chat-services/common';
 import { PageContainer,ContactsFloatingIcon, VectorIcon, useStylesheet } from 'react-native-dex-moblibs';

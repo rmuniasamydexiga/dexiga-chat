@@ -97,9 +97,9 @@ import {
 import Clipboard from '@react-native-clipboard/clipboard';
 import {encrypt, sharedKeyAlgorthim} from '../../../chat-services/EndToEndEncryption';
 import ActionSheet from 'react-native-actionsheet';
-import MessageThread from '../../../Components/chat/MessageThread';
-import HeaderThree from '../../../Components/Header/HeaderThree';
-import HeaderOne from '../../../Components/Header/HeaderOne';
+import MessageThread from '../../../Components/chat/message-thread';
+import HeaderThree from '../../../Components/chat/header/header-three';
+import HeaderOne from '../../../Components/chat/header/header-one';
 import dynamicStyles from '../../Viewer/Chat/styles';
 
 const audioRecorderPlayer = new AudioRecorderPlayer();
@@ -1589,7 +1589,6 @@ const ChatController: React.FC = () => {
       disPlayName={getDisPlayNameName()}
       isTitleBtnDisable={false}
       is_group={!getChanelTitleBtnDisable()}
-      appStyles={appStyles}
       isInPutHide={getIsInputHideOrNot(groupParticpantsList)}
       groupParticpantsList={groupParticpantsList}
       inputHideMessage={getIsInputHideMessage(groupParticpantsList)}

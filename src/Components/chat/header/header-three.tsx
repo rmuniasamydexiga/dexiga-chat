@@ -3,7 +3,7 @@
 
 import React,{FC} from "react";
 import { View,TouchableOpacity, ImageBackground } from 'react-native'
-import {  verticalScale } from "../../Constant/Metrics";
+import {  verticalScale } from "../../../Constant/Metrics";
 import { useStylesheet, VectorIcon } from "react-native-dex-moblibs";
 
 
@@ -25,7 +25,7 @@ const HeaderThree: FC<props> = (props) => {
 
     return(
         <ImageBackground
-        source={require('../../Assets/Images/background.jpg')}
+        source={require('../../../Assets/Images/background.jpg')}
          style={{ height: verticalScale(70), flexDirection:'row', alignItems:'center', backgroundColor: theme.colors.background, elevation: 3}}>
             <View style={{flex:0.15, justifyContent: 'center'}}>
                 <TouchableOpacity style={{ alignItems:'center',width:'100%', height:'70%', justifyContent:'center'}}

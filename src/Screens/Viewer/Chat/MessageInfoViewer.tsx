@@ -4,7 +4,7 @@ import { Col, Grid, Row } from 'react-native-easy-grid';
 import chatStyles from '../../Style/ChatListStyle';
 import { verticalScale } from '../../../Constant/Metrics';
 import { WIDTH } from '../../../Constant/Constant';
-import ThreadItem from '../../../Components/chat/ThreadItem';
+import ThreadItem from '../../../Components/chat/thread-item';
 import { dayDate } from '../../../chat-services/DayHelper';
 import { getNameWithList } from '../../../chat-services/common';
 import { PageContainer } from '../../../../libs/moblibs/lib/module';

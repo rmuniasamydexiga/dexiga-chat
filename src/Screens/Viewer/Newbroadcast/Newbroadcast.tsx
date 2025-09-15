@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {Col, Grid, Row} from 'react-native-easy-grid';
 import chatStyles from '../../Style/ChatListStyle';
-import HeaderSix from '../../../Components/Header/HeaderSix';
+import HeaderSix from '../../../Components/chat/header/header-six';
 
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 import {getName} from '../../../chat-services/common';
@@ -308,11 +308,12 @@ const {theme}=useStylesheet()
                                     alignSelf: 'flex-end',
                                     marginTop: 30,
                                   }}>
-                                  <AntDesign
+                                  <VectorIcon
+                                      type="AntDesign"
                                     style={{fontFamily: theme.fonts.bold, fontSize:theme.typography.superText}}
                                     color={theme.colors.secondary}
                                     size={20}
-                                    name="checkcircleo"></AntDesign>
+                                    name="checkcircleo"></VectorIcon>
                                 </View>
                               )}
                           </ImageBackground>

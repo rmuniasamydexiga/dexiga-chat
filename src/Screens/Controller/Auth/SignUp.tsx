@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from 'uuid';
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 import authStyles from '../../Style/LoginStyle';
 import {SNACKBAR_MESSAGE_LENGTH, USER_TYPE} from '../../../Constant/Constant';
-import RadioButton from '../../../Components/Buttons/RadioButton';
 import {signUpValidationSchema, validation} from '../../../chat-services/validation';
 import {
   showLog,
@@ -14,7 +13,7 @@ import {
   validateMobileNumber,
 } from '../../../chat-services/common';
 import { checkIfEmailExists, createUser } from '../../../chat-firebase/auth';
-import { Button,PageContainer,SpinnerModal, useStylesheet } from 'react-native-dex-moblibs';
+import { Button,PageContainer,RadioButton,SpinnerModal, useStylesheet } from 'react-native-dex-moblibs';
 
 interface ISignup {
   name: string;

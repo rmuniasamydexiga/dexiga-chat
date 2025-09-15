@@ -2,7 +2,7 @@
 import React,{FC} from "react";
 import { View, Text, TouchableOpacity, ImageBackground, TextInput } from 'react-native'
 
-import {  verticalScale } from "../../Constant/Metrics";
+import {  verticalScale } from "../../../Constant/Metrics";
 import { useStylesheet, VectorIcon } from "react-native-dex-moblibs";
 
 
@@ -33,7 +33,7 @@ const HeaderSix: FC<props> = (props) => {
     return(
       props.showTextInput?
       <ImageBackground
-      source={require('../../Assets/Images/background.jpg')} style={{ height: verticalScale(75),backgroundColor: theme.colors.background, elevation: 3}}>
+      source={require('../../../Assets/Images/background.jpg')} style={{ height: verticalScale(75),backgroundColor: theme.colors.background, elevation: 3}}>
        <View style={{height:50,margin:10,backgroundColor:theme.colors.background,borderWidth:2,borderColor:theme.colors.text, borderRadius:20,flexDirection:'row'}}>
       <View style={{flex:0.05}}/>
       <TouchableOpacity style={{flex:0.1}} onPress={()=>props.searchPressBack()}>
@@ -50,7 +50,7 @@ const HeaderSix: FC<props> = (props) => {
      </View>
      </ImageBackground>:
       <ImageBackground
-      source={require('../../Assets/Images/background.jpg')}
+      source={require('../../../Assets/Images/background.jpg')}
          style={{ height: verticalScale(60),backgroundColor: theme.colors.background, elevation: 3}}>
                    <View style={{flex:0.25}}></View>
 
@@ -59,7 +59,6 @@ const HeaderSix: FC<props> = (props) => {
                 <TouchableOpacity style={{ alignItems:'center',width:'100%', height:'70%', justifyContent:'center',marginTop:-10}}
                  onPress={() => props.onPress()}
                     >
-            {/* <SvgXml xml={BACK_BUTTON} width={15} height={20}/> */}
                   <VectorIcon type="FontAwesome" name='angle-left' size={35} color={theme.colors.white}></VectorIcon>
                 </TouchableOpacity>
 			</View>

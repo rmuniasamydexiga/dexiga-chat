@@ -14,7 +14,7 @@ import {checkPlayerBlockOrNot, getMessage, getName} from '../../chat-services/co
 import {SCREEN_NAMES} from '../../Constant/ScreenName';
 import { ListEmptyComponent, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
-const ListComponent = (props: {
+const ChatUserList = (props: {
   data: any;
   userId: string;
   selectedUser: any[];
@@ -148,4 +148,4 @@ const ListComponent = (props: {
   );
 };
 
-export default ListComponent;
+export default ChatUserList;

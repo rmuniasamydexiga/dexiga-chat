@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 
-import SplashScreenViewer from '../../Viewer/Auth/Splash';
 import SplashScreen from 'react-native-splash-screen';
 import {STORAGE} from '../../../chat-services/StorageHelper';
 import {setChatList, setUser, setUserList} from '../../../redux/chatSlice';
@@ -13,6 +12,8 @@ import {dayDate} from '../../../chat-services/DayHelper';
 import {showLog} from '../../../chat-services/common';
 import {getAllUserList} from '../../../chat-firebase/user';
 import { getData } from 'react-native-dex-moblibs';
+import { Dimensions, ImageBackground } from 'react-native';
+const { height, width } = Dimensions.get('window');
 
 const SplashScreenController: React.FC = () => {
   const navigation = useNavigation<any>();
@@ -279,7 +280,20 @@ const SplashScreenController: React.FC = () => {
     SplashScreen.hide();
   };
 
-  return <SplashScreenViewer></SplashScreenViewer>;
+  return <ImageBackground
+      style={{
+        width: width,
+        height: height,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+      }}
+      resizeMode={'stretch'}
+     
+      source={require('../../../Assets/Images/splash.jpg')}>
+        
+ 
+    
+    </ImageBackground>
 };
 
 export default SplashScreenController;

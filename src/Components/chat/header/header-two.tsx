@@ -7,7 +7,7 @@ import {
   ImageBackground,
 } from 'react-native';
 
- import {verticalScale, moderateScale} from '../../Constant/Metrics';
+ import {verticalScale} from '../../../Constant/Metrics';
 import { useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
 interface props {
@@ -32,7 +32,7 @@ const HeaderTwo: FC<props> = props => {
 
   return (
     <ImageBackground
-      source={require('../../Assets/Images/background.jpg')}
+      source={require('../../../Assets/Images/background.jpg')}
       style={{height: verticalScale(70)}}>
       <View style={{flex: 0.1}}></View>
       <View

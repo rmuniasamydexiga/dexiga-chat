@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text,FlatList,Image,TouchableOpacity,Alert, ImageBackground} from 'react-native';
 import chatStyles from '../../Style/ChatListStyle';
 
-import HeaderSeven from '../../../Components/Header/HeaderSeven';
+import HeaderSeven from '../../../Components/chat/header/header-seven';
 import { HEIGHT, MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
 import { verticalScale } from '../../../Constant/Metrics';
 import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';

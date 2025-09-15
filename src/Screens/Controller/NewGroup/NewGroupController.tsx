@@ -36,6 +36,7 @@ const AddNewGroupController: React.FC = () => {
   const [userId, setUserId] = useState<String | null>(null);
   const chatList = useSelector(selectChatList);
   const user = useSelector(selectUser);
+  const [broadcastName, setBroadcastName] = useState<string>('');
 
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
@@ -141,6 +142,10 @@ const AddNewGroupController: React.FC = () => {
       searchPress={() => {
         setShowTextInput(!showTextInput);
       }}
+      setBroadcastName={txt => {
+        setBroadcastName(txt)
+      }
+    }
       groupParticpantsList={route?.params?.groupParticpantsList || []}
       title={
         route?.params?.formNavigation === SCREEN_NAMES.GROUP_INFO

@@ -7,8 +7,8 @@ import {
   TextInput,
 } from 'react-native';
 
- import {verticalScale, moderateScale} from '../../Constant/Metrics';
-import {PopupMenu} from '../Menu/Menu';
+ import {verticalScale} from '../../../Constant/Metrics';
+import {PopupMenu} from '../../Menu/Menu';
 import { useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
 interface props {
@@ -34,7 +34,7 @@ const HeaderFive: FC<props> = props => {
 
   return props.showTextInput ? (
     <ImageBackground
-      source={require('../../Assets/Images/background.jpg')}
+      source={require('../../../Assets/Images/background.jpg')}
       style={{
         height: verticalScale(75),
         backgroundColor: theme.colors.background,
@@ -70,7 +70,7 @@ const HeaderFive: FC<props> = props => {
     </ImageBackground>
   ) : (
     <ImageBackground
-      source={require('../../Assets/Images/background.jpg')}
+      source={require('../../../Assets/Images/background.jpg')}
       style={{
         height: verticalScale(75),
         backgroundColor: theme.colors.background,

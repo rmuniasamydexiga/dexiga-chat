@@ -28,7 +28,7 @@ import {
   setUser,
   setUserList,
 } from '../../../redux/chatSlice';
-import HeaderFour from '../../../Components/Header/HeaderFour';
+import HeaderFour from '../../../Components/chat/header/header-four';
 import {useAuth} from '../../../Router/Context/Auth';
 import {
   CHAT_DETAILS_CONFIGURE,
