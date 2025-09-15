@@ -30,7 +30,6 @@ import {
 } from '../../../redux/chatSlice';
 import HeaderFour from '../../../Components/Header/HeaderFour';
 import {useAuth} from '../../../Router/Context/Auth';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
   CHAT_DETAILS_CONFIGURE,
   CHAT_OPTIONS,
@@ -49,7 +48,7 @@ import {launchCamera} from 'react-native-image-picker';
 import ImagePicker from 'react-native-image-crop-picker';
 import {getAllUserList} from '../../../chat-firebase/user';
 
-import { clearAll, getData, PageContainer ,ContactsFloatingIcon, useStylesheet} from 'react-native-dex-moblibs';
+import { clearAll, getData, PageContainer ,ContactsFloatingIcon, useStylesheet, VectorIcon} from 'react-native-dex-moblibs';
 // import {
 //   decrypt,
 //   diffieHellManAlgorthim,
@@ -653,7 +652,7 @@ const {theme}=useStylesheet()
                         ) : null}
                         {item.mutedBy === userId ||
                         item.mutedBy === CHAT_OPTIONS.BOTH ? (
-                          <Ionicons name={'volume-mute'} size={20} />
+                          <VectorIcon name={'volume-mute'} size={20} type='Ionicons' color={theme.colors.text} />
                         ) : (
                           <></>
                         )}

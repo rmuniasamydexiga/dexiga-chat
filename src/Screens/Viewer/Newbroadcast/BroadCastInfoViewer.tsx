@@ -4,11 +4,9 @@ import { FONTS } from '../../../Constant/Fonts';
 import { font_size } from '../../../chat-services/Helpers';
 import HeaderFive from '../../../Components/Header/HeaderFive';
 import { Col, Grid, Row } from 'react-native-easy-grid';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
-import { PageContainer, useStylesheet,SpinnerModal } from 'react-native-dex-moblibs';
+import { PageContainer, useStylesheet,SpinnerModal, VectorIcon } from 'react-native-dex-moblibs';
 
 interface User {
   name: string;
@@ -113,7 +111,7 @@ const {theme}=useStylesheet()
   <View style={{flex:0.1,justifyContent:'center'}}>
     <View style={{flexDirection:'row'}}>
     <Text>{mediaList.length+documentList.length}</Text>
-    <AntDesign size={18} name={"right"}/>
+    <VectorIcon size={18} name={"right"} color={theme.colors.white}/>
     </View>
     </View>
     </TouchableOpacity>
@@ -195,9 +193,9 @@ const {theme}=useStylesheet()
       />
       </View>
    
-      <View style={{height:60,flexDirection:'row',backgroundColor:theme.background,margin:10,borderRadius:10}}>
+      <View style={{height:60,flexDirection:'row',backgroundColor:theme.colors.background,margin:10,borderRadius:10}}>
       <View style={{flex:0.2,justifyContent:'center',marginLeft:10}}>
-    <MaterialIcons size={30} color={'red'} name={"delete"}></MaterialIcons>
+    <VectorIcon size={30} color={'red'} name={"delete"} type='MaterialIcons'/>
     </View>
   <TouchableOpacity style={{flex:0.8,justifyContent:'center'}} onPress={()=>navigateExitGroup()}>
   <Text style={{fontFamily:theme.fonts.bold,marginLeft:10,color:'red',fontSize:20}}>{'Delete BroadCast'}</Text>

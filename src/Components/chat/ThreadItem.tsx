@@ -9,24 +9,21 @@ import {
   View,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import Icon from 'react-native-vector-icons/Ionicons';
 import dynamicStyles from '../../Screens/Viewer/Chat/styles';
 import ThreadMediaItem from './ThreadMediaItem';
 import {dayFormatwithUnix} from '../../chat-services/DayHelper';
 import {
   CHAT_OPTIONS,
-  COLORS,
   MESSAGE_TYPE,
   WIDTH,
 } from '../../Constant/Constant';
 import {checkFileOrDirectoryExists} from '../../chat-services/MediaHelper';
- import Octicons from 'react-native-vector-icons/Octicons';
 import {getFizeInUint, showLog} from '../../chat-services/common';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import {useSelector} from 'react-redux';
 import {selectAudioDuration} from '../../redux/chatSlice';
 import React from 'react';
-import { useStylesheet } from 'react-native-dex-moblibs';
+import { useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
 interface props {
   item: any;
@@ -269,7 +266,7 @@ const {theme} = useStylesheet();
                     }}>
                     {audioDetails?.isPlaying &&
                     audioDetails.url === item.url ? (
-                      <Icon name="pause" style={{}} size={25} color="#FFFFFF" />
+                      <VectorIcon type='Ionicons' name="pause" style={{}} size={25} color={theme.colors.white} />
                     ) : item.url.startsWith('file') ? (
                       <AnimatedCircularProgress
                         size={30}
@@ -292,7 +289,8 @@ const {theme} = useStylesheet();
                           borderRadius: 35,
                           borderWidth: 0.5,
                         }}>
-                        <Octicons
+                        <VectorIcon
+                        type='Octicons'
                           name="download"
                           style={{marginTop: 5, fontWeight: 'bold'}}
                           size={20}
@@ -300,7 +298,7 @@ const {theme} = useStylesheet();
                         />
                       </View>
                     ) : (
-                      <Icon name="play" size={25} color="#FFFFFF" />
+                      <VectorIcon type='Ionicons' name="play" size={25} color={theme.colors.white} />
                     )}
                   </TouchableOpacity>
                 </View>

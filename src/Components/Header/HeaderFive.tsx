@@ -10,11 +10,8 @@ import {
 
 import {FONT_SIZE} from '../../Constant/FontSize';
  import {verticalScale, moderateScale} from '../../Constant/Metrics';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import Entypo from 'react-native-vector-icons/Entypo';
 import {PopupMenu} from '../Menu/Menu';
-import { useStylesheet } from 'react-native-dex-moblibs';
+import { useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
 interface props {
   title: string;
@@ -67,10 +64,11 @@ const HeaderFive: FC<props> = props => {
         <TouchableOpacity
           style={{flex: 0.1}}
           onPress={() => props.searchPressBack()}>
-          <FontAwesome
+          <VectorIcon
             name="angle-left"
             size={40}
-            color={theme.colors.text}></FontAwesome>
+            type="FontAwesome"
+            color={theme.colors.text}></VectorIcon>
         </TouchableOpacity>
         <TextInput
           placeholder="Enter the search"
@@ -120,11 +118,12 @@ const HeaderFive: FC<props> = props => {
             <TouchableOpacity
               style={{flex: 0.5, alignSelf: 'center'}}
               onPress={() => props.searchPress()}>
-              <Feather
+              <VectorIcon
                 name="search"
                 style={{margin: 10}}
                 color={theme.colors.text}
-                size={20}></Feather>
+                size={20}
+                type="Feather"></VectorIcon>
             </TouchableOpacity>
           )}
           <View
@@ -136,12 +135,13 @@ const HeaderFive: FC<props> = props => {
             {props?.isHideDot ? (
               <></>
             ) : (
-              <Entypo
+              <VectorIcon
+                type="Entypo"
                 onPress={() => props.onPressmenuVisible()}
                 name="dots-three-vertical"
                 style={{margin: 10}}
                 color={theme.colors.white}
-                size={20}></Entypo>
+                size={20}></VectorIcon>
             )}
           </View>
           <PopupMenu

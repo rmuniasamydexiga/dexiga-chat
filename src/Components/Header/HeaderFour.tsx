@@ -8,12 +8,9 @@ import {
 
  import {verticalScale} from '../../Constant/Metrics';
 
-import Feather from 'react-native-vector-icons/Feather';
-import Entypo from 'react-native-vector-icons/Entypo';
 import {PopupMenu} from '../Menu/Menu';
 import {TextInput} from 'react-native-gesture-handler';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useStylesheet } from 'react-native-dex-moblibs';
+import { useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
 interface props {
   title: string;
@@ -57,10 +54,11 @@ const HeaderFour: FC<props> = props => {
         <TouchableOpacity
           style={{flex: 0.1}}
           onPress={() => props.searchPressBack()}>
-          <FontAwesome
+          <VectorIcon
             name="angle-left"
             size={40}
-            color={theme.colors.text}></FontAwesome>
+            type='FontAwesome'
+            color={theme.colors.text}></VectorIcon>
         </TouchableOpacity>
         <TextInput
           value={props.searchValue || ''}
@@ -96,29 +94,33 @@ const HeaderFour: FC<props> = props => {
           <TouchableOpacity
             style={{flex: 0.3}}
             onPress={() => props?.searchCamera()}>
-            <Entypo
+            <VectorIcon
               name="camera"
               style={{marginTop: 10}}
               color={theme.colors.white}
-              size={25}></Entypo>
+              type="Feather"
+              
+              size={25}></VectorIcon>
           </TouchableOpacity>
           <TouchableOpacity
             style={{flex: 0.4}}
             onPress={() => props?.searchPress()}>
-            <Feather
+            <VectorIcon
               name="search"
               style={{margin: 10}}
               color={theme.colors.white}
-              size={25}></Feather>
+              size={25}
+              type="Feather"></VectorIcon>
           </TouchableOpacity>
           <TouchableOpacity
             style={{flex: 0.3}}
             onPress={() => props.onPopUpShow()}>
-            <Entypo
+            <VectorIcon
               name="dots-three-vertical"
               style={{margin: 10}}
               color={theme.colors.white}
-              size={25}></Entypo>
+              size={25}
+              type="Entypo"></VectorIcon>
           </TouchableOpacity>
 
           <PopupMenu

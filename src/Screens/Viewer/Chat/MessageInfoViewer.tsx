@@ -5,14 +5,12 @@ import chatStyles from '../../Style/ChatListStyle';
 import { FONTS } from '../../../Constant/Fonts';
 import { verticalScale } from '../../../Constant/Metrics';
 import { WIDTH } from '../../../Constant/Constant';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { font_size } from '../../../chat-services/Helpers';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import ThreadItem from '../../../Components/chat/ThreadItem';
 import { dayDate } from '../../../chat-services/DayHelper';
 import { getNameWithList } from '../../../chat-services/common';
 import { PageContainer } from '../../../../libs/moblibs/lib/module';
-import { useStylesheet } from 'react-native-dex-moblibs';
+import { useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
 interface User {
   name: string;
@@ -44,7 +42,7 @@ const Messagestatus=({title,time,tickColor,isGroupOrBoardCast,messageListeners}:
 
 return <View style={{borderBottomWidth:0.5,margin:10 }}>
 <View style={{margin:10 ,flexDirection:'row'}}>
-<Ionicons name={'checkmark-done-outline'} color={tickColor} size={30}/>
+<VectorIcon name={'checkmark-done-outline'} color={tickColor} size={30} type='Ionicons'/>
 <Text style={{marginLeft:10,fontSize:font_size(14),fontFamily:theme.fonts.bold}}>{title}</Text>
 </View>
 {isGroupOrBoardCast?
@@ -106,7 +104,7 @@ return <View style={{borderBottomWidth:0.5,margin:10 }}>
              <View style={{flex:0.1,flexDirection:'row',alignItems:'center'}}>
                 <View style={{flex:0.05}}/>
                 <View style={{flex:0.2}}>
-                <MaterialIcons name={'arrow-back-ios-new'} size={30} onPress={()=>navigationBack()} />
+                <VectorIcon name={'arrow-back-ios-new'} size={30} onPress={()=>navigationBack()} type='MaterialIcons' />
                 </View>
                 <View style={{flex:0.75}}>
                 <Text style={{fontFamily:theme.fonts.bold,fontSize:font_size(14),color:theme.colors.text}}>Message Info </Text>

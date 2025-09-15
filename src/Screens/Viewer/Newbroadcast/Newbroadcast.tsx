@@ -13,12 +13,11 @@ import {
 import {Col, Grid, Row} from 'react-native-easy-grid';
 import chatStyles from '../../Style/ChatListStyle';
 import HeaderSix from '../../../Components/Header/HeaderSix';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 import {getName} from '../../../chat-services/common';
 import {ERROR_MESSAGE_CONTENT} from '../../../Constant/Constant';
-import { PageContainer,ContactsFloatingIcon, useStylesheet } from 'react-native-dex-moblibs';
+import { PageContainer,ContactsFloatingIcon, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 interface User {
   name: string;
   email: string;
@@ -143,11 +142,9 @@ const {theme}=useStylesheet()
                             ) && (
                               <View
                                 style={{alignSelf: 'flex-end', marginTop: 30}}>
-                                <AntDesign
-                                  style={{fontWeight: 'bold', fontSize: 30}}
-                                  color={theme.colors.secondary}
-                                  size={20}
-                                  name="checkcircleo"></AntDesign>
+                              
+                                      <VectorIcon size={20} name={"checkcircleo"} color={theme.colors.secondary} type='AntDesign'/>
+                                  
                               </View>
                             )}
                         </ImageBackground>
@@ -251,10 +248,11 @@ const {theme}=useStylesheet()
                             resizeMode="cover">
                             <View
                               style={{alignSelf: 'flex-end', marginTop: 15}}>
-                              <AntDesign
-                                style={{fontWeight: 'bold', fontSize: 15}}
-                                color={'grey'}
-                                name="closecircle"></AntDesign>
+                           
+                               <VectorIcon size={20} style={{fontWeight: 'bold', fontSize: 15}}
+ name={"closecircle"} color={theme.colors.secondary} type='AntDesign'/>
+
+
                             </View>
                           </ImageBackground>
                           <Text

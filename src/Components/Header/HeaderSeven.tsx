@@ -3,10 +3,9 @@ import React,{FC} from "react";
 import { View, Text, TouchableOpacity, ImageBackground } from 'react-native'
 
 import {  verticalScale } from "../../Constant/Metrics";
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { FlatList } from "react-native";
 import { WIDTH } from "../../Constant/Constant";
-import { useStylesheet } from "react-native-dex-moblibs";
+import { useStylesheet, VectorIcon } from "react-native-dex-moblibs";
 
 
 
@@ -41,7 +40,7 @@ const HeaderSeven: FC<props> = (props) => {
             <View style={{flex:0.15, justifyContent: isMediaHeader?'flex-start': 'center'}}>
                 <TouchableOpacity style={{ alignItems:'center',width:'100%', height:'70%', justifyContent:isMediaHeader?'flex-start':'center'}}
                     onPress={() => props.onPress()}>
-                  <FontAwesome name='angle-left' size={40} color={theme.colors.white}></FontAwesome>
+                  <VectorIcon name='angle-left' size={40} color={theme.colors.white} type="FontAwesome"></VectorIcon>
                 </TouchableOpacity>
 			</View>
                 <View style={{flex:0.7,alignSelf:isMediaHeader?'flex-start':'center',marginLeft:10}}>

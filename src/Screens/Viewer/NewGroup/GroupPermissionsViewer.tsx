@@ -2,10 +2,9 @@ import React from 'react';
 import { View, Text, FlatList,Switch, SafeAreaView} from 'react-native';
 import {  HEIGHT } from '../../../Constant/Constant';
 import HeaderSeven from '../../../Components/Header/HeaderSeven';
-import Entypo from 'react-native-vector-icons/Entypo'
 import { FONTS } from '../../../Constant/Fonts';
 import { font_size } from '../../../chat-services/Helpers';
-import { PageContainer, useStylesheet } from 'react-native-dex-moblibs';
+import { PageContainer, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
 interface User {
   name: string;
@@ -38,7 +37,7 @@ const {theme}=useStylesheet()
 
   return  <View style={{flexDirection:'row',flex:1}}>
     <View style={{flexDirection:'row',flex:0.15,alignItems:'center',justifyContent:'center',backgroundColor:theme.colors.background}}>
-        <Entypo name={item.icon} color={theme.colors.text} size={30}></Entypo>
+       <VectorIcon name={item.icon} color={theme.colors.text} size={30} type='Entypo'></VectorIcon>
     </View>
     <View style={{flexDirection:'row',flex:0.65,alignItems:'center'}}>
         <View style={{flexDirection:'column',marginTop:10}}>

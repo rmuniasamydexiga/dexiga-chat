@@ -5,10 +5,8 @@ import { View, Text, TouchableOpacity, StyleSheet, Image, ImageBackground } from
 
 import { FONT_SIZE } from "../../Constant/FontSize";
 import {  verticalScale, moderateScale } from "../../Constant/Metrics";
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { PopupMenu } from "../Menu/Menu";
-import { useStylesheet } from "react-native-dex-moblibs";
+import { useStylesheet, VectorIcon } from "react-native-dex-moblibs";
 
 
 interface props {
@@ -36,7 +34,7 @@ const HeaderOne: FC<props> = (props) => {
                 <TouchableOpacity style={{ alignItems:'center',width:'100%', height:'70%', justifyContent:'center'}}
                     onPress={() => props.onPress()}>
             {/* <SvgXml xml={BACK_BUTTON} width={15} height={20}/> */}
-                  <FontAwesome name='angle-left' size={40} color={theme.colors.white}></FontAwesome>
+                  <VectorIcon name='angle-left' size={40} color={theme.colors.white} type="FontAwesome"></VectorIcon>
                 </TouchableOpacity>
 			</View>
 			<View style={{flex: 0.15, alignItems:'flex-start'}}>
@@ -48,7 +46,7 @@ const HeaderOne: FC<props> = (props) => {
 				</Text>
 			</TouchableOpacity>
             <TouchableOpacity style={{flex:0.15,flexDirection:'row-reverse'}} onPress={()=>props.onPressMenu("pop")}>
-            <MaterialCommunityIcons  name='dots-vertical' size={30} color={theme.colors.white}></MaterialCommunityIcons>
+            <VectorIcon name='dots-vertical' size={30} color={theme.colors.white} type="MaterialCommunityIcons"></VectorIcon>
             </TouchableOpacity>
           
 <PopupMenu

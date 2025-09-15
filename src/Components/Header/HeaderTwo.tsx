@@ -9,9 +9,7 @@ import {
 
 import {FONT_SIZE} from '../../Constant/FontSize';
  import {verticalScale, moderateScale} from '../../Constant/Metrics';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Octicons from 'react-native-vector-icons/Octicons';
-import { useStylesheet } from 'react-native-dex-moblibs';
+import { useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
 interface props {
   title: string;
@@ -55,10 +53,11 @@ const HeaderTwo: FC<props> = props => {
               justifyContent: 'center',
             }}
             onPress={() => props.onPress()}>
-            <FontAwesome
+            <VectorIcon
               name="angle-left"
+              type='FontAwesome'
               size={40}
-              color={theme.colors.text}></FontAwesome>
+              color={theme.colors.text}></VectorIcon>
           </TouchableOpacity>
         </View>
 
@@ -70,10 +69,11 @@ const HeaderTwo: FC<props> = props => {
           <TouchableOpacity
             style={{flex: 0.15, flexDirection: 'row-reverse'}}
             onPress={() => props.onPressCorner('True')}>
-            <Octicons
+            <VectorIcon
               name="download"
+              type='Octicons'
               size={30}
-              color={theme.colors.white}></Octicons>
+              color={theme.colors.white}></VectorIcon>
           </TouchableOpacity>
         )}
       </View>

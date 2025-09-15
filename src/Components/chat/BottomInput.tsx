@@ -9,11 +9,10 @@ import {
   View,
 } from 'react-native';
 import dynamicStyles from '../../Screens/Viewer/Chat/styles';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import Animated, {FadeInLeft, FadeOut} from 'react-native-reanimated';
  import { IS_IOS } from '../../Constant/Constant';
 import React from 'react';
-import { useStylesheet } from 'react-native-dex-moblibs';
+import { useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
 const assets = {
   cameraFilled: require('../../Assets/Images/camera-filled.png'),
@@ -117,7 +116,7 @@ const BottomInput: FC<props> = props => {
             <TouchableOpacity
               style={styles.RecorderViewTouchables}
               onPress={() => stopRecord('cancel')}>
-              <Icon name="delete" size={30} color="#FFFFFF" />
+              <VectorIcon name="delete" size={30} color={theme.colors.text} type='MaterialIcons'/>
             </TouchableOpacity>
           </View>
           <View

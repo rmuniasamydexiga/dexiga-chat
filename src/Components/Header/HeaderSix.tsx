@@ -3,9 +3,7 @@ import React,{FC} from "react";
 import { View, Text, TouchableOpacity, ImageBackground, TextInput } from 'react-native'
 
 import {  verticalScale } from "../../Constant/Metrics";
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import Feather from "react-native-vector-icons/Feather";
-import { useStylesheet } from "react-native-dex-moblibs";
+import { useStylesheet, VectorIcon } from "react-native-dex-moblibs";
 
 
 
@@ -39,7 +37,7 @@ const HeaderSix: FC<props> = (props) => {
        <View style={{height:50,margin:10,backgroundColor:theme.colors.background,borderWidth:2,borderColor:theme.colors.text, borderRadius:20,flexDirection:'row'}}>
       <View style={{flex:0.05}}/>
       <TouchableOpacity style={{flex:0.1}} onPress={()=>props.searchPressBack()}>
-      <FontAwesome name='angle-left' size={40} color={theme.colors.text}></FontAwesome>
+      <VectorIcon name='angle-left' size={40} color={theme.colors.text} type="FontAwesome"></VectorIcon>
       </TouchableOpacity>
       <TextInput
       value={props.searchValue||''}
@@ -78,7 +76,7 @@ const HeaderSix: FC<props> = (props) => {
           
             {!props?.isHideSearch&&
               <TouchableOpacity style={{flex:0.5,alignSelf:'center'}} onPress={()=>props.searchPress()}>
-            <Feather name="search" style={{}} color={theme.colors.white} size={20}></Feather>
+            <VectorIcon name="search" style={{}} color={theme.colors.white} size={20} type="Feather"></VectorIcon>
             </TouchableOpacity>
 }
             

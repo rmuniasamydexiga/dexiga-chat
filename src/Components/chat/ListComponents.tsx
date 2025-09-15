@@ -11,10 +11,8 @@ import {Col, Grid, Row} from 'react-native-easy-grid';
 import {dayFormatwithUnix} from '../../chat-services/DayHelper';
  import {CHAT_OPTIONS} from '../../Constant/Constant';
 import {checkPlayerBlockOrNot, getMessage, getName} from '../../chat-services/common';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {SCREEN_NAMES} from '../../Constant/ScreenName';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import { ListEmptyComponent, useStylesheet } from 'react-native-dex-moblibs';
+import { ListEmptyComponent, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
 const ListComponent = (props: {
   data: any;
@@ -68,11 +66,12 @@ const ListComponent = (props: {
                       (ele: {userId: any}) => ele.userId === item.userId,
                     ) && (
                       <View style={{alignSelf: 'flex-end', marginTop: 30}}>
-                        <AntDesign
+                        <VectorIcon
+                          type='AntDesign'
                           style={{fontWeight: 'bold', fontSize: 30}}
-                          color={colors.headerTheme}
+                          color={colors.white}
                           size={20}
-                          name="checkcircleo"></AntDesign>
+                          name="checkcircleo"></VectorIcon>
                       </View>
                     )}
                 </ImageBackground>
@@ -119,7 +118,7 @@ const ListComponent = (props: {
                     <View style={{flex: 0.2}}>
                       {item.mutedBy === userId ||
                       item.mutedBy === CHAT_OPTIONS.BOTH ? (
-                        <Ionicons name={'volume-mute'} size={20} />
+                        <VectorIcon type='Ionicons' name={'volume-mute'} size={20} />
                       ) : (
                         <></>
                       )}

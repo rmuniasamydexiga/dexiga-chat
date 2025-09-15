@@ -14,14 +14,12 @@ import {
   getFileUrlForInternal,
   getFileUrlForInternalReceiver,
 } from '../../chat-services/MediaHelper';
-import PlayIcon from 'react-native-vector-icons/FontAwesome';
-import Octicons from 'react-native-vector-icons/Octicons';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import {dayFormatwithUnix} from '../../chat-services/DayHelper';
- import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {getFizeInUint, showLog} from '../../chat-services/common';
 import React from 'react';
-import { useStylesheet } from 'react-native-dex-moblibs';
+import { useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface props {
   outBound: any;
@@ -95,7 +93,7 @@ const ThreadMediaItem: FC<props> = props => {
               />
             ) : isShowDownLoad ? (
               <View>
-                <Octicons name="download" size={53} color={'white'} />
+                <VectorIcon type='Octicons' name="download" size={53} color={'white'} />
                 <Text
                   style={{
                     fontSize: 14,
@@ -175,7 +173,7 @@ const ThreadMediaItem: FC<props> = props => {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <Octicons name="download" size={53} color={'white'} />
+                <VectorIcon type='Octicons' name="download" size={53} color={'white'} />
                 <Text
                   style={{
                     fontSize: 14,
@@ -193,7 +191,7 @@ const ThreadMediaItem: FC<props> = props => {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <PlayIcon name="play-circle-o" size={53} color={'white'} />
+                <VectorIcon type='FontAwesome' name="play-circle-o" size={53} color={'white'} />
               </View>
             )}
 
@@ -272,8 +270,8 @@ const ThreadMediaItem: FC<props> = props => {
                       justifyContent: 'center',
                       alignItems: 'center',
                     }}>
-                    <Octicons
-                      disabled={true}
+                    <VectorIcon
+                      type='Octicons'
                       name="download"
                       size={53}
                       color={'white'}
@@ -286,11 +284,11 @@ const ThreadMediaItem: FC<props> = props => {
                       justifyContent: 'center',
                       alignItems: 'center',
                     }}>
-                    <PlayIcon
+                    <VectorIcon
+                      type='FontAwesome'
                       name="play-circle-o"
                       size={53}
                       color={'white'}
-                      disabled={true}
                     />
                   </View>
                 )}
@@ -383,10 +381,11 @@ const ThreadMediaItem: FC<props> = props => {
                   borderWidth: 1,
                   borderRadius: 30,
                 }}>
-                <MaterialCommunityIcons
+                <VectorIcon
+                type='MaterialCommunityIcons'
                   style={{margin: 5}}
                   name={'download'}
-                  size={20}></MaterialCommunityIcons>
+                  size={20}></VectorIcon>
               </View>
             ) : (
               <></>

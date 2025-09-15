@@ -7,10 +7,9 @@ import HeaderSeven from '../../../Components/Header/HeaderSeven';
 import { HEIGHT, MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
 import { verticalScale } from '../../../Constant/Metrics';
 import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import { dayDate, dayFormatwithUnix } from '../../../chat-services/DayHelper';
 import { getName } from '../../../chat-services/common';
-import { ListEmptyComponent, useStylesheet } from 'react-native-dex-moblibs';
+import { ListEmptyComponent, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 interface User {
   name: string;
   email: string;
@@ -75,7 +74,7 @@ const {theme}=useStylesheet()
                 <TouchableOpacity style={{flex:1}} onPress={()=>navigationToMediaList(item)}>
                 <View style={{flex:0.75}}/>
 {item.messageType===MESSAGE_TYPE.VIDEO&&<View style={{flex:0.25,marginLeft:10}}>
-    <Ionicons name={'videocam'} color={theme.colors.white} size={18}/>
+    <VectorIcon name={'videocam'} color={theme.colors.white} size={18} type='Ionicons'/>
 </View>}
 </TouchableOpacity>
            </ImageBackground>
