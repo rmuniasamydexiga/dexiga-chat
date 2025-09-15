@@ -81,26 +81,6 @@ export const CHAT_OPTIONS = {
   BOTH: 'both',
   ALL: 'all',
 };
-export const COLORS = {
-  headers: '#EC2227',
-  primary_theme: '#3875e8',
-  secondary_theme: '#FAA74A',
-  background_theme: '#FFFFFF',
-  white: '#FFFFFF',
-  block: '#000000',
-  error_theme: '#F01E18',
-  sucess_theme: '#00B21D',
-  green: '#50B157',
-  border_theme: '#DEDEDE',
-  border_theme1: '#D3D3D3',
-  border_theme2: '#C4C4C4',
-  check_in_background_theme: '#ececec',
-  check_in_secondary_theme: '#F86A00',
-  darkBlue: '#00275A',
-  linkTheme: '#2e5bff',
-  buttonColor: '#EC2227',
-  draweMenuBackGroud: '#F6F6F6',
-};
 
 export const USER_TYPE = {
   HOST: 'Host',

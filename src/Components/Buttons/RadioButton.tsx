@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 
-import { GetTheme } from "../../Constant/Colors";
 import { FONTS } from "../../Constant/Fonts";
+import { useStylesheet } from "react-native-dex-moblibs";
 
 
 
@@ -14,7 +14,7 @@ interface props {
 
 const RadioButton: FC<props> = (props) =>{
 
-    const Theme = GetTheme()
+    const {theme} = useStylesheet()
     const styles = StyleSheet.create({
       radioButton: {
         flexDirection: 'row',
@@ -26,7 +26,7 @@ const RadioButton: FC<props> = (props) =>{
         width: 20,
         borderRadius: 20/2,
         borderWidth: 1,
-        borderColor: Theme.text,
+        borderColor: theme?.colors.text,
         alignItems: 'center',
         justifyContent: 'center',
       },
@@ -34,11 +34,11 @@ const RadioButton: FC<props> = (props) =>{
         height: 10,
         width: 10,
         borderRadius: 10/2,
-        backgroundColor: Theme.headerTheme,
+        backgroundColor: theme?.colors.primary
       },
       radioButtonLabel: {
-        color:Theme.text,
-        fontFamily:FONTS.OpenSans_Regular,
+        color:theme?.colors.text,
+        fontFamily:theme.fonts.regular,
         marginLeft: 10,
       },
     });

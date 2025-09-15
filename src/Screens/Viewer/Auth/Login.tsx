@@ -1,13 +1,12 @@
 import React, {FC} from 'react';
 import {View, Text, TextInput, Dimensions} from 'react-native';
 import {GetTheme} from '../../../Constant/Colors';
-import {FONTS} from '../../../Constant/Fonts';
+
 import {USER_TYPE} from '../../../Constant/Constant';
 import RadioButton from '../../../Components/Buttons/RadioButton';
 import {useNavigation} from '@react-navigation/native';
 import authStyles from '../../Style/LoginStyle';
-import Spinner from '../../../Components/Loader/Spinner';
-import { Button, PageContainer, wp } from 'react-native-dex-moblibs';
+import { Button, PageContainer, wp,SpinnerModal } from 'react-native-dex-moblibs';
 
 interface props {
   selectedOption: string;
@@ -43,7 +42,7 @@ const Login: FC<props> = props => {
           value={props?.userInputs?.email}
           style={[
             styles.input,
-            {marginTop: 50, fontFamily: FONTS.OpenSans_Regular},
+            {marginTop: 50, fontFamily: theme.fonts.regular},
           ]}
           // value={name}
           onChangeText={text => props.valueValidation(text, 'EMAIL')}
@@ -61,7 +60,7 @@ const Login: FC<props> = props => {
           placeholder="Enter Password"
           style={[
             styles.input,
-            {marginTop: 20, fontFamily: FONTS.OpenSans_Regular},
+            {marginTop: 20, fontFamily: theme.fonts.regular},
           ]}
           //value={email}
           onChangeText={text => props.valueValidation(text, 'PASSWORD')}
@@ -127,10 +126,10 @@ const Login: FC<props> = props => {
     <PageContainer style={{flex: 1, backgroundColor: Theme.BackgroundColor}}>
       {RenderComponent()}
       {props.isLoading && (
-        <Spinner
-          textContent={'Loading....'}
+        <SpinnerModal
+          content={'Loading....'}
           visible={props.isLoading}
-          overlayColor={Theme.headerTheme}
+          // overlayColor={Theme.headerTheme}
         />
       )}
     </PageContainer>

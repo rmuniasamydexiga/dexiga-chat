@@ -9,14 +9,12 @@ import {
 } from 'react-native';
 import {Col, Grid, Row} from 'react-native-easy-grid';
 import {dayFormatwithUnix} from '../../chat-services/DayHelper';
-import ListEmptyComponent from './ListEmptyCompont';
-import {GetTheme} from '../../Constant/Colors';
-import {FONTS} from '../../Constant/Fonts';
-import {CHAT_OPTIONS} from '../../Constant/Constant';
+ import {CHAT_OPTIONS} from '../../Constant/Constant';
 import {checkPlayerBlockOrNot, getMessage, getName} from '../../chat-services/common';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {SCREEN_NAMES} from '../../Constant/ScreenName';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { ListEmptyComponent, useStylesheet } from 'react-native-dex-moblibs';
 
 const ListComponent = (props: {
   data: any;
@@ -36,13 +34,14 @@ const ListComponent = (props: {
     EmptyListMesage,
     chatList,
   } = props;
-  const colors = GetTheme();
+  const {theme} = useStylesheet();
+  const colors = theme.colors;
   return (
     <FlatList
       data={data}
       keyboardShouldPersistTaps="always"
       ListEmptyComponent={
-        <ListEmptyComponent message={EmptyListMesage || 'No Chat Found'} />
+        <ListEmptyComponent title={EmptyListMesage || 'No Chat Found'} description={''} type={'MaterialIcons'} name={''} size={0} />
       }
       renderItem={({item, index}) => {
         return (
@@ -83,7 +82,7 @@ const ListComponent = (props: {
                   <Col>
                     <Text
                       style={{
-                        fontFamily: FONTS.OpenSans_Bold,
+                        fontFamily: theme.fonts.bold,
                         fontSize: 16,
                         color: colors.text,
                       }}>
@@ -96,7 +95,7 @@ const ListComponent = (props: {
                         style={{
                           color: colors.secondaryText,
                           fontSize: 11,
-                          fontFamily: FONTS.OpenSans_Regular,
+                          fontFamily: theme.fonts.regular,
                         }}>
                         {dayFormatwithUnix(item.lastMessageDate, 'HH,MM A')}
                       </Text>
@@ -112,7 +111,7 @@ const ListComponent = (props: {
                         style={{
                           color: colors.secondaryText,
                           fontSize: 13,
-                          fontFamily: FONTS.OpenSans_Regular,
+                          fontFamily: theme.fonts.regular,
                         }}>
                         {getMessage(item.lastMessage)}
                       </Text>
@@ -133,7 +132,7 @@ const ListComponent = (props: {
                         style={{
                           color: colors.secondaryText,
                           fontSize: 13,
-                          fontFamily: FONTS.OpenSans_Regular,
+                          fontFamily: theme.fonts.regular,
                         }}>
                         {checkPlayerBlockOrNot(chatList, userId, item.userId)}
                       </Text>

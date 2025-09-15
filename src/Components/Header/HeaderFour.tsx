@@ -3,23 +3,17 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet,
   ImageBackground,
-  Alert,
 } from 'react-native';
 
-import {COLORS, GetTheme} from '../../Constant/Colors';
-import {FONT_SIZE} from '../../Constant/FontSize';
-import {FONTS} from '../../Constant/Fonts';
-import {verticalScale, moderateScale} from '../../Constant/Metrics';
+ import {verticalScale} from '../../Constant/Metrics';
 
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {PopupMenu} from '../Menu/Menu';
 import {TextInput} from 'react-native-gesture-handler';
-import {WIDTH} from '../../Constant/Constant';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useStylesheet } from 'react-native-dex-moblibs';
 
 interface props {
   title: string;
@@ -38,54 +32,24 @@ interface props {
 }
 
 const HeaderFour: FC<props> = props => {
-  const Theme = GetTheme();
+  const {theme}=useStylesheet()
   const isSearch = true;
-  const styles = StyleSheet.create({
-    HeaderText: {
-      fontSize: moderateScale(FONT_SIZE.font_20),
-      fontFamily: FONTS.OpenSans_Bold,
-      color: Theme.BlackAndWhite,
-      textAlignVertical: 'center',
-      marginBottom: '2%',
-    },
-    searchSection: {
-      height: 70,
-      width: WIDTH,
-
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#fff',
-    },
-    searchIcon: {
-      padding: 10,
-    },
-    input: {
-      flex: 1,
-      paddingTop: 10,
-      paddingRight: 10,
-      paddingBottom: 10,
-      paddingLeft: 0,
-      backgroundColor: '#fff',
-      color: '#424242',
-    },
-  });
 
   return props.showTextInput ? (
     <ImageBackground
       source={require('../../Assets/Images/background.jpg')}
       style={{
         height: verticalScale(75),
-        backgroundColor: Theme.headerTheme,
+        backgroundColor: theme.colors.background,
         elevation: 3,
       }}>
       <View
         style={{
           height: 50,
           margin: 10,
-          backgroundColor: Theme.background,
+          backgroundColor: theme.colors.background,
           borderWidth: 2,
-          borderColor: Theme.text,
+          borderColor: theme.colors.text,
           borderRadius: 20,
           flexDirection: 'row',
         }}>
@@ -96,13 +60,13 @@ const HeaderFour: FC<props> = props => {
           <FontAwesome
             name="angle-left"
             size={40}
-            color={Theme.text}></FontAwesome>
+            color={theme.colors.text}></FontAwesome>
         </TouchableOpacity>
         <TextInput
           value={props.searchValue || ''}
           placeholder="Enter the search"
-          placeholderTextColor={Theme.text}
-          style={{color: Theme.text}}
+          placeholderTextColor={theme.colors.text}
+          style={{color: theme.colors.text}}
           autoFocus={true}
           onChangeText={txt => props.searchText(txt)}></TextInput>
       </View>
@@ -112,7 +76,7 @@ const HeaderFour: FC<props> = props => {
       source={require('../../Assets/Images/background.jpg')}
       style={{
         height: verticalScale(100),
-        backgroundColor: Theme.headerTheme,
+        backgroundColor: theme.colors.background,
         elevation: 3,
       }}>
       <View style={{flex: 0.1}} />
@@ -122,7 +86,7 @@ const HeaderFour: FC<props> = props => {
             style={{
               fontSize: 16,
               fontWeight: '700',
-              color: COLORS.White,
+              color: theme.colors.white,
               margin: 8,
             }}>
             {'Dexiga Chat  ' + props.title}
@@ -135,7 +99,7 @@ const HeaderFour: FC<props> = props => {
             <Entypo
               name="camera"
               style={{marginTop: 10}}
-              color={COLORS.White}
+              color={theme.colors.white}
               size={25}></Entypo>
           </TouchableOpacity>
           <TouchableOpacity
@@ -144,7 +108,7 @@ const HeaderFour: FC<props> = props => {
             <Feather
               name="search"
               style={{margin: 10}}
-              color={COLORS.White}
+              color={theme.colors.white}
               size={25}></Feather>
           </TouchableOpacity>
           <TouchableOpacity
@@ -153,7 +117,7 @@ const HeaderFour: FC<props> = props => {
             <Entypo
               name="dots-three-vertical"
               style={{margin: 10}}
-              color={COLORS.White}
+              color={theme.colors.white}
               size={25}></Entypo>
           </TouchableOpacity>
 
@@ -169,14 +133,14 @@ const HeaderFour: FC<props> = props => {
         <View
           style={{
             flex: 0.4,
-            borderBottomColor: COLORS.White,
+            borderBottomColor: theme.colors.borderColor,
             borderBottomWidth: 3,
           }}>
           <Text
             style={{
               fontSize: 16,
               fontWeight: '700',
-              color: COLORS.White,
+              color: theme.colors.white,
               margin: 8,
             }}>
             Chat

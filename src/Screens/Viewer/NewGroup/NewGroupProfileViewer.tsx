@@ -10,14 +10,12 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {Col, Grid} from 'react-native-easy-grid';
-import {GetTheme} from '../../../Constant/Colors';
 
 import {WIDTH} from '../../../Constant/Constant';
 import HeaderSeven from '../../../Components/Header/HeaderSeven';
-import Feather from 'react-native-vector-icons/Feather';
-import {FONTS} from '../../../Constant/Fonts';
+
 import {getName} from '../../../chat-services/common';
-import { PageContainer,ContactsFloatingIcon } from 'react-native-dex-moblibs';
+import { PageContainer,ContactsFloatingIcon, VectorIcon, useStylesheet } from 'react-native-dex-moblibs';
 
 interface User {
   name: string;
@@ -41,7 +39,7 @@ interface IPlayerListViewer {
 }
 
 const NewGroupProfileViewer: React.FC<IPlayerListViewer> = props => {
-  const theme = GetTheme();
+  const {theme}=useStylesheet()
   const {
     onFriendItemPress,
     removeSelectedContact,
@@ -82,14 +80,14 @@ const NewGroupProfileViewer: React.FC<IPlayerListViewer> = props => {
             <View style={{flex: 0.7, marginTop: 10}}>
               <TextInput
                 value={groupName}
-                placeholderTextColor={theme.text}
+                placeholderTextColor={theme.colors.text}
                 onChangeText={text => setgroupName(text)}
                 style={{
-                  color: theme.text,
+                  color: theme.colors.text,
                   paddingBottom: 10,
                   borderBottomWidth: 2,
-                  borderColor: theme.headerTheme,
-                  fontFamily: FONTS.OpenSans_Regular,
+                  borderColor: theme.colors.borderColor,
+                  fontFamily: theme.fonts.regular,
                 }}
                 placeholder={'Enter the Group Name'}></TextInput>
             </View>
@@ -101,28 +99,28 @@ const NewGroupProfileViewer: React.FC<IPlayerListViewer> = props => {
             margin: 5,
             borderRadius: 2,
             elevation: 0.5,
-            backgroundColor: theme.background,
+            backgroundColor: theme.colors.background,
           }}>
           <TouchableOpacity
             style={{flex: 1, marginLeft: 10, flexDirection: 'row'}}
             onPress={() => navigatePermissions()}>
             <View style={{flex: 0.9, justifyContent: 'center'}}>
               <Text
-                style={{fontFamily: FONTS.OpenSans_Regular, color: theme.text}}>
+                style={{fontFamily: theme.fonts.regular, color: theme.colors.text}}>
                 Group Permissions
               </Text>
             </View>
             <View style={{flex: 0.1, justifyContent: 'center'}}>
-              <Feather size={18} color={theme.text} name={'settings'}></Feather>
-            </View>
+              <VectorIcon name={'settings'} color={theme.colors.text} size={18} type='Feather'></VectorIcon>
+              </View>
           </TouchableOpacity>
         </View>
         <View style={{flex: 0.6}}>
           <Text
             style={{
               margin: 10,
-              fontFamily: FONTS.OpenSans_Regular,
-              color: theme.text,
+              fontFamily: theme.fonts.regular,
+              color: theme.colors.text,
             }}>{`Particpant : ${groupSletecedUser.length}`}</Text>
           <FlatList
             numColumns={4}
@@ -153,8 +151,8 @@ const NewGroupProfileViewer: React.FC<IPlayerListViewer> = props => {
                       <Text
                         style={{
                           fontSize: 12,
-                          fontFamily: FONTS.OpenSans_Regular,
-                          color: theme.text,
+                          fontFamily: theme.fonts.regular,
+                          color: theme.colors.text,
                         }}
                         numberOfLines={2}>
                         {getName(item)}

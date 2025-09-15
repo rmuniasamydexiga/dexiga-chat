@@ -14,9 +14,8 @@ import {
   snackBarMessage,
   validateMobileNumber,
 } from '../../../chat-services/common';
-import Spinner from '../../../Components/Loader/Spinner';
 import { checkIfEmailExists, createUser } from '../../../chat-firebase/auth';
-import { Button } from 'react-native-dex-moblibs';
+import { Button,SpinnerModal } from 'react-native-dex-moblibs';
 
 interface ISignup {
   name: string;
@@ -303,10 +302,10 @@ const registerUser = async () => {
                                     />
        
       </View>
-      <Spinner
-        textContent={'Loading....'}
+      <SpinnerModal
+        content={'Loading....'}
         visible={isLoading}
-        overlayColor={theme.headerTheme}
+        // overlayColor={theme.headerTheme}
       />
 
       <Text

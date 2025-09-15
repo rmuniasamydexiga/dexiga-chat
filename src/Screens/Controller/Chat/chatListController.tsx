@@ -14,7 +14,6 @@ import {
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 import {Col, Grid, Row} from 'react-native-easy-grid';
-import {GetTheme} from '../../../Constant/Colors';
 import {channelManager, firebaseUser} from '../../../chat-firebase';
 import {dayDate, dayFormatwithUnix} from '../../../chat-services/DayHelper';
 import {useDispatch, useSelector} from 'react-redux';
@@ -35,7 +34,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
   CHAT_DETAILS_CONFIGURE,
   CHAT_OPTIONS,
-  COLORS,
   FROM_NAVIGATION,
   IS_ANDROID,
 } from '../../../Constant/Constant';
@@ -44,15 +42,14 @@ import {IUser} from '../../../Interfaces/Chat';
 import {readFileName, readInternalFileName} from '../../../chat-services/MediaHelper';
 import chatStyles from '../../Style/ChatListStyle';
 import {requestPerMissions, showLog} from '../../../chat-services/common';
-import {FONTS} from '../../../Constant/Fonts';
+
 import ActionSheet from 'react-native-actionsheet';
 
 import {launchCamera} from 'react-native-image-picker';
 import ImagePicker from 'react-native-image-crop-picker';
 import {getAllUserList} from '../../../chat-firebase/user';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {PERMISSIONS, RESULTS, check, request} from 'react-native-permissions';
-import { clearAll, getData, PageContainer ,ContactsFloatingIcon} from 'react-native-dex-moblibs';
+
+import { clearAll, getData, PageContainer ,ContactsFloatingIcon, useStylesheet} from 'react-native-dex-moblibs';
 // import {
 //   decrypt,
 //   diffieHellManAlgorthim,
@@ -67,7 +64,7 @@ const ChatList: React.FC = () => {
   const [channelFilter, setChanneFilter] = useState<any>([]);
   const [searchValue, setSearchValue] = useState<string>('');
   const [showTextInput, setShowTextInput] = useState<boolean>(false);
-  const colors = GetTheme();
+const {theme}=useStylesheet()
   const dispatch = useDispatch();
   const chatList = useSelector(selectChatList);
 
@@ -474,7 +471,7 @@ const ChatList: React.FC = () => {
           alignSelf: 'center',
           marginTop: 200,
         }}>
-        <Text style={{color: colors.text, fontFamily: FONTS.OpenSans_Regular}}>
+        <Text style={{color: theme.colors.text, fontFamily: theme.fonts.regular}}>
           No chat found
         </Text>
       </View>
@@ -600,9 +597,9 @@ const ChatList: React.FC = () => {
                       <Col>
                         <Text
                           style={{
-                            fontFamily: FONTS.OpenSans_Bold,
+                            fontFamily: theme.fonts.bold,
                             fontSize: 16,
-                            color: colors.text,
+                            color:theme.colors.text,
                           }}>
                           {getName(item)}
                         </Text>
@@ -610,9 +607,9 @@ const ChatList: React.FC = () => {
                       <Col style={{alignItems: 'flex-end', paddingEnd: 10}}>
                         <Text
                           style={{
-                            color: colors.secondaryText,
+                            color: theme.colors.secondaryText,
                             fontSize: 11,
-                            fontFamily: FONTS.OpenSans_Regular,
+                            fontFamily: theme.fonts.regular,
                           }}>
                           {dayFormatwithUnix(item.lastMessageDate, 'HH,MM A')}
                         </Text>
@@ -622,9 +619,9 @@ const ChatList: React.FC = () => {
                       <View style={{flex: 0.8}}>
                         <Text
                           style={{
-                            color: colors.secondaryText,
+                            color: theme.colors.secondaryText,
                             fontSize: 13,
-                            fontFamily: FONTS.OpenSans_Regular,
+                            fontFamily: theme.fonts.regular,
                           }}>
                           {getMessage(item)}
                         </Text>
@@ -646,7 +643,7 @@ const ChatList: React.FC = () => {
                               <Text
                                 style={{
                                   alignItems: 'center',
-                                  color: COLORS.white,
+                                  color: theme.colors.white,
                                   textAlign: 'center',
                                 }}>
                                 {messageChannelCount?.[item.channelID]}

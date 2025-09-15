@@ -1,7 +1,5 @@
 import React from 'react';
 import { View, Text,FlatList,Image,TouchableOpacity,Alert, ImageBackground} from 'react-native';
-import HeaderFive from '../../../Components/Header/HeaderFive';
-import { GetTheme } from '../../../Constant/Colors';
 import chatStyles from '../../Style/ChatListStyle';
 import { FONTS } from '../../../Constant/Fonts';
 
@@ -12,7 +10,7 @@ import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../c
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { dayDate, dayFormatwithUnix } from '../../../chat-services/DayHelper';
 import { getName } from '../../../chat-services/common';
-import { ListEmptyComponent } from 'react-native-dex-moblibs';
+import { ListEmptyComponent, useStylesheet } from 'react-native-dex-moblibs';
 interface User {
   name: string;
   email: string;
@@ -33,9 +31,8 @@ interface IPlayerListViewer {
 
 const MediaListViewer: React.FC <IPlayerListViewer>= (props) => {
   const {channel,users,onFriendItemPress,navigstionBack,navigationTab,activeTabIndex,mediaList,documentList,navigationToMediaList}=props
-  const Theme=GetTheme()
   const styles =chatStyles()
-
+const {theme}=useStylesheet()
 
   return (
     <View
@@ -78,7 +75,7 @@ const MediaListViewer: React.FC <IPlayerListViewer>= (props) => {
                 <TouchableOpacity style={{flex:1}} onPress={()=>navigationToMediaList(item)}>
                 <View style={{flex:0.75}}/>
 {item.messageType===MESSAGE_TYPE.VIDEO&&<View style={{flex:0.25,marginLeft:10}}>
-    <Ionicons name={'videocam'} color={Theme.WHITE} size={18}/>
+    <Ionicons name={'videocam'} color={theme.colors.white} size={18}/>
 </View>}
 </TouchableOpacity>
            </ImageBackground>
@@ -90,18 +87,18 @@ const MediaListViewer: React.FC <IPlayerListViewer>= (props) => {
       documentList.length!==0? documentList.map((item:any, index:any ) => {
         return (
             <>
-            <TouchableOpacity style={{flexDirection:'row',margin:10,backgroundColor:Theme.grey3,borderRadius:10}} onPress={()=>navigationToMediaList(item)}>
+            <TouchableOpacity style={{flexDirection:'row',margin:10,backgroundColor:theme.colors.borderColor,borderRadius:10}} onPress={()=>navigationToMediaList(item)}>
             <View style={{flex:0.2}}>
-              <View style={{height:80,backgroundColor:Theme.headerTheme,borderRadius:10}}>
+              <View style={{height:80,backgroundColor:theme.colors.background,borderRadius:10}}>
                 <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-<Text style={{textAlign:'center', color:Theme.White}}>{item.fileName?item.fileName.split('.')[1]:''}</Text>
+<Text style={{textAlign:'center', color:theme.colors.white}}>{item.fileName?item.fileName.split('.')[1]:''}</Text>
 </View>
 </View>
             </View>
             <View style={{flex:0.7}}>
             <Text style={{marginLeft:10}} numberOfLines={1}>{item.fileName}</Text>
             </View>
-            <Text style={{ fontFamily:FONTS.OpenSans_Regular,fontSize: 10, alignSelf: 'flex-end', color: '#ffffff',marginTop:0 }}>
+            <Text style={{ fontFamily:theme.fonts.regular,fontSize: 10, alignSelf: 'flex-end', color: theme.colors.borderColor,marginTop:0 }}>
 {item?.created ? dayDate(item?.created) : ''}
 </Text>
             </TouchableOpacity>
@@ -110,8 +107,7 @@ const MediaListViewer: React.FC <IPlayerListViewer>= (props) => {
         );
         }):
         <ListEmptyComponent
-        message={"No documents Found"}
-        />
+            title={"No documents Found"} description={''} type={'MaterialIcons'} name={''} size={0}        />
     
 }
     

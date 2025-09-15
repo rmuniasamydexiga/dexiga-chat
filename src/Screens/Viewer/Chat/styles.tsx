@@ -1,14 +1,14 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import {GetTheme} from '../../../Constant/Colors';
 import {verticalScale} from '../../../Constant/Metrics';
-import {FONTS} from '../../../Constant/Fonts';
-import {COLORS, WIDTH} from '../../../Constant/Constant';
+
+import { WIDTH} from '../../../Constant/Constant';
+import { useStylesheet } from 'react-native-dex-moblibs';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 
 const dynamicStyles = (outBound: any) => {
-  const theme = GetTheme();
-  const chatBackgroundColor = theme.mainThemeBackgroundColor;
+const { theme } = useStylesheet();
+  const chatBackgroundColor = theme.colors.background;
   const audioPlayPauseContainerSize = 24;
   const audioPlayIconSize = 15;
 
@@ -32,7 +32,7 @@ const dynamicStyles = (outBound: any) => {
     inputContainer: {
       flex: 8,
       borderRadius: 20,
-      backgroundColor: theme.whiteSmoke,
+      backgroundColor:  theme.colors.inputText,
       flexDirection: 'row',
       alignItems: 'center',
       overflow: 'hidden',
@@ -47,14 +47,14 @@ const dynamicStyles = (outBound: any) => {
       justifyContent: 'center',
       alignItems: 'center',
       borderTopWidth: 1,
-      borderTopColor: theme.hairlineColor,
-      backgroundColor: theme.mainThemeBackgroundColor,
+      borderTopColor:  theme.colors.borderColor,
+      backgroundColor:  theme.colors.inputBackground,
       flexDirection: 'row',
     },
     progressBar: {
       borderRadius: 50, // Set the borderRadius to make it a circle
       height: '100%',
-      backgroundColor: theme.mainThemeForegroundColor,
+      backgroundColor:  theme.colors.background,
       // height: 3,
       // shadowColor: '#000',
       // width: 3,
@@ -63,12 +63,12 @@ const dynamicStyles = (outBound: any) => {
       flex: 0.5,
     },
     inputIcon: {
-      tintColor: theme.mainThemeForegroundColor,
+      tintColor:  theme.colors.inputText,
       width: 25,
       height: 25,
     },
     micIcon: {
-      tintColor: theme.mainThemeForegroundColor,
+      tintColor: theme.colors.inputText,
       width: 17,
       height: 17,
     },
@@ -81,29 +81,29 @@ const dynamicStyles = (outBound: any) => {
       width: '93%',
       fontSize: 16,
       lineHeight: 22,
-      color: theme.mainTextColor,
+      color:  theme.colors.inputText,
     },
     inReplyToView: {
-      backgroundColor: theme.mainThemeBackgroundColor,
+      backgroundColor: theme.colors.background,
       borderTopWidth: 1,
-      borderTopColor: theme.hairlineColor,
+      borderTopColor: theme.colors.borderColor,
       padding: 8,
       flex: 1,
       flexDirection: 'column',
     },
     replyingToHeaderText: {
       fontSize: 13,
-      color: theme.mainTextColor,
-      fontFamily: FONTS.OpenSans_Regular,
+      color: theme.colors.text,
+      fontFamily: theme.fonts.regular,
       marginBottom: 4,
     },
     replyingToNameText: {
-      fontFamily: FONTS.OpenSans_Bold,
+      fontFamily: theme.fonts.bold,
     },
     replyingToContentText: {
       fontSize: 12,
-      color: theme.grey9,
-      fontFamily: FONTS.OpenSans_Regular,
+      color:  theme.colors.inputText,
+      fontFamily: theme.fonts.regular,
     },
     replyingToCloseButton: {
       position: 'absolute',
@@ -113,7 +113,7 @@ const dynamicStyles = (outBound: any) => {
     replyingToCloseIcon: {
       width: 25,
       height: 25,
-      tintColor: theme.grey9,
+      tintColor:  theme.colors.borderColor,
     },
     // Message Thread
     messageThreadContainer: {
@@ -129,12 +129,12 @@ const dynamicStyles = (outBound: any) => {
     },
     itemContent: {
       padding: 10,
-      backgroundColor: theme.hairlineColor,
+      backgroundColor:  theme.colors.inputText,
       borderRadius: 10,
     },
     sendItemContent: {
       marginRight: 9,
-      backgroundColor: theme.mainThemeForegroundColor,
+      backgroundColor: theme.colors.background,
     },
     mediaMessage: {
       width: 350,
@@ -155,13 +155,12 @@ const dynamicStyles = (outBound: any) => {
       width: 20,
       height: 8,
       resizeMode: 'stretch',
-      tintColor: theme.mainThemeForegroundColor,
+      tintColor: theme.colors.secondary,
     },
     sendTextMessage: {
       fontSize: 16,
-      fontFamily: FONTS.OpenSans_Regular,
-      color: COLORS.block,
-      //  theme.mainThemeBackgroundColor,
+      fontFamily: theme.fonts.regular,
+      color: theme.colors.textInverse,
     },
     userIcon: {
       width: 34,
@@ -183,7 +182,7 @@ const dynamicStyles = (outBound: any) => {
     },
     receiveItemContent: {
       // marginLeft: 9,
-      backgroundColor: theme.receiverBackgroud,
+      backgroundColor:  theme.colors.secondary,
 
       margin: 25,
     },
@@ -195,7 +194,7 @@ const dynamicStyles = (outBound: any) => {
       tintColor: chatBackgroundColor,
     },
     receiveTextMessage: {
-      color: theme.mainTextColor,
+      color:  theme.colors.text,
       fontSize: 16,
     },
     textBoederImgReceive: {
@@ -205,7 +204,7 @@ const dynamicStyles = (outBound: any) => {
       width: 20,
       height: 8,
       resizeMode: 'stretch',
-      tintColor: theme.receiverBackgroud,
+      tintColor:  theme.colors.secondary
     },
     mediaVideoLoader: {
       position: 'absolute',
@@ -261,19 +260,19 @@ const dynamicStyles = (outBound: any) => {
       width: 12,
       height: 12,
       marginRight: 5,
-      tintColor: theme.grey9,
+      tintColor: theme.colors.borderColor,
       marginTop: 1,
       marginLeft: 10,
     },
     inReplyToHeaderText: {
       fontSize: 12,
-      color: theme.grey9,
-      fontFamily: FONTS.OpenSans_Regular,
+      color: theme.colors.borderColor,
+      fontFamily: theme.fonts.regular,
       marginBottom: 5,
     },
     inReplyToItemBubbleView: {
       borderRadius: 15,
-      backgroundColor: theme.grey3,
+      backgroundColor: theme.colors.borderColor,
       paddingBottom: 30,
       paddingLeft: 15,
       paddingRight: 10,
@@ -282,24 +281,24 @@ const dynamicStyles = (outBound: any) => {
       flex: 1,
     },
     inReplyToItemBubbleText: {
-      color: theme.grey9,
+      color: theme.colors.borderColor,
       fontSize: 14,
-      fontFamily: FONTS.OpenSans_Regular,
+      fontFamily: theme.fonts.regular,
     },
     // Bottom Audio Recorder
     recorderContainer: {
-      backgroundColor: theme.mainThemeBackgroundColor,
+      backgroundColor: theme.colors.primary,
       flex: 1,
     },
     counterContainer: {
       flex: 8,
-      backgroundColor: theme.mainThemeBackgroundColor,
+      backgroundColor: theme.colors.background,
       justifyContent: 'center',
       alignItems: 'center',
     },
     counterText: {
       fontSize: 14,
-      color: theme.mainTextColor,
+      color: theme.colors.text,
     },
     recorderButtonsContainer: {
       flex: 1.8,
@@ -315,7 +314,7 @@ const dynamicStyles = (outBound: any) => {
       alignItems: 'center',
     },
     recorderControlButton: {
-      backgroundColor: '#aaaaaa',
+      backgroundColor: theme.colors.secondary,
       width: '96%',
       height: '90%',
       borderRadius: 6,
@@ -323,11 +322,11 @@ const dynamicStyles = (outBound: any) => {
       alignItems: 'center',
     },
     butonAlternateColor: {
-      backgroundColor: '#f9272a',
+      backgroundColor: theme.colors.error,
     },
     recoderControlText: {
       fontSize: 16,
-      color: theme.whiteSmoke,
+      color: theme.colors.white,
     },
 
     // Audio media thread item
@@ -348,8 +347,8 @@ const dynamicStyles = (outBound: any) => {
       alignItems: 'center',
       borderWidth: 2,
       borderColor: outBound
-        ? theme.hairlineColor
-        : theme.mainThemeForegroundColor,
+        ? theme.colors.borderColor
+        : theme.colors.secondary,
       height: audioPlayPauseContainerSize,
       width: audioPlayPauseContainerSize,
       borderRadius: Math.floor(audioPlayPauseContainerSize / 2),
@@ -377,28 +376,26 @@ const dynamicStyles = (outBound: any) => {
       width: audioPlayIconSize,
       height: audioPlayIconSize,
       tintColor: outBound
-        ? theme.hairlineColor
-        : theme.mainThemeForegroundColor,
+        ? theme.colors.borderColor
+        : theme.colors.secondary,
       // marginLeft: 2,
     },
     audioTimerCount: {
-      color: outBound ? theme.hairlineColor : theme.mainThemeForegroundColor,
+      color: outBound ? theme.colors.borderColor : theme.colors.secondary,
       fontSize: 12,
     },
-    // maximumAudioTrackTintColor: {
-    //   color: theme.hairlineColor,
-    // },
+  
     minimumAudioTrackTintColor: {
-      color: outBound ? theme.hairlineColor : theme.mainThemeForegroundColor,
+      color: outBound ? theme.colors.borderColor : theme.colors.secondary,
     },
     audioThumbTintColor: {
-      color: outBound ? theme.hairlineColor : theme.mainThemeForegroundColor,
+      color: outBound ? theme.colors.borderColor : theme.colors.secondary,
     },
     popupContainer: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      backgroundColor: theme.colors.darkSemiTransparent,
     },
     optionButton: {
       padding: 10,
@@ -416,7 +413,7 @@ const dynamicStyles = (outBound: any) => {
       height: verticalScale(45),
       width: '95%',
       borderRadius: 30,
-      backgroundColor: theme.TypeMessageBubble,
+      backgroundColor: theme.colors.borderColor,
       flexDirection: 'row',
       alignSelf: 'center',
     },
@@ -424,7 +421,7 @@ const dynamicStyles = (outBound: any) => {
       height: verticalScale(45),
       width: '95%',
       borderRadius: 30,
-      backgroundColor: theme.mainThemeForegroundColor,
+      backgroundColor: theme.colors.primary,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignSelf: 'center',

@@ -13,7 +13,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import dynamicStyles from '../../Screens/Viewer/Chat/styles';
 import ThreadMediaItem from './ThreadMediaItem';
 import {dayFormatwithUnix} from '../../chat-services/DayHelper';
-import {GetTheme} from '../../Constant/Colors';
 import {
   CHAT_OPTIONS,
   COLORS,
@@ -21,14 +20,13 @@ import {
   WIDTH,
 } from '../../Constant/Constant';
 import {checkFileOrDirectoryExists} from '../../chat-services/MediaHelper';
-import {FONTS} from '../../Constant/Fonts';
-import Octicons from 'react-native-vector-icons/Octicons';
+ import Octicons from 'react-native-vector-icons/Octicons';
 import {getFizeInUint, showLog} from '../../chat-services/common';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import {useSelector} from 'react-redux';
 import {selectAudioDuration} from '../../redux/chatSlice';
-import {decrypt} from '../../chat-services/EndToEndEncryption';
 import React from 'react';
+import { useStylesheet } from 'react-native-dex-moblibs';
 
 interface props {
   item: any;
@@ -80,7 +78,7 @@ const ThreadItem: FC<props> = props => {
 
   const styles = dynamicStyles(null);
 
-  const theme = GetTheme();
+const {theme} = useStylesheet();
   // console.log('Chat item data--', JSON.stringify(internalFileList));
   const [senderProfilePictureURL, setSenderProfilePictureURL] = useState(
     item.senderProfilePictureURL,
@@ -240,8 +238,8 @@ const ThreadItem: FC<props> = props => {
                   backgroundColor: getIsSelection()
                     ? '#e8eafa'
                     : outBound
-                    ? theme.mainThemeForegroundColor
-                    : theme.receiverBackgroud,
+                    ? theme.colors.primary
+                    : theme.colors.secondary,
                   width: WIDTH - 100,
                   height: !outBound && is_group ? 80 : 60,
                   borderRadius: 10,
@@ -251,8 +249,8 @@ const ThreadItem: FC<props> = props => {
                     <Text
                       style={{
                         fontSize: 14,
-                        fontFamily: FONTS.OpenSans_Bold,
-                        color: theme.Primary,
+                        fontFamily: theme.fonts.bold,
+                        color: theme.colors.primary,
                         marginLeft: 5,
                       }}>
                       {item?.senderFirstName}
@@ -312,7 +310,7 @@ const ThreadItem: FC<props> = props => {
                       fontSize: 10,
                       alignSelf: 'flex-start',
                       color: '#ffffff',
-                      fontFamily: FONTS.OpenSans_Regular,
+                      fontFamily: theme.fonts.regular,
                       marginTop: 10,
                       marginLeft: 10,
                     }}>
@@ -328,7 +326,7 @@ const ThreadItem: FC<props> = props => {
                       fontSize: 10,
                       alignSelf: 'flex-end',
                       color: '#ffffff',
-                      fontFamily: FONTS.OpenSans_Regular,
+                      fontFamily: theme.fonts.regular,
                       marginTop: -15,
                       marginRight: 10,
                     }}>
@@ -380,8 +378,8 @@ const ThreadItem: FC<props> = props => {
                   <Text
                     style={{
                       fontSize: 14,
-                      fontFamily: FONTS.OpenSans_Bold,
-                      color: theme.Primary,
+                      fontFamily: theme.fonts.bold,
+                      color: theme.colors.primary,
                     }}>
                     {item.senderFirstName}
                   </Text>
@@ -397,8 +395,8 @@ const ThreadItem: FC<props> = props => {
                   style={{
                     fontSize: 10,
                     alignSelf: 'flex-end',
-                    fontFamily: FONTS.OpenSans_Regular,
-                    color: COLORS.block,
+                    fontFamily: theme.fonts.regular,
+                    color: theme.colors.textInverse,
                   }}>
                   {item?.created
                     ? dayFormatwithUnix(item?.created, 'HH:MM')

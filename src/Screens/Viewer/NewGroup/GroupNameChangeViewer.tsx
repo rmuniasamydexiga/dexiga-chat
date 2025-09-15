@@ -1,10 +1,9 @@
 import React from 'react';
 import { View, TouchableOpacity, ImageBackground, TextInput, } from 'react-native';
-import { GetTheme } from '../../../Constant/Colors';
 
 import HeaderSeven from '../../../Components/Header/HeaderSeven';
 import { FONTS } from '../../../Constant/Fonts';
-import { Button, wp } from 'react-native-dex-moblibs';
+import { Button, useStylesheet, wp } from 'react-native-dex-moblibs';
 
 
 
@@ -17,11 +16,11 @@ interface IGroupChangeViewer {
 }
 
 const GroupChangeViewer: React.FC<IGroupChangeViewer> = (props) => {
-  const theme = GetTheme()
+  const {theme}=useStylesheet()
   const {groupName,updateGroup,setgroupName, navigationGoback,} = props
 
   return (
-    <View style={{ flex: 1, backgroundColor: theme.border }}>
+    <View style={{ flex: 1, backgroundColor: theme.colors.borderColor }}>
       <HeaderSeven title={'Enter the Group Name'}
         onPress={() => navigationGoback()}
         menuVisible={false}
@@ -54,7 +53,7 @@ const GroupChangeViewer: React.FC<IGroupChangeViewer> = (props) => {
             <TextInput
               value={groupName}
               onChangeText={(text) => setgroupName(text)}
-              style={{ borderBottomWidth: 2, borderColor: theme.headerTheme, fontFamily: FONTS.OpenSans_Regular }}
+              style={{ borderBottomWidth: 2, borderColor: theme.colors.primary, fontFamily: theme.fonts.regular }}
               placeholder={'Enter the Group Name'}
             />
           </View>

@@ -7,12 +7,11 @@ import {
   ImageBackground,
 } from 'react-native';
 
-import {COLORS, GetTheme} from '../../Constant/Colors';
 import {FONT_SIZE} from '../../Constant/FontSize';
-import {FONTS} from '../../Constant/Fonts';
-import {verticalScale, moderateScale} from '../../Constant/Metrics';
+ import {verticalScale, moderateScale} from '../../Constant/Metrics';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Octicons from 'react-native-vector-icons/Octicons';
+import { useStylesheet } from 'react-native-dex-moblibs';
 
 interface props {
   title: string;
@@ -23,12 +22,12 @@ interface props {
 }
 
 const HeaderTwo: FC<props> = props => {
-  const Theme = GetTheme();
+  const {theme}=useStylesheet()
   const styles = StyleSheet.create({
     HeaderText: {
       fontSize: moderateScale(FONT_SIZE.font_20),
-      fontFamily: FONTS.OpenSans_Bold,
-      color: Theme.BlackAndWhite,
+      fontFamily: theme.fonts.bold,
+      color: theme.colors.white,
       textAlignVertical: 'center',
       marginBottom: '2%',
     },
@@ -44,7 +43,7 @@ const HeaderTwo: FC<props> = props => {
           flex: 0.9,
           flexDirection: 'row',
           alignItems: 'center',
-          backgroundColor: Theme.WhiteAndBlack,
+          backgroundColor: theme.colors.white,
           elevation: 3,
         }}>
         <View style={{flex: 0.15, justifyContent: 'center'}}>
@@ -59,7 +58,7 @@ const HeaderTwo: FC<props> = props => {
             <FontAwesome
               name="angle-left"
               size={40}
-              color={Theme.text}></FontAwesome>
+              color={theme.colors.text}></FontAwesome>
           </TouchableOpacity>
         </View>
 
@@ -74,7 +73,7 @@ const HeaderTwo: FC<props> = props => {
             <Octicons
               name="download"
               size={30}
-              color={COLORS.Primary}></Octicons>
+              color={theme.colors.white}></Octicons>
           </TouchableOpacity>
         )}
       </View>

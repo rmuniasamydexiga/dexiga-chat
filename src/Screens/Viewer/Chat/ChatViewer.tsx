@@ -12,7 +12,7 @@ import BottomInput from '../../../Components/chat/BottomInput';
 import ActionSheet from 'react-native-actionsheet';
 import HeaderOne from '../../../Components/Header/HeaderOne';
 import HeaderThree from '../../../Components/Header/HeaderThree';
-import {FONTS} from '../../../Constant/Fonts';
+
 import {
   ERROR_MESSAGE_CONTENT,
   IS_IOS,
@@ -270,7 +270,7 @@ const ChatViewer: React.FC<IChatViewer> = props => {
                 marginLeft: WIDTH / 15,
                 alignItems: 'center',
                 fontSize: 16,
-                fontFamily: FONTS.OpenSans_Bold,
+                fontFamily: theme.fonts.bold,
               }}>
               {inputHideMessage}
             </Text>

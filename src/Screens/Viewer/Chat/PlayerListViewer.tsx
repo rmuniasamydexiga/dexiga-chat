@@ -10,18 +10,12 @@ import {
 } from 'react-native';
 import HeaderFive from '../../../Components/Header/HeaderFive';
 
-import {GetTheme} from '../../../Constant/Colors';
 import chatStyles from '../../Style/ChatListStyle';
-import {FONTS} from '../../../Constant/Fonts';
-import {getName} from '../../../chat-services/common';
+
 import ListComponent from '../../../Components/chat/ListComponents';
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {TextInput} from 'react-native-gesture-handler';
-import BottomInput from '../../../Components/chat/BottomInput';
-import {FROM_NAVIGATION} from '../../../Constant/Constant';
+
 import dynamicStyles from './styles';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { PageContainer } from 'react-native-dex-moblibs';
 
 interface IPlayerListViewer {
@@ -56,7 +50,6 @@ const PlayerListViewer: React.FC<IPlayerListViewer> = props => {
     chatList,
     user,
   } = props;
-  const Theme = GetTheme();
 
   const styles = chatStyles();
   const bottomStyles = dynamicStyles(null);
@@ -104,7 +97,7 @@ const PlayerListViewer: React.FC<IPlayerListViewer> = props => {
               width: '85%',
               padding: 10,
               justifyContent: 'center',
-              fontFamily: FONTS.OpenSans_Regular,
+              fontFamily: theme.fonts.regular,
             }}>
             {selctedName}
           </Text>

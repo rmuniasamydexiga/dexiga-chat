@@ -3,13 +3,12 @@
 import React,{FC} from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image, ImageBackground } from 'react-native'
 
-import {  GetTheme } from "../../Constant/Colors";
 import { FONT_SIZE } from "../../Constant/FontSize";
-import { FONTS } from "../../Constant/Fonts";
 import {  verticalScale, moderateScale } from "../../Constant/Metrics";
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { PopupMenu } from "../Menu/Menu";
+import { useStylesheet } from "react-native-dex-moblibs";
 
 
 interface props {
@@ -24,20 +23,20 @@ interface props {
 }
 
 const HeaderOne: FC<props> = (props) => {
-    const Theme = GetTheme()
+    const {theme}=useStylesheet()
     const styles = StyleSheet.create({
-        HeaderText:{fontSize: moderateScale(FONT_SIZE.font_20), fontFamily:FONTS.OpenSans_Bold, color: Theme.white, textAlignVertical:'center', marginBottom: '2%'}
+        HeaderText:{fontSize: moderateScale(FONT_SIZE.font_20), fontFamily:theme.fonts.bold, color: theme.colors.text, textAlignVertical:'center', marginBottom: '2%'}
     })
 
     return(
         <ImageBackground
         source={require('../../Assets/Images/background.jpg')}
-        style={{ height: verticalScale(70), flexDirection:'row', alignItems:'center', backgroundColor: Theme.headerTheme, elevation: 3}}>
+        style={{ height: verticalScale(70), flexDirection:'row', alignItems:'center', backgroundColor: theme.colors.background, elevation: 3}}>
             <View style={{flex:0.15, justifyContent: 'center'}}>
                 <TouchableOpacity style={{ alignItems:'center',width:'100%', height:'70%', justifyContent:'center'}}
                     onPress={() => props.onPress()}>
             {/* <SvgXml xml={BACK_BUTTON} width={15} height={20}/> */}
-                  <FontAwesome name='angle-left' size={40} color={Theme.WHITE}></FontAwesome>
+                  <FontAwesome name='angle-left' size={40} color={theme.colors.white}></FontAwesome>
                 </TouchableOpacity>
 			</View>
 			<View style={{flex: 0.15, alignItems:'flex-start'}}>
@@ -49,7 +48,7 @@ const HeaderOne: FC<props> = (props) => {
 				</Text>
 			</TouchableOpacity>
             <TouchableOpacity style={{flex:0.15,flexDirection:'row-reverse'}} onPress={()=>props.onPressMenu("pop")}>
-            <MaterialCommunityIcons  name='dots-vertical' size={30} color={Theme.white}></MaterialCommunityIcons>
+            <MaterialCommunityIcons  name='dots-vertical' size={30} color={theme.colors.white}></MaterialCommunityIcons>
             </TouchableOpacity>
           
 <PopupMenu

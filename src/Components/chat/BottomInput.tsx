@@ -11,10 +11,9 @@ import {
 import dynamicStyles from '../../Screens/Viewer/Chat/styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Animated, {FadeInLeft, FadeOut} from 'react-native-reanimated';
-import {GetTheme} from '../../Constant/Colors';
-import {FONTS} from '../../Constant/Fonts';
-import { IS_IOS } from '../../Constant/Constant';
+ import { IS_IOS } from '../../Constant/Constant';
 import React from 'react';
+import { useStylesheet } from 'react-native-dex-moblibs';
 
 const assets = {
   cameraFilled: require('../../Assets/Images/camera-filled.png'),
@@ -60,7 +59,8 @@ const BottomInput: FC<props> = props => {
   } = props;
 
   const styles = dynamicStyles(null);
-  const theme = GetTheme();
+      const {theme} = useStylesheet()
+  
   const textInputRef = useRef<any>(null);
   const [customKeyboard, setCustomKeyboard] = useState<any>({
     component: undefined,
@@ -123,7 +123,7 @@ const BottomInput: FC<props> = props => {
           <View
             style={{flex: 0.7, justifyContent: 'center', alignItems: 'center'}}>
             <Text
-              style={{color: theme.White, fontFamily: FONTS.OpenSans_Regular}}>
+              style={{color: theme.colors.text, fontFamily: theme.fonts.regular}}>
               {props.recorderDetails.recordTime}
               {/* 00: 26 */}
             </Text>
@@ -144,7 +144,7 @@ const BottomInput: FC<props> = props => {
               padding: 10,
               marginTop:IS_IOS? 10:0,
               justifyContent: 'center',
-              fontFamily: FONTS.OpenSans_Regular,
+              fontFamily: theme.fonts.regular,
             }}
             placeholder="Message..."
             multiline={true}
@@ -169,7 +169,7 @@ const BottomInput: FC<props> = props => {
               <Icon
                 name="keyboard-voice"
                 size={26}
-                color={theme.mainThemeForegroundColor}
+                color={theme.colors.secondary}
               />
             </TouchableOpacity>
             <TouchableOpacity

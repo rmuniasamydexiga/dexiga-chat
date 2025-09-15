@@ -11,15 +11,14 @@ import {
   TextInput,
 } from 'react-native';
 import {Col, Grid, Row} from 'react-native-easy-grid';
-import {GetTheme} from '../../../Constant/Colors';
 import chatStyles from '../../Style/ChatListStyle';
 import HeaderSix from '../../../Components/Header/HeaderSix';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {FONTS} from '../../../Constant/Fonts';
+
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 import {getName} from '../../../chat-services/common';
 import {ERROR_MESSAGE_CONTENT} from '../../../Constant/Constant';
-import { PageContainer,ContactsFloatingIcon } from 'react-native-dex-moblibs';
+import { PageContainer,ContactsFloatingIcon, useStylesheet } from 'react-native-dex-moblibs';
 interface User {
   name: string;
   email: string;
@@ -64,7 +63,7 @@ const AddNewBroadCastViewer: React.FC<IPlayerListViewer> = props => {
     chatList,
     setBroadcastName,
   } = props;
-  const Theme = GetTheme();
+const {theme}=useStylesheet()
   const styles = chatStyles();
   const getUserIsBlocked = (friend: any, index: number) => {
     const id1: any = user?.id;
@@ -108,20 +107,7 @@ const AddNewBroadCastViewer: React.FC<IPlayerListViewer> = props => {
 
         {selectedBroadCast.length === 0 ? (
           <View style={{flex: 1}}>
-            {/* <View style={{marginTop: 10}}>
-              <TextInput
-                // value={}
-                placeholderTextColor={Theme.text}
-                // onChangeText={text => setgroupName(text)}
-                style={{
-                  color: Theme.text,
-                  paddingBottom: 10,
-                  borderBottomWidth: 2,
-                  borderColor: Theme.headerTheme,
-                  fontFamily: FONTS.OpenSans_Regular,
-                }}
-                placeholder={'Enter the Group Name'}></TextInput>
-            </View> */}
+           
             <FlatList
               data={usersList}
               keyboardShouldPersistTaps="always"
@@ -159,7 +145,7 @@ const AddNewBroadCastViewer: React.FC<IPlayerListViewer> = props => {
                                 style={{alignSelf: 'flex-end', marginTop: 30}}>
                                 <AntDesign
                                   style={{fontWeight: 'bold', fontSize: 30}}
-                                  color={Theme.headerTheme}
+                                  color={theme.colors.secondary}
                                   size={20}
                                   name="checkcircleo"></AntDesign>
                               </View>
@@ -172,24 +158,24 @@ const AddNewBroadCastViewer: React.FC<IPlayerListViewer> = props => {
                           <Col>
                             <Text
                               style={{
-                                fontFamily: FONTS.OpenSans_Regular,
+                                fontFamily: theme.fonts.regular,
                                 fontSize: 16,
                                 color: !!groupParticpantsList?.find(
                                   ele =>
                                     ele?.user === item?.userId &&
                                     ele?.isExit !== true,
                                 )
-                                  ? Theme.grey9
-                                  : Theme.text,
+                                  ? theme.colors.borderColor
+                                  : theme.colors.text,
                               }}>
                               {getName(item)}
                             </Text>
                             {getUserIsBlocked(item, index) ? (
                               <Text
                                 style={{
-                                  fontFamily: FONTS.OpenSans_Regular,
+                                  fontFamily: theme.fonts.regular,
                                   fontSize: 10,
-                                  color: Theme.grey9,
+                                  color:theme.colors.borderColor,
                                 }}>
                                 {ERROR_MESSAGE_CONTENT.UN_BLOCK_CHAT}
                               </Text>
@@ -201,9 +187,9 @@ const AddNewBroadCastViewer: React.FC<IPlayerListViewer> = props => {
                               ) && (
                                 <Text
                                   style={{
-                                    fontFamily: FONTS.OpenSans_Regular,
+                                    fontFamily: theme.fonts.regular,
                                     fontSize: 10,
-                                    color: Theme.grey9,
+                                    color:theme.colors.borderColor,
                                   }}>{`User Already Added to this ${
                                   fromNavigation === SCREEN_NAMES.BROADCAST_INFO
                                     ? 'BroadCast'
@@ -227,14 +213,14 @@ const AddNewBroadCastViewer: React.FC<IPlayerListViewer> = props => {
               <View style={{marginTop: 10}}>
                 <TextInput
                   // value={}
-                  placeholderTextColor={Theme.text}
+                  placeholderTextColor={theme.colors.text}
                   onChangeText={text => setBroadcastName(text)}
                   style={{
-                    color: Theme.text,
+                    color: theme.colors.text,
                     paddingBottom: 10,
                     borderBottomWidth: 2,
-                    borderColor: Theme.headerTheme,
-                    fontFamily: FONTS.OpenSans_Regular,
+                    borderColor: theme.colors.borderColor,
+                    fontFamily: theme.fonts.regular,
                   }}
                   placeholder={'Enter the Broadcast Name'}></TextInput>
               </View>
@@ -273,9 +259,9 @@ const AddNewBroadCastViewer: React.FC<IPlayerListViewer> = props => {
                           </ImageBackground>
                           <Text
                             style={{
-                              fontFamily: FONTS.OpenSans_Regular,
+                              fontFamily: theme.fonts.regular,
                               fontSize: 12,
-                              color: Theme.text,
+                              color: theme.colors.text,
                             }}
                             numberOfLines={1}>
                             {getName(item)}
@@ -328,7 +314,7 @@ const AddNewBroadCastViewer: React.FC<IPlayerListViewer> = props => {
                                   }}>
                                   <AntDesign
                                     style={{fontWeight: 'bold', fontSize: 30}}
-                                    color={Theme.headerTheme}
+                                    color={theme.colors.secondary}
                                     size={20}
                                     name="checkcircleo"></AntDesign>
                                 </View>
@@ -341,13 +327,13 @@ const AddNewBroadCastViewer: React.FC<IPlayerListViewer> = props => {
                             <Col>
                               <Text
                                 style={{
-                                  fontFamily: FONTS.OpenSans_Regular,
+                                  fontFamily: theme.fonts.regular,
                                   fontSize: 16,
                                   color: !!groupParticpantsList?.find(
                                     ele => ele?.user === item?.userId,
                                   )
-                                    ? Theme.grey9
-                                    : Theme.text,
+                                    ? theme.colors.borderColor
+                                    : theme.colors.text,
                                 }}>
                                 {getName(item)}
                               </Text>
@@ -356,9 +342,9 @@ const AddNewBroadCastViewer: React.FC<IPlayerListViewer> = props => {
                               ) && (
                                 <Text
                                   style={{
-                                    fontFamily: FONTS.OpenSans_Regular,
+                                    fontFamily: theme.fonts.regular,
                                     fontSize: 10,
-                                    color: Theme.grey9,
+                                    color: theme.colors.borderColor,
                                   }}>
                                   User Already Added to this Group
                                 </Text>

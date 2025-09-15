@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text,  FlatList, Image, TouchableOpacity,Alert, ImageBackground, SafeAreaView} from 'react-native';
-import { GetTheme } from '../../../Constant/Colors';
 import { FONTS } from '../../../Constant/Fonts';
 import { font_size } from '../../../chat-services/Helpers';
 import HeaderFive from '../../../Components/Header/HeaderFive';
@@ -9,8 +8,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
-import Spinner from '../../../Components/Loader/Spinner';
-import { PageContainer } from 'react-native-dex-moblibs';
+import { PageContainer, useStylesheet,SpinnerModal } from 'react-native-dex-moblibs';
 
 interface User {
   name: string;
@@ -49,7 +47,7 @@ interface IPlayerListViewer {
 }
 
 const BroadCastInfoViewer: React.FC<IPlayerListViewer>=(props) => {
-const theme=GetTheme()
+const {theme}=useStylesheet()
 
   const {
 
@@ -107,10 +105,10 @@ const theme=GetTheme()
         } } onPressmenuVisible={function (): void {
           throw new Error('Function not implemented.');
         } }      ></HeaderFive>
-     {mediaList.length+documentList.length!==0&&<View style={{margin:10,backgroundColor:theme.background,borderColor:'grey',borderRadius:10}}>
+     {mediaList.length+documentList.length!==0&&<View style={{margin:10,backgroundColor:theme.colors.background,borderColor:'grey',borderRadius:10}}>
   <TouchableOpacity style={{ flexDirection:'row',height:30}} onPress={()=>navigateMediaList()}>
   <View style={{flex:0.9,justifyContent:'center'}} >
-  <Text style={{fontFamily:FONTS.OpenSans_Regular,marginLeft:10}}>Media and documents</Text>
+  <Text style={{fontFamily:theme.fonts.regular,marginLeft:10}}>Media and documents</Text>
   </View>
   <View style={{flex:0.1,justifyContent:'center'}}>
     <View style={{flexDirection:'row'}}>
@@ -119,10 +117,10 @@ const theme=GetTheme()
     </View>
     </View>
     </TouchableOpacity>
-    <Spinner
-            textContent={'Loading....'}
+    <SpinnerModal
+            content={'Loading....'}
             visible={isLoading}
-            overlayColor={theme.headerTheme}
+            // overlayColor={theme.colors.secondary}
             />
     <FlatList
       horizontal={true}
@@ -142,8 +140,8 @@ const theme=GetTheme()
       />
 </View>}
 
-<View style={{flex:1,backgroundColor:theme.background,margin:10,borderRadius:10}}>
-  <Text style={{margin:10,fontSize:font_size(16),fontFamily:FONTS.OpenSans_Bold}}>{`${groupParticpantsList.length} recipients`}</Text>
+<View style={{flex:1,backgroundColor:theme.colors.background,margin:10,borderRadius:10}}>
+  <Text style={{margin:10,fontSize:font_size(16),fontFamily:theme.fonts.bold}}>{`${groupParticpantsList.length} recipients`}</Text>
   <FlatList
         data={
        
@@ -177,11 +175,11 @@ const theme=GetTheme()
                 <Row style={{ alignItems: "center" }}>
                   <Col>
                     <Text
-                      style={{ fontFamily:FONTS.OpenSans_Bold, fontSize: 16, color: theme.text }}
+                      style={{ fontFamily:theme.fonts.bold, fontSize: 16, color: theme.colors.text }}
                     >
                       {getName(item)}
                     </Text>
-                    {item.isAdmin&&<Text style={{ fontFamily:FONTS.OpenSans_Bold, fontSize: 12, color:'green'}}>Admin</Text>}
+                    {item.isAdmin&&<Text style={{ fontFamily:theme.fonts.bold, fontSize: 12, color:'green'}}>Admin</Text>}
                   </Col>
                    
               
@@ -202,7 +200,7 @@ const theme=GetTheme()
     <MaterialIcons size={30} color={'red'} name={"delete"}></MaterialIcons>
     </View>
   <TouchableOpacity style={{flex:0.8,justifyContent:'center'}} onPress={()=>navigateExitGroup()}>
-  <Text style={{fontFamily:FONTS.OpenSans_Bold,marginLeft:10,color:'red',fontSize:20}}>{'Delete BroadCast'}</Text>
+  <Text style={{fontFamily:theme.fonts.bold,marginLeft:10,color:'red',fontSize:20}}>{'Delete BroadCast'}</Text>
   </TouchableOpacity>
 
 </View>

@@ -8,7 +8,7 @@ import { IUser } from "../../Interfaces/Chat";
 import { useSelector } from "react-redux";
 import { selectedChannelDetails } from "../../redux/chatSlice";
 import { MESSAGE_CONTENT, MESSAGE_TYPE, WIDTH } from "../../Constant/Constant";
-import { GetTheme } from "../../Constant/Colors";
+import { useStylesheet } from "react-native-dex-moblibs";
 
 
 
@@ -57,7 +57,8 @@ const MessageThread: FC<props> = (props) => {
   const channel=useSelector(selectedChannelDetails)
 
   const styles = dynamicStyles(null);
-  const theme=GetTheme()
+  const {theme} = useStylesheet();
+
   const getIsMessageHideOrNot = (messageData:any) => {
     if (channel?.participants?.[0]?.is_group === true) {
       let findData = groupParticpantsList?.find((ele: { user: any; }) => ele.user === user.id)
@@ -102,7 +103,7 @@ const MessageThread: FC<props> = (props) => {
       <>
       {getIsMessageHideOrNot(item)?<></>:
       item.messageType===MESSAGE_TYPE.INFORMATION?
-      <View style={{height:30, flex:1,alignItems:'center',backgroundColor:theme.grey9,justifyContent:'center', margin:10,borderRadius:10}}>
+      <View style={{height:30, flex:1,alignItems:'center',backgroundColor:theme.colors.borderColor,justifyContent:'center', margin:10,borderRadius:10}}>
       <Text style={{}}>{getInformationMessage(item)}</Text>
       </View>
       :

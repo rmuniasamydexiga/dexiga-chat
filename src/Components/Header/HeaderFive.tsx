@@ -8,14 +8,13 @@ import {
   TextInput,
 } from 'react-native';
 
-import {COLORS, GetTheme} from '../../Constant/Colors';
 import {FONT_SIZE} from '../../Constant/FontSize';
-import {FONTS} from '../../Constant/Fonts';
-import {verticalScale, moderateScale} from '../../Constant/Metrics';
+ import {verticalScale, moderateScale} from '../../Constant/Metrics';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {PopupMenu} from '../Menu/Menu';
+import { useStylesheet } from 'react-native-dex-moblibs';
 
 interface props {
   title: string;
@@ -35,12 +34,12 @@ interface props {
 }
 
 const HeaderFive: FC<props> = props => {
-  const Theme = GetTheme();
+  const {theme}=useStylesheet()
   const styles = StyleSheet.create({
     HeaderText: {
       fontSize: moderateScale(FONT_SIZE.font_20),
-      fontFamily: FONTS.OpenSans_Bold,
-      color: Theme.BlackAndWhite,
+      fontFamily: theme.fonts.bold,
+      color: theme.colors.text,
       textAlignVertical: 'center',
       marginBottom: '2%',
     },
@@ -51,16 +50,16 @@ const HeaderFive: FC<props> = props => {
       source={require('../../Assets/Images/background.jpg')}
       style={{
         height: verticalScale(75),
-        backgroundColor: Theme.headerTheme,
+        backgroundColor: theme.colors.background,
         elevation: 3,
       }}>
       <View
         style={{
           height: 50,
           margin: 10,
-          backgroundColor: Theme.background,
+          backgroundColor: theme.colors.background,
           borderWidth: 2,
-          borderColor: Theme.text,
+          borderColor: theme.colors.text,
           borderRadius: 20,
           flexDirection: 'row',
         }}>
@@ -71,12 +70,12 @@ const HeaderFive: FC<props> = props => {
           <FontAwesome
             name="angle-left"
             size={40}
-            color={Theme.text}></FontAwesome>
+            color={theme.colors.text}></FontAwesome>
         </TouchableOpacity>
         <TextInput
           placeholder="Enter the search"
-          placeholderTextColor={Theme.text}
-          style={{color: Theme.text}}
+          placeholderTextColor={theme.colors.text}
+          style={{color: theme.colors.text}}
           autoFocus={true}
           onChangeText={txt => props.searchText(txt)}></TextInput>
       </View>
@@ -86,7 +85,7 @@ const HeaderFive: FC<props> = props => {
       source={require('../../Assets/Images/background.jpg')}
       style={{
         height: verticalScale(75),
-        backgroundColor: Theme.headerTheme,
+        backgroundColor: theme.colors.background,
         elevation: 3,
       }}>
       <View style={{flex: 0.25}}></View>
@@ -103,14 +102,14 @@ const HeaderFive: FC<props> = props => {
             <FontAwesome
               name="angle-left"
               size={40}
-              color={Theme.WHITE}></FontAwesome>
+              color={theme.colors.white}></FontAwesome>
           </TouchableOpacity>
         </View>
         <View style={{flex: 0.7, alignSelf: 'center', marginLeft: 10}}>
-          <Text style={{fontSize: 16, fontWeight: '700', color: COLORS.White}}>
+          <Text style={{fontSize: 16, fontWeight: '700', color: theme.colors.text}}>
             {props.title}
           </Text>
-          <Text style={{fontSize: 12, fontWeight: '400', color: COLORS.White}}>
+          <Text style={{fontSize: 12, fontWeight: '400', color: theme.colors.text}}>
             {props.subTitle}
           </Text>
         </View>
@@ -124,7 +123,7 @@ const HeaderFive: FC<props> = props => {
               <Feather
                 name="search"
                 style={{margin: 10}}
-                color={COLORS.White}
+                color={theme.colors.text}
                 size={20}></Feather>
             </TouchableOpacity>
           )}
@@ -141,7 +140,7 @@ const HeaderFive: FC<props> = props => {
                 onPress={() => props.onPressmenuVisible()}
                 name="dots-three-vertical"
                 style={{margin: 10}}
-                color={COLORS.White}
+                color={theme.colors.white}
                 size={20}></Entypo>
             )}
           </View>

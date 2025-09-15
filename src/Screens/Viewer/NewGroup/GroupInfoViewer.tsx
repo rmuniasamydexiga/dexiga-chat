@@ -1,16 +1,15 @@
 import React from 'react';
 import {View, Text,  FlatList, Image, TouchableOpacity,Alert, ImageBackground} from 'react-native';
-import { GetTheme } from '../../../Constant/Colors';
 import { FONTS } from '../../../Constant/Fonts';
 import { font_size } from '../../../chat-services/Helpers';
 import HeaderFive from '../../../Components/Header/HeaderFive';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import ActionSheet from 'react-native-actionsheet';
-import Feather from 'react-native-vector-icons/Feather'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { CHAT_DETAILS_CONFIGURE, MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
 import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
+import { useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
 interface User {
   name: string;
@@ -53,7 +52,7 @@ interface IPlayerListViewer {
 }
 
 const GroupInfoViewer: React.FC<IPlayerListViewer>=(props) => {
-const theme=GetTheme()
+const{theme}=useStylesheet()
 
   const {
     groupPermissionData,
@@ -115,18 +114,19 @@ const theme=GetTheme()
       } }
       ></HeaderFive>
       {groupUserDetails?.isAdmin&&groupUserDetails.isExit!==true?
-      <View style={{height:60,margin:10,flexDirection:'row',backgroundColor:theme.background,borderColor:'grey',borderRadius:10}}>
+      <View style={{height:60,margin:10,flexDirection:'row',backgroundColor:theme.colors.background,borderColor:'grey',borderRadius:10}}>
   <TouchableOpacity style={{flex:0.9,justifyContent:'center'}} onPress={()=>navigatePermissions()}>
-  <Text style={{fontFamily:FONTS.OpenSans_Regular,marginLeft:10}}>Group Permissions</Text>
+  <Text style={{fontFamily:theme.fonts.regular,marginLeft:10}}>Group Permissions</Text>
   </TouchableOpacity>
   <View style={{flex:0.1,justifyContent:'center',}}>
-    <Feather size={18} name={"settings"}></Feather>
+    <VectorIcon name={'settings'} color={theme.colors.text} size={18} type='Feather'></VectorIcon>
+
     </View>
 </View>:<></>}
-{mediaList.length+documentList.length!==0&&<View style={{margin:10,backgroundColor:theme.background,borderColor:'grey',borderRadius:10}}>
+{mediaList.length+documentList.length!==0&&<View style={{margin:10,backgroundColor:theme.colors.background,borderColor:'grey',borderRadius:10}}>
   <TouchableOpacity style={{ flexDirection:'row',height:30}} onPress={()=>navigateMediaList()}>
   <View style={{flex:0.9,justifyContent:'center'}} >
-  <Text style={{fontFamily:FONTS.OpenSans_Regular,marginLeft:10}}>Media and documents</Text>
+  <Text style={{fontFamily:theme.fonts.regular,marginLeft:10}}>Media and documents</Text>
   </View>
   <View style={{flex:0.1,justifyContent:'center'}}>
     <View style={{flexDirection:'row'}}>
@@ -154,8 +154,8 @@ const theme=GetTheme()
         keyExtractor={(item, index) => index.toString()}
       />
 </View>}
-<View style={{flex:1,backgroundColor:theme.background,margin:10,borderRadius:10}}>
-  <Text style={{margin:10,fontSize:font_size(16),fontFamily:FONTS.OpenSans_Bold}}>{`${groupParticpantsList.length} Participants`}</Text>
+<View style={{flex:1,backgroundColor:theme.colors.background,margin:10,borderRadius:10}}>
+  <Text style={{margin:10,fontSize:font_size(16),fontFamily:theme.fonts.bold}}>{`${groupParticpantsList.length} Participants`}</Text>
   <FlatList
         data={
           groupUserDetails?.isAdmin||(channel?.participants?.[0]?.is_user_add&&groupUserDetails?.isExit!==true)?
@@ -189,11 +189,11 @@ const theme=GetTheme()
                 <Row style={{ alignItems: "center" }}>
                   <Col>
                     <Text
-                      style={{ fontFamily:FONTS.OpenSans_Bold, fontSize: 16, color: theme.text }}
+                      style={{ fontFamily:theme.fonts.bold, fontSize: 16, color: theme.colors.text }}
                     >
                       {getName(item)}
                     </Text>
-                    {item.isAdmin&&<Text style={{ fontFamily:FONTS.OpenSans_Bold, fontSize: 12, color:'green'}}>Admin</Text>}
+                    {item.isAdmin&&<Text style={{ fontFamily:theme.fonts.bold, fontSize: 12, color:'green'}}>Admin</Text>}
                   </Col>
                    
               
@@ -233,12 +233,12 @@ const theme=GetTheme()
       />
       </View>
    
-      <View style={{height:60,flexDirection:'row',backgroundColor:theme.background,margin:10,borderRadius:10}}>
+      <View style={{height:60,flexDirection:'row',backgroundColor:theme.colors.background,margin:10,borderRadius:10}}>
       <View style={{flex:0.2,justifyContent:'center',marginLeft:10}}>
     <MaterialIcons size={30} color={'red'} name={isExit?"delete":"exit-to-app"}></MaterialIcons>
     </View>
   <TouchableOpacity style={{flex:0.8,justifyContent:'center'}} onPress={()=>navigateExitGroup()}>
-  <Text style={{fontFamily:FONTS.OpenSans_Bold,marginLeft:10,color:'red',fontSize:20}}>{isExit?'delete group':'Exit group'}</Text>
+  <Text style={{fontFamily:theme.fonts.bold,marginLeft:10,color:'red',fontSize:20}}>{isExit?'delete group':'Exit group'}</Text>
   </TouchableOpacity>
 
 </View>

@@ -1,12 +1,11 @@
 import React from 'react';
 import { View, Text, FlatList,Switch, SafeAreaView} from 'react-native';
-import { GetTheme } from '../../../Constant/Colors';
 import {  HEIGHT } from '../../../Constant/Constant';
 import HeaderSeven from '../../../Components/Header/HeaderSeven';
 import Entypo from 'react-native-vector-icons/Entypo'
 import { FONTS } from '../../../Constant/Fonts';
 import { font_size } from '../../../chat-services/Helpers';
-import { PageContainer } from 'react-native-dex-moblibs';
+import { PageContainer, useStylesheet } from 'react-native-dex-moblibs';
 
 interface User {
   name: string;
@@ -30,7 +29,7 @@ interface IPlayerListViewer {
 }
 
 const GroupPermissionsViewer: React.FC<IPlayerListViewer>=(props) => {
-const theme=GetTheme()
+const {theme}=useStylesheet()
 
   const {groupPermissionData,selectedPermission,selecteandUnselect,navigationGoBack}=props
  
@@ -38,22 +37,21 @@ const theme=GetTheme()
   const PermissionComponet=({item}:any)=>{
 
   return  <View style={{flexDirection:'row',flex:1}}>
-    <View style={{flexDirection:'row',flex:0.15,alignItems:'center',justifyContent:'center',backgroundColor:theme.background}}>
-        <Entypo name={item.icon} color={theme.headerTheme} size={30}></Entypo>
+    <View style={{flexDirection:'row',flex:0.15,alignItems:'center',justifyContent:'center',backgroundColor:theme.colors.background}}>
+        <Entypo name={item.icon} color={theme.colors.text} size={30}></Entypo>
     </View>
     <View style={{flexDirection:'row',flex:0.65,alignItems:'center'}}>
         <View style={{flexDirection:'column',marginTop:10}}>
-        <Text style={{fontFamily:FONTS.OpenSans_Bold,color:theme.text,fontSize:font_size(16)}}>{item.title}</Text>
-        <Text style={{fontFamily:FONTS.OpenSans_Regular,color:theme.text}}>{item.descriptions}</Text>
+        <Text style={{fontFamily:theme.fonts.bold,color:theme.colors.text,fontSize:font_size(16)}}>{item.title}</Text>
+        <Text style={{fontFamily:theme.fonts.regular,color:theme.colors.text}}>{item.descriptions}</Text>
 </View>
 
     </View>
     <View style={{flexDirection:'row',flex:0.2}}>
         <Switch 
-     trackColor={{false: '#767577', true: theme.headerTheme}}
-     thumbColor={theme.headerTheme}
-    
-     ios_backgroundColor={theme.background}
+     trackColor={{false: '#767577', true: theme.colors.primary}}
+     thumbColor={theme.colors.secondary}
+     ios_backgroundColor={theme.colors.background}
      onValueChange={()=>selecteandUnselect(item.icon)}
      value={!!selectedPermission.find((ele: { type: any; is_select: boolean; })=>ele.type===item.icon&&ele.is_select===true)}
         />
@@ -75,7 +73,7 @@ const theme=GetTheme()
           onPressDeleteMessage={function (): void {
               throw new Error('Function not implemented.');
           } }></HeaderSeven>
-  <Text style={{marginLeft:10,fontSize:font_size(16),fontFamily:FONTS.OpenSans_Bold}}>Participant can :</Text>
+  <Text style={{marginLeft:10,fontSize:font_size(16),fontFamily:theme.fonts.bold}}>Participant can :</Text>
   <FlatList
   data={groupPermissionData.PARTICIPANTS}
   renderItem={({ item }) => {
@@ -87,7 +85,7 @@ const theme=GetTheme()
     </View>
   }}
 />
-<Text style={{marginLeft:10,fontSize:font_size(16),fontFamily:FONTS.OpenSans_Bold}}>Admin can :</Text>
+<Text style={{marginLeft:10,fontSize:font_size(16),fontFamily:theme.fonts.bold}}>Admin can :</Text>
 
 <FlatList
   data={groupPermissionData.ADMINS}

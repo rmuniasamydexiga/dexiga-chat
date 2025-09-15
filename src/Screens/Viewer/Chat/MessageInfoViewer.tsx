@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text,FlatList,Image,TouchableOpacity,Alert, SafeAreaView} from 'react-native';
 import { Col, Grid, Row } from 'react-native-easy-grid';
-import { GetTheme } from '../../../Constant/Colors';
 import chatStyles from '../../Style/ChatListStyle';
 import { FONTS } from '../../../Constant/Fonts';
 import { verticalScale } from '../../../Constant/Metrics';
@@ -13,6 +12,7 @@ import ThreadItem from '../../../Components/chat/ThreadItem';
 import { dayDate } from '../../../chat-services/DayHelper';
 import { getNameWithList } from '../../../chat-services/common';
 import { PageContainer } from '../../../../libs/moblibs/lib/module';
+import { useStylesheet } from 'react-native-dex-moblibs';
 
 interface User {
   name: string;
@@ -37,7 +37,7 @@ const MessageInfoViewer: React.FC <IPlayerListViewer>= (props) => {
 
 
   const styles =chatStyles()
-  const theme=GetTheme()
+const {theme}=useStylesheet()
   const {message,user,internalFileList,fileList,navigationBack,channel,groupParticiants,allUser}=props
 
 const Messagestatus=({title,time,tickColor,isGroupOrBoardCast,messageListeners}:any)=>{
@@ -45,7 +45,7 @@ const Messagestatus=({title,time,tickColor,isGroupOrBoardCast,messageListeners}:
 return <View style={{borderBottomWidth:0.5,margin:10 }}>
 <View style={{margin:10 ,flexDirection:'row'}}>
 <Ionicons name={'checkmark-done-outline'} color={tickColor} size={30}/>
-<Text style={{marginLeft:10,fontSize:font_size(14),fontFamily:FONTS.OpenSans_Bold}}>{title}</Text>
+<Text style={{marginLeft:10,fontSize:font_size(14),fontFamily:theme.fonts.bold}}>{title}</Text>
 </View>
 {isGroupOrBoardCast?
 <>
@@ -77,7 +77,7 @@ return <View style={{borderBottomWidth:0.5,margin:10 }}>
                 <Row style={{ alignItems: "center" }}>
                   <Col>
                     <Text
-                      style={{ fontFamily:FONTS.OpenSans_Bold, fontSize: 16, color: theme.text }}
+                      style={{ fontFamily:theme.fonts.bold, fontSize: 16, color: theme.colors.text }}
                     >
                       {getNameWithList(item.receiverId,allUser?.completeData)}
                     </Text>
@@ -88,7 +88,7 @@ return <View style={{borderBottomWidth:0.5,margin:10 }}>
               
               </Col>
             </Grid>
-            <Text style={{marginLeft:10,fontSize:font_size(14),fontFamily:FONTS.OpenSans_Bold}}>{dayDate(title==='Delivery'?item?.deliveryDate:item?.seenDate)
+            <Text style={{marginLeft:10,fontSize:font_size(14),fontFamily:theme.fonts.bold}}>{dayDate(title==='Delivery'?item?.deliveryDate:item?.seenDate)
 }</Text>
 
           </TouchableOpacity>
@@ -97,7 +97,7 @@ return <View style={{borderBottomWidth:0.5,margin:10 }}>
         keyExtractor={(item, index) => index.toString()}
       />
 </>:
-<Text style={{marginLeft:10,fontSize:font_size(14),fontFamily:FONTS.OpenSans_Bold}}>{time}</Text>
+<Text style={{marginLeft:10,fontSize:font_size(14),fontFamily:theme.fonts.bold}}>{time}</Text>
 }
 </View>
 }
@@ -109,7 +109,7 @@ return <View style={{borderBottomWidth:0.5,margin:10 }}>
                 <MaterialIcons name={'arrow-back-ios-new'} size={30} onPress={()=>navigationBack()} />
                 </View>
                 <View style={{flex:0.75}}>
-                <Text style={{fontFamily:FONTS.OpenSans_Bold,fontSize:font_size(14),color:theme.text}}>Message Info </Text>
+                <Text style={{fontFamily:theme.fonts.bold,fontSize:font_size(14),color:theme.colors.text}}>Message Info </Text>
                 </View>
              </View>
           
@@ -140,14 +140,14 @@ return <View style={{borderBottomWidth:0.5,margin:10 }}>
      <Messagestatus
       title={'Delivery'}
       isGroupOrBoardCast={channel?.participants?.[0]?.is_group||channel?.participants?.[0]?.is_broadCast}
-      tickColor={theme.headerTheme}
+      tickColor={theme.colors.primary}
       messageListeners={message?.messageListeners?.filter((ele: { messageStatus: string; })=>ele?.messageStatus==="2")}
       time={dayDate(message?.deliveryDate)}
      />
         <Messagestatus
      messageListeners={message?.messageListeners?.filter((ele: { messageStatus: string; })=>ele?.messageStatus==="3")}
      title={'Read'}
-     tickColor={theme.grey6}
+     tickColor={theme.colors.borderColor}
      isGroupOrBoardCast={channel?.participants?.[0]?.is_group||channel?.participants?.[0]?.is_broadCast}
 
      time={dayDate(message?.seenDate)}

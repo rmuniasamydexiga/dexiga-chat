@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text,  FlatList, Image, TouchableOpacity,Alert, ImageBackground} from 'react-native';
-import { GetTheme } from '../../../Constant/Colors';
 import { FONTS } from '../../../Constant/Fonts';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
@@ -8,6 +7,7 @@ import { CHAT_DETAILS_CONFIGURE, MESSAGE_TYPE, WIDTH } from '../../../Constant/C
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
 import HeaderSix from '../../../Components/Header/HeaderSix';
+import { useStylesheet } from 'react-native-dex-moblibs';
 
 interface User {
   name: string;
@@ -45,7 +45,7 @@ interface IPlayerListViewer {
 }
 
 const IndividualChatInfoViewer: React.FC<IPlayerListViewer>=(props) => {
-const theme=GetTheme()
+const {theme}=useStylesheet()
 
   const {
 
@@ -85,10 +85,10 @@ const theme=GetTheme()
         throw new Error('Function not implemented.');
       } }
       />
-     {mediaList.length+documentList.length!==0&&<View style={{margin:10,backgroundColor:theme.background,borderColor:'grey',borderRadius:10}}>
+     {mediaList.length+documentList.length!==0&&<View style={{margin:10,backgroundColor:theme.colors.background,borderColor:'grey',borderRadius:10}}>
   <TouchableOpacity style={{ flexDirection:'row',height:30}} onPress={()=>navigateMediaList()}>
   <View style={{flex:0.9,justifyContent:'center'}} >
-  <Text style={{fontFamily:FONTS.OpenSans_Regular,marginLeft:10}}>Media and documents</Text>
+  <Text style={{fontFamily:theme.fonts.regular,marginLeft:10}}>Media and documents</Text>
   </View>
   <View style={{flex:0.1,justifyContent:'center'}}>
     <View style={{flexDirection:'row'}}>
@@ -119,12 +119,12 @@ const theme=GetTheme()
 
 
    
-      <View style={{height:60,flexDirection:'row',backgroundColor:theme.background,margin:10,borderRadius:10}}>
+      <View style={{height:60,flexDirection:'row',backgroundColor:theme.colors.background,margin:10,borderRadius:10}}>
       <View style={{flex:0.2,justifyContent:'center',marginLeft:10}}>
     <MaterialIcons size={30} color={'red'} name={"block"}></MaterialIcons>
     </View>
   <TouchableOpacity style={{flex:0.8,justifyContent:'center'}} onPress={()=>navigateBlockChat(channel?.participants?.[0]?.blockedBy===users.id?CHAT_DETAILS_CONFIGURE.UN_BLOCK:CHAT_DETAILS_CONFIGURE.BLOCK)}>
-  <Text style={{fontFamily:FONTS.OpenSans_Bold,marginLeft:10,color:'red',fontSize:20}}>{channel?.participants?.[0]?.blockedBy===users.id?`Unblock ${channel?.participants?.[0]?.name}`:`Block ${channel?.participants?.[0]?.name}`}</Text>
+  <Text style={{fontFamily:theme.fonts.bold,marginLeft:10,color:'red',fontSize:20}}>{channel?.participants?.[0]?.blockedBy===users.id?`Unblock ${channel?.participants?.[0]?.name}`:`Block ${channel?.participants?.[0]?.name}`}</Text>
   </TouchableOpacity>
 
 </View>

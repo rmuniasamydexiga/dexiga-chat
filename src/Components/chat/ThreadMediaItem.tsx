@@ -18,11 +18,10 @@ import PlayIcon from 'react-native-vector-icons/FontAwesome';
 import Octicons from 'react-native-vector-icons/Octicons';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import {dayFormatwithUnix} from '../../chat-services/DayHelper';
-import {FONTS} from '../../Constant/Fonts';
-import {GetTheme} from '../../Constant/Colors';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {getFizeInUint, showLog} from '../../chat-services/common';
 import React from 'react';
+import { useStylesheet } from 'react-native-dex-moblibs';
 
 interface props {
   outBound: any;
@@ -49,7 +48,7 @@ const ThreadMediaItem: FC<props> = props => {
   const [videoPaused, setVideoPaused] = useState(false);
   const [videoLoading, setVideoLoading] = useState(true);
 
-  const theme = GetTheme();
+  const {theme} = useStylesheet()
 
   useEffect(() => {
     if (!videoLoading) {
@@ -72,8 +71,8 @@ const ThreadMediaItem: FC<props> = props => {
             <Text
               style={{
                 fontSize: 14,
-                fontFamily: FONTS.OpenSans_Bold,
-                color: theme.Primary,
+                fontFamily: theme.fonts.bold,
+                color: theme.colors.text,
                 margin: 10,
               }}>
               {item.senderFirstName}
@@ -101,8 +100,8 @@ const ThreadMediaItem: FC<props> = props => {
                   style={{
                     fontSize: 14,
                     alignSelf: 'flex-start',
-                    color: '#ffffff',
-                    fontFamily: FONTS.OpenSans_Regular,
+                    color:theme.colors.white,
+                    fontFamily: theme.fonts.regular,
                     marginTop: 10,
                   }}>
                   {getFizeInUint(item.fileSize)}
@@ -112,11 +111,11 @@ const ThreadMediaItem: FC<props> = props => {
           </View>
           <Text
             style={{
-              fontFamily: FONTS.OpenSans_Regular,
+              fontFamily: theme.fonts.regular,
               fontSize: 15,
               alignSelf: 'flex-end',
               margin: 15,
-              color: '#ffffff',
+              color: theme.colors.white,
             }}>
             {item?.created ? dayFormatwithUnix(item?.created, 'HH:MM') : ''}
           </Text>
@@ -140,8 +139,8 @@ const ThreadMediaItem: FC<props> = props => {
               <Text
                 style={{
                   fontSize: 14,
-                  fontFamily: FONTS.OpenSans_Bold,
-                  color: theme.Primary,
+                  fontFamily: theme.fonts.bold,
+                  color:theme.colors.text,
                   margin: 10,
                 }}>
                 {item.senderFirstName}
@@ -180,8 +179,8 @@ const ThreadMediaItem: FC<props> = props => {
                 <Text
                   style={{
                     fontSize: 14,
-                    color: '#ffffff',
-                    fontFamily: FONTS.OpenSans_Regular,
+                    color: theme.colors.text,
+                    fontFamily: theme.fonts.regular,
                     marginTop: 10,
                   }}>
                   {getFizeInUint(item.fileSize)}
@@ -200,11 +199,11 @@ const ThreadMediaItem: FC<props> = props => {
 
             <Text
               style={{
-                fontFamily: FONTS.OpenSans_Regular,
+                fontFamily: theme.fonts.regular,
                 fontSize: 15,
                 alignSelf: 'flex-end',
                 margin: 15,
-                color: '#ffffff',
+                color: theme.colors.text,
               }}>
               {item?.created ? dayFormatwithUnix(item?.created, 'HH:MM') : ''}
             </Text>
@@ -216,8 +215,8 @@ const ThreadMediaItem: FC<props> = props => {
                 <Text
                   style={{
                     fontSize: 14,
-                    fontFamily: FONTS.OpenSans_Bold,
-                    color: theme.Primary,
+                    fontFamily: theme.fonts.bold,
+                    color:theme.colors.text,
                     margin: 10,
                   }}>
                   {item.senderFirstName}
@@ -298,11 +297,11 @@ const ThreadMediaItem: FC<props> = props => {
 
                 <Text
                   style={{
-                    fontFamily: FONTS.OpenSans_Regular,
+                    fontFamily: theme.fonts.regular,
                     fontSize: 15,
                     alignSelf: 'flex-end',
                     margin: 15,
-                    color: '#ffffff',
+                    color: theme.colors.text,
                   }}>
                   {item?.created
                     ? dayFormatwithUnix(item?.created, 'HH:MM')
@@ -329,8 +328,8 @@ const ThreadMediaItem: FC<props> = props => {
           <Text
             style={{
               fontSize: 14,
-              fontFamily: FONTS.OpenSans_Bold,
-              color: theme.Primary,
+              fontFamily: theme.fonts.bold,
+              color:theme.colors.text,
               marginTop: 10,
               marginLeft: 10,
             }}>
@@ -343,7 +342,7 @@ const ThreadMediaItem: FC<props> = props => {
             <View
               style={{
                 height: 50,
-                backgroundColor: theme.headerTheme,
+                backgroundColor: theme.colors.background,
                 borderRadius: 10,
               }}>
               <View
@@ -352,7 +351,7 @@ const ThreadMediaItem: FC<props> = props => {
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}>
-                <Text style={{textAlign: 'center', color: theme.White}}>
+                <Text style={{textAlign: 'center', color:theme.colors.text}}>
                   {item.fileName ? item.fileName.split('.')[1] : ''}
                 </Text>
               </View>
@@ -396,10 +395,10 @@ const ThreadMediaItem: FC<props> = props => {
         </View>
         <Text
           style={{
-            fontFamily: FONTS.OpenSans_Regular,
+            fontFamily: theme.fonts.regular,
             fontSize: 10,
             alignSelf: 'flex-end',
-            color: '#ffffff',
+            color: theme.colors.text,
             marginTop: 0,
           }}>
           {item?.created ? dayFormatwithUnix(item?.created, 'HH:MM') : ''}
