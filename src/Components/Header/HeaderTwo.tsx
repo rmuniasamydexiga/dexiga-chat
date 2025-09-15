@@ -7,7 +7,6 @@ import {
   ImageBackground,
 } from 'react-native';
 
-import {FONT_SIZE} from '../../Constant/FontSize';
  import {verticalScale, moderateScale} from '../../Constant/Metrics';
 import { useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
@@ -23,7 +22,7 @@ const HeaderTwo: FC<props> = props => {
   const {theme}=useStylesheet()
   const styles = StyleSheet.create({
     HeaderText: {
-      fontSize: moderateScale(FONT_SIZE.font_20),
+      fontSize: theme.typography.title,
       fontFamily: theme.fonts.bold,
       color: theme.colors.white,
       textAlignVertical: 'center',

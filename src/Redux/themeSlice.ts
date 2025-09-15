@@ -27,15 +27,18 @@ const fontSizeScale = (size: number) => size;
 const initialState: IThemeInitialState = {
   size: 1,
   typography: {
-    smallTitle: fontSizeScale(5),
     title: hp('2.7'),
     subTitle: hp('2.5'),
-    subSubTitle: fontSizeScale(16),
     label: hp('1.8'),
+    smallText: hp('1.65'),
+    smallTitle: fontSizeScale(5),
+  smallText_10: fontSizeScale(8),
+    subSubTitle: fontSizeScale(16),
+   
     superText: fontSizeScale(30),
     superSuperText: fontSizeScale(46),
-    smallText: hp('1.65'),
-    smallText_10: fontSizeScale(8),
+
+   
   },
 };
 export const themeSlice = createSlice({

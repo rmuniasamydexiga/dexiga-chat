@@ -1,13 +1,11 @@
 import React from 'react';
 import {View, Text,  FlatList, Image, TouchableOpacity,Alert, ImageBackground} from 'react-native';
-import { FONTS } from '../../../Constant/Fonts';
-import { font_size } from '../../../chat-services/Helpers';
 import HeaderFive from '../../../Components/Header/HeaderFive';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import ActionSheet from 'react-native-actionsheet';
 import { CHAT_DETAILS_CONFIGURE, MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
 import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
-import { useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
+import { PageContainer, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
 interface User {
   name: string;
@@ -92,7 +90,7 @@ const{theme}=useStylesheet()
  
 
   return (
-    <View style={{flex:1,backgroundColor:'#faf9f7'}}>
+    <PageContainer>
           <HeaderFive 
       title={channel?.name} 
       subTitle={`Group ${groupParticpantsList.length} participants`}
@@ -153,7 +151,7 @@ const{theme}=useStylesheet()
       />
 </View>}
 <View style={{flex:1,backgroundColor:theme.colors.background,margin:10,borderRadius:10}}>
-  <Text style={{margin:10,fontSize:font_size(16),fontFamily:theme.fonts.bold}}>{`${groupParticpantsList.length} Participants`}</Text>
+  <Text style={{margin:10,fontSize:theme.typography.title,fontFamily:theme.fonts.bold}}>{`${groupParticpantsList.length} Participants`}</Text>
   <FlatList
         data={
           groupUserDetails?.isAdmin||(channel?.participants?.[0]?.is_user_add&&groupUserDetails?.isExit!==true)?
@@ -187,11 +185,11 @@ const{theme}=useStylesheet()
                 <Row style={{ alignItems: "center" }}>
                   <Col>
                     <Text
-                      style={{ fontFamily:theme.fonts.bold, fontSize: 16, color: theme.colors.text }}
+                      style={{ fontFamily:theme.fonts.bold, fontSize: theme.typography.title, color: theme.colors.text }}
                     >
                       {getName(item)}
                     </Text>
-                    {item.isAdmin&&<Text style={{ fontFamily:theme.fonts.bold, fontSize: 12, color:'green'}}>Admin</Text>}
+                    {item.isAdmin&&<Text style={{ fontFamily:theme.fonts.bold, fontSize: theme.typography.label, color:'green'}}>Admin</Text>}
                   </Col>
                    
               
@@ -236,12 +234,12 @@ const{theme}=useStylesheet()
     <VectorIcon size={30} color={'red'} name={isExit?"delete":"exit-to-app"} type='MaterialIcons'/>
     </View>
   <TouchableOpacity style={{flex:0.8,justifyContent:'center'}} onPress={()=>navigateExitGroup()}>
-  <Text style={{fontFamily:theme.fonts.bold,marginLeft:10,color:'red',fontSize:20}}>{isExit?'delete group':'Exit group'}</Text>
+  <Text style={{fontFamily:theme.fonts.bold,marginLeft:10,color:'red',fontSize:theme.typography.title}}>{isExit?'delete group':'Exit group'}</Text>
   </TouchableOpacity>
 
 </View>
     
-    </View>
+    </PageContainer>
   );
 };
 

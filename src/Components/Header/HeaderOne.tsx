@@ -3,8 +3,7 @@
 import React,{FC} from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image, ImageBackground } from 'react-native'
 
-import { FONT_SIZE } from "../../Constant/FontSize";
-import {  verticalScale, moderateScale } from "../../Constant/Metrics";
+import {  verticalScale } from "../../Constant/Metrics";
 import { PopupMenu } from "../Menu/Menu";
 import { useStylesheet, VectorIcon } from "react-native-dex-moblibs";
 
@@ -23,7 +22,7 @@ interface props {
 const HeaderOne: FC<props> = (props) => {
     const {theme}=useStylesheet()
     const styles = StyleSheet.create({
-        HeaderText:{fontSize: moderateScale(FONT_SIZE.font_20), fontFamily:theme.fonts.bold, color: theme.colors.text, textAlignVertical:'center', marginBottom: '2%'}
+        HeaderText:{fontSize: theme.typography.title, fontFamily:theme.fonts.bold, color: theme.colors.text, textAlignVertical:'center', marginBottom: '2%'}
     })
 
     return(

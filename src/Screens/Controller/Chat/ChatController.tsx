@@ -24,7 +24,6 @@ import AudioRecorderPlayer, {
   OutputFormatAndroidType,
 } from 'react-native-audio-recorder-player';
 import {channelManager, firebaseStorage} from '../../../chat-firebase';
-import StyleDict from '../../../chat-services/AppStyle';
 import ChatViewer from '../../Viewer/Chat/ChatViewer';
 import {
   CHAT_DETAILS_CONFIGURE,
@@ -143,8 +142,6 @@ const ChatController: React.FC = () => {
 
   const navigation = useNavigation<any>();
 
-  let appStyles = StyleDict;
-    const styles = dynamicStyles(null);
 
   const route = useRoute();
 

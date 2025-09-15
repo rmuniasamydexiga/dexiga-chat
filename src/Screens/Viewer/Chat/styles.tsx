@@ -55,9 +55,6 @@ const { theme } = useStylesheet();
       borderRadius: 50, // Set the borderRadius to make it a circle
       height: '100%',
       backgroundColor:  theme.colors.background,
-      // height: 3,
-      // shadowColor: '#000',
-      // width: 3,
     },
     inputIconContainer: {
       flex: 0.5,
@@ -79,7 +76,7 @@ const { theme } = useStylesheet();
       paddingLeft: 3,
       paddingRight: 20,
       width: '93%',
-      fontSize: 16,
+      fontSize: theme.typography.subSubTitle,
       lineHeight: 22,
       color:  theme.colors.inputText,
     },
@@ -92,7 +89,7 @@ const { theme } = useStylesheet();
       flexDirection: 'column',
     },
     replyingToHeaderText: {
-      fontSize: 13,
+      fontSize: theme.typography.label,
       color: theme.colors.text,
       fontFamily: theme.fonts.regular,
       marginBottom: 4,
@@ -101,7 +98,7 @@ const { theme } = useStylesheet();
       fontFamily: theme.fonts.bold,
     },
     replyingToContentText: {
-      fontSize: 12,
+      fontSize: theme.typography.label,
       color:  theme.colors.inputText,
       fontFamily: theme.fonts.regular,
     },
@@ -158,7 +155,7 @@ const { theme } = useStylesheet();
       tintColor: theme.colors.secondary,
     },
     sendTextMessage: {
-      fontSize: 16,
+      fontSize: theme.typography.subSubTitle,
       fontFamily: theme.fonts.regular,
       color: theme.colors.textInverse,
     },
@@ -195,7 +192,7 @@ const { theme } = useStylesheet();
     },
     receiveTextMessage: {
       color:  theme.colors.text,
-      fontSize: 16,
+      fontSize: theme.typography.subSubTitle,
     },
     textBoederImgReceive: {
       position: 'absolute',
@@ -265,7 +262,7 @@ const { theme } = useStylesheet();
       marginLeft: 10,
     },
     inReplyToHeaderText: {
-      fontSize: 12,
+      fontSize: theme.typography.label,
       color: theme.colors.borderColor,
       fontFamily: theme.fonts.regular,
       marginBottom: 5,
@@ -282,7 +279,7 @@ const { theme } = useStylesheet();
     },
     inReplyToItemBubbleText: {
       color: theme.colors.borderColor,
-      fontSize: 14,
+      fontSize: theme.typography.label,
       fontFamily: theme.fonts.regular,
     },
     // Bottom Audio Recorder
@@ -297,7 +294,7 @@ const { theme } = useStylesheet();
       alignItems: 'center',
     },
     counterText: {
-      fontSize: 14,
+      fontSize: theme.typography.subTitle,
       color: theme.colors.text,
     },
     recorderButtonsContainer: {
@@ -325,7 +322,7 @@ const { theme } = useStylesheet();
       backgroundColor: theme.colors.error,
     },
     recoderControlText: {
-      fontSize: 16,
+      fontSize: theme.typography.subSubTitle,
       color: theme.colors.white,
     },
 
@@ -382,7 +379,7 @@ const { theme } = useStylesheet();
     },
     audioTimerCount: {
       color: outBound ? theme.colors.borderColor : theme.colors.secondary,
-      fontSize: 12,
+      fontSize: theme.typography.label,
     },
   
     minimumAudioTrackTintColor: {

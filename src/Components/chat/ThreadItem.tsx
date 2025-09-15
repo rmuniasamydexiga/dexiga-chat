@@ -245,7 +245,7 @@ const {theme} = useStylesheet();
                   {!outBound && is_group && (
                     <Text
                       style={{
-                        fontSize: 14,
+                        fontSize: theme.typography.subSubTitle,
                         fontFamily: theme.fonts.bold,
                         color: theme.colors.primary,
                         marginLeft: 5,
@@ -305,9 +305,9 @@ const {theme} = useStylesheet();
                 <View style={{flex: !outBound && is_group ? 0.33 : 0.4}}>
                   <Text
                     style={{
-                      fontSize: 10,
+                      fontSize:theme.typography.label,
                       alignSelf: 'flex-start',
-                      color: '#ffffff',
+                      color: theme.colors.text,
                       fontFamily: theme.fonts.regular,
                       marginTop: 10,
                       marginLeft: 10,
@@ -321,9 +321,9 @@ const {theme} = useStylesheet();
                   </Text>
                   <Text
                     style={{
-                      fontSize: 10,
+                      fontSize: theme.typography.label,
                       alignSelf: 'flex-end',
-                      color: '#ffffff',
+                      color: theme.colors.text,
                       fontFamily: theme.fonts.regular,
                       marginTop: -15,
                       marginRight: 10,
@@ -375,7 +375,7 @@ const {theme} = useStylesheet();
                 {!outBound && is_group && (
                   <Text
                     style={{
-                      fontSize: 14,
+                      fontSize: theme.typography.subSubTitle,
                       fontFamily: theme.fonts.bold,
                       color: theme.colors.primary,
                     }}>
@@ -391,7 +391,7 @@ const {theme} = useStylesheet();
                 </Text>
                 <Text
                   style={{
-                    fontSize: 10,
+                    fontSize: theme.typography.label,
                     alignSelf: 'flex-end',
                     fontFamily: theme.fonts.regular,
                     color: theme.colors.textInverse,

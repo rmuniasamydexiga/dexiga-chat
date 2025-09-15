@@ -44,7 +44,7 @@ const HeaderSeven: FC<props> = (props) => {
                 </TouchableOpacity>
 			</View>
                 <View style={{flex:0.7,alignSelf:isMediaHeader?'flex-start':'center',marginLeft:10}}>
-          <Text style={{fontSize:16,fontWeight:'700',color:theme.colors.white,marginTop:isMediaHeader?10:0}}>{props.title}</Text>
+          <Text style={{fontSize:theme.typography.title,fontFamily:theme.fonts.bold,color:theme.colors.white,marginTop:isMediaHeader?10:0}}>{props.title}</Text>
 
           </View>
           <View style={{flex:0.25,flexDirection:'row'}}>
@@ -63,7 +63,7 @@ const HeaderSeven: FC<props> = (props) => {
         renderItem={({ item, index }) => {
           return (
             <TouchableOpacity style={{width:WIDTH/2.2, borderBottomColor:theme.colors.borderColor,borderBottomWidth:activeIndex===index?5:0,marginRight:10}} onPress={()=>navigationTab(index)}>
-<Text style={{fontSize:14,fontFamily:theme.fonts.bold,color:theme.colors.white,textAlign:'center'}}>{item}</Text>
+<Text style={{fontSize:theme.typography.subSubTitle,fontFamily:theme.fonts.bold,color:theme.colors.white,textAlign:'center'}}>{item}</Text>
             </TouchableOpacity>
           )
       

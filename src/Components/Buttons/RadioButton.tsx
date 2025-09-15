@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 
-import { FONTS } from "../../Constant/Fonts";
 import { useStylesheet } from "react-native-dex-moblibs";
 
 

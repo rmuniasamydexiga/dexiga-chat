@@ -4,10 +4,8 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
-  Alert,
   ImageBackground,
   KeyboardAvoidingView,
-  SafeAreaView,
   TextInput,
 } from 'react-native';
 import {Col, Grid, Row} from 'react-native-easy-grid';
@@ -156,7 +154,7 @@ const {theme}=useStylesheet()
                             <Text
                               style={{
                                 fontFamily: theme.fonts.regular,
-                                fontSize: 16,
+                                fontSize: theme.typography.subSubTitle,
                                 color: !!groupParticpantsList?.find(
                                   ele =>
                                     ele?.user === item?.userId &&
@@ -171,7 +169,7 @@ const {theme}=useStylesheet()
                               <Text
                                 style={{
                                   fontFamily: theme.fonts.regular,
-                                  fontSize: 10,
+                                  fontSize: theme.typography.label,
                                   color:theme.colors.borderColor,
                                 }}>
                                 {ERROR_MESSAGE_CONTENT.UN_BLOCK_CHAT}
@@ -185,7 +183,7 @@ const {theme}=useStylesheet()
                                 <Text
                                   style={{
                                     fontFamily: theme.fonts.regular,
-                                    fontSize: 10,
+                                    fontSize: theme.typography.label,
                                     color:theme.colors.borderColor,
                                   }}>{`User Already Added to this ${
                                   fromNavigation === SCREEN_NAMES.BROADCAST_INFO
@@ -249,7 +247,7 @@ const {theme}=useStylesheet()
                             <View
                               style={{alignSelf: 'flex-end', marginTop: 15}}>
                            
-                               <VectorIcon size={20} style={{fontWeight: 'bold', fontSize: 15}}
+                               <VectorIcon size={20} style={{fontWeight: 'bold', fontSize: theme.typography.subSubTitle}}
  name={"closecircle"} color={theme.colors.secondary} type='AntDesign'/>
 
 
@@ -258,7 +256,7 @@ const {theme}=useStylesheet()
                           <Text
                             style={{
                               fontFamily: theme.fonts.regular,
-                              fontSize: 12,
+                              fontSize:theme.typography.label,
                               color: theme.colors.text,
                             }}
                             numberOfLines={1}>
@@ -311,7 +309,7 @@ const {theme}=useStylesheet()
                                     marginTop: 30,
                                   }}>
                                   <AntDesign
-                                    style={{fontWeight: 'bold', fontSize: 30}}
+                                    style={{fontFamily: theme.fonts.bold, fontSize:theme.typography.superText}}
                                     color={theme.colors.secondary}
                                     size={20}
                                     name="checkcircleo"></AntDesign>
@@ -326,7 +324,7 @@ const {theme}=useStylesheet()
                               <Text
                                 style={{
                                   fontFamily: theme.fonts.regular,
-                                  fontSize: 16,
+                                  fontSize:theme.typography.title,
                                   color: !!groupParticpantsList?.find(
                                     ele => ele?.user === item?.userId,
                                   )
@@ -341,7 +339,7 @@ const {theme}=useStylesheet()
                                 <Text
                                   style={{
                                     fontFamily: theme.fonts.regular,
-                                    fontSize: 10,
+                                    fontSize:theme.typography.label,
                                     color: theme.colors.borderColor,
                                   }}>
                                   User Already Added to this Group

@@ -116,7 +116,7 @@ const BottomInput: FC<props> = props => {
             <TouchableOpacity
               style={styles.RecorderViewTouchables}
               onPress={() => stopRecord('cancel')}>
-              <VectorIcon name="delete" size={30} color={theme.colors.text} type='MaterialIcons'/>
+              <VectorIcon name="delete" size={30} color={theme.colors.white}  type='MaterialIcons'/>
             </TouchableOpacity>
           </View>
           <View
@@ -131,7 +131,7 @@ const BottomInput: FC<props> = props => {
             <TouchableOpacity
               style={styles.RecorderViewTouchables}
               onPress={() => stopRecord('finish')}>
-              <Icon name="arrow-upward" size={30} color="#FFFFFF" />
+              <VectorIcon name="arrow-upward" size={30} color={theme.colors.white} type='MaterialIcons' />
             </TouchableOpacity>
           </View>
         </Animated.View>
@@ -165,7 +165,8 @@ const BottomInput: FC<props> = props => {
               alignItems: 'center',
             }}>
             <TouchableOpacity style={{}} onPress={() => startRecord()}>
-              <Icon
+              <VectorIcon
+                type='MaterialIcons'
                 name="keyboard-voice"
                 size={26}
                 color={theme.colors.secondary}

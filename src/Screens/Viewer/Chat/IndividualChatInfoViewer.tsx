@@ -1,11 +1,10 @@
 import React from 'react';
 import {View, Text,  FlatList, Image, TouchableOpacity,Alert, ImageBackground} from 'react-native';
-import { FONTS } from '../../../Constant/Fonts';
 
 import { CHAT_DETAILS_CONFIGURE, MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
 import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
 import HeaderSix from '../../../Components/Header/HeaderSix';
-import { useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
+import { PageContainer, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
 interface User {
   name: string;
@@ -69,7 +68,7 @@ const {theme}=useStylesheet()
  
 
   return (
-    <View style={{flex:1,backgroundColor:'#faf9f7'}}>
+<PageContainer>
           <HeaderSix 
       title={channel?.name} 
       subTitle={``}
@@ -122,12 +121,12 @@ const {theme}=useStylesheet()
     <VectorIcon size={30} color={'red'} name={"block"} type='MaterialIcons'/>
     </View>
   <TouchableOpacity style={{flex:0.8,justifyContent:'center'}} onPress={()=>navigateBlockChat(channel?.participants?.[0]?.blockedBy===users.id?CHAT_DETAILS_CONFIGURE.UN_BLOCK:CHAT_DETAILS_CONFIGURE.BLOCK)}>
-  <Text style={{fontFamily:theme.fonts.bold,marginLeft:10,color:'red',fontSize:20}}>{channel?.participants?.[0]?.blockedBy===users.id?`Unblock ${channel?.participants?.[0]?.name}`:`Block ${channel?.participants?.[0]?.name}`}</Text>
+  <Text style={{fontFamily:theme.fonts.bold,marginLeft:10,color:theme.colors.error,fontSize:theme.typography.superText}}>{channel?.participants?.[0]?.blockedBy===users.id?`Unblock ${channel?.participants?.[0]?.name}`:`Block ${channel?.participants?.[0]?.name}`}</Text>
   </TouchableOpacity>
 
 </View>
     
-    </View>
+   </PageContainer>
   );
 };
 

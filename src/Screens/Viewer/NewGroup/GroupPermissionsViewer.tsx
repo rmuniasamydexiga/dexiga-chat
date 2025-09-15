@@ -1,9 +1,7 @@
 import React from 'react';
-import { View, Text, FlatList,Switch, SafeAreaView} from 'react-native';
+import { View, Text, FlatList,Switch} from 'react-native';
 import {  HEIGHT } from '../../../Constant/Constant';
 import HeaderSeven from '../../../Components/Header/HeaderSeven';
-import { FONTS } from '../../../Constant/Fonts';
-import { font_size } from '../../../chat-services/Helpers';
 import { PageContainer, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
 interface User {
@@ -41,7 +39,7 @@ const {theme}=useStylesheet()
     </View>
     <View style={{flexDirection:'row',flex:0.65,alignItems:'center'}}>
         <View style={{flexDirection:'column',marginTop:10}}>
-        <Text style={{fontFamily:theme.fonts.bold,color:theme.colors.text,fontSize:font_size(16)}}>{item.title}</Text>
+        <Text style={{fontFamily:theme.fonts.bold,color:theme.colors.text,fontSize:theme.typography.title}}>{item.title}</Text>
         <Text style={{fontFamily:theme.fonts.regular,color:theme.colors.text}}>{item.descriptions}</Text>
 </View>
 
@@ -72,7 +70,7 @@ const {theme}=useStylesheet()
           onPressDeleteMessage={function (): void {
               throw new Error('Function not implemented.');
           } }></HeaderSeven>
-  <Text style={{marginLeft:10,fontSize:font_size(16),fontFamily:theme.fonts.bold}}>Participant can :</Text>
+  <Text style={{marginLeft:10,fontSize:theme.typography.title,fontFamily:theme.fonts.bold}}>Participant can :</Text>
   <FlatList
   data={groupPermissionData.PARTICIPANTS}
   renderItem={({ item }) => {
@@ -84,7 +82,7 @@ const {theme}=useStylesheet()
     </View>
   }}
 />
-<Text style={{marginLeft:10,fontSize:font_size(16),fontFamily:theme.fonts.bold}}>Admin can :</Text>
+<Text style={{marginLeft:10,fontSize:theme.typography.title,fontFamily:theme.fonts.bold}}>Admin can :</Text>
 
 <FlatList
   data={groupPermissionData.ADMINS}

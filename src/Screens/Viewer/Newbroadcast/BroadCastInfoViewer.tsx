@@ -1,7 +1,5 @@
 import React from 'react';
-import {View, Text,  FlatList, Image, TouchableOpacity,Alert, ImageBackground, SafeAreaView} from 'react-native';
-import { FONTS } from '../../../Constant/Fonts';
-import { font_size } from '../../../chat-services/Helpers';
+import {View, Text,  FlatList, Image, TouchableOpacity, ImageBackground} from 'react-native';
 import HeaderFive from '../../../Components/Header/HeaderFive';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import { MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
@@ -139,7 +137,7 @@ const {theme}=useStylesheet()
 </View>}
 
 <View style={{flex:1,backgroundColor:theme.colors.background,margin:10,borderRadius:10}}>
-  <Text style={{margin:10,fontSize:font_size(16),fontFamily:theme.fonts.bold}}>{`${groupParticpantsList.length} recipients`}</Text>
+  <Text style={{margin:10,fontSize:theme.typography.subSubTitle,fontFamily:theme.fonts.bold}}>{`${groupParticpantsList.length} recipients`}</Text>
   <FlatList
         data={
        
@@ -173,11 +171,11 @@ const {theme}=useStylesheet()
                 <Row style={{ alignItems: "center" }}>
                   <Col>
                     <Text
-                      style={{ fontFamily:theme.fonts.bold, fontSize: 16, color: theme.colors.text }}
+                      style={{ fontFamily:theme.fonts.bold, fontSize: theme.typography.subSubTitle, color: theme.colors.text }}
                     >
                       {getName(item)}
                     </Text>
-                    {item.isAdmin&&<Text style={{ fontFamily:theme.fonts.bold, fontSize: 12, color:'green'}}>Admin</Text>}
+                    {item.isAdmin&&<Text style={{ fontFamily:theme.fonts.bold, fontSize: theme.typography.label, color:theme.colors.success}}>Admin</Text>}
                   </Col>
                    
               
@@ -198,7 +196,7 @@ const {theme}=useStylesheet()
     <VectorIcon size={30} color={'red'} name={"delete"} type='MaterialIcons'/>
     </View>
   <TouchableOpacity style={{flex:0.8,justifyContent:'center'}} onPress={()=>navigateExitGroup()}>
-  <Text style={{fontFamily:theme.fonts.bold,marginLeft:10,color:'red',fontSize:20}}>{'Delete BroadCast'}</Text>
+  <Text style={{fontFamily:theme.fonts.bold,marginLeft:10,color:theme.colors.error,fontSize:theme.typography.superText}}>{'Delete BroadCast'}</Text>
   </TouchableOpacity>
 
 </View>

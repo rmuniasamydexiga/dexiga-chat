@@ -68,7 +68,7 @@ const ListComponent = (props: {
                       <View style={{alignSelf: 'flex-end', marginTop: 30}}>
                         <VectorIcon
                           type='AntDesign'
-                          style={{fontWeight: 'bold', fontSize: 30}}
+                          style={{fontWeight: 'bold', fontSize: theme.typography.superText}}
                           color={colors.white}
                           size={20}
                           name="checkcircleo"></VectorIcon>
@@ -82,7 +82,7 @@ const ListComponent = (props: {
                     <Text
                       style={{
                         fontFamily: theme.fonts.bold,
-                        fontSize: 16,
+                        fontSize: theme.typography.subSubTitle,
                         color: colors.text,
                       }}>
                       {getName(item)}
@@ -93,7 +93,7 @@ const ListComponent = (props: {
                       <Text
                         style={{
                           color: colors.secondaryText,
-                          fontSize: 11,
+                          fontSize: theme.typography.label,
                           fontFamily: theme.fonts.regular,
                         }}>
                         {dayFormatwithUnix(item.lastMessageDate, 'HH,MM A')}
@@ -109,7 +109,7 @@ const ListComponent = (props: {
                       <Text
                         style={{
                           color: colors.secondaryText,
-                          fontSize: 13,
+                          fontSize: theme.typography.label,
                           fontFamily: theme.fonts.regular,
                         }}>
                         {getMessage(item.lastMessage)}
@@ -130,7 +130,7 @@ const ListComponent = (props: {
                       <Text
                         style={{
                           color: colors.secondaryText,
-                          fontSize: 13,
+                          fontSize: theme.typography.label,
                           fontFamily: theme.fonts.regular,
                         }}>
                         {checkPlayerBlockOrNot(chatList, userId, item.userId)}

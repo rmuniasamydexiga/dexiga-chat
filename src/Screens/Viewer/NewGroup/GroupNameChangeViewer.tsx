@@ -2,7 +2,6 @@ import React from 'react';
 import { View, TouchableOpacity, ImageBackground, TextInput, } from 'react-native';
 
 import HeaderSeven from '../../../Components/Header/HeaderSeven';
-import { FONTS } from '../../../Constant/Fonts';
 import { Button, useStylesheet, wp } from 'react-native-dex-moblibs';
 
 

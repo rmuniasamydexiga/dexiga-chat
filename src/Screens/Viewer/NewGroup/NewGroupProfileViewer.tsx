@@ -4,10 +4,8 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
-  Alert,
   ImageBackground,
   TextInput,
-  SafeAreaView,
 } from 'react-native';
 import {Col, Grid} from 'react-native-easy-grid';
 
@@ -150,7 +148,7 @@ const NewGroupProfileViewer: React.FC<IPlayerListViewer> = props => {
                         resizeMode="cover"></ImageBackground>
                       <Text
                         style={{
-                          fontSize: 12,
+                          fontSize: theme.typography.label,
                           fontFamily: theme.fonts.regular,
                           color: theme.colors.text,
                         }}

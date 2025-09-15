@@ -597,7 +597,7 @@ const {theme}=useStylesheet()
                         <Text
                           style={{
                             fontFamily: theme.fonts.bold,
-                            fontSize: 16,
+                            fontSize: theme.typography.subSubTitle,
                             color:theme.colors.text,
                           }}>
                           {getName(item)}
@@ -607,7 +607,7 @@ const {theme}=useStylesheet()
                         <Text
                           style={{
                             color: theme.colors.secondaryText,
-                            fontSize: 11,
+                            fontSize:theme.typography.label,
                             fontFamily: theme.fonts.regular,
                           }}>
                           {dayFormatwithUnix(item.lastMessageDate, 'HH,MM A')}
@@ -619,7 +619,7 @@ const {theme}=useStylesheet()
                         <Text
                           style={{
                             color: theme.colors.secondaryText,
-                            fontSize: 13,
+                            fontSize: theme.typography.label,
                             fontFamily: theme.fonts.regular,
                           }}>
                           {getMessage(item)}

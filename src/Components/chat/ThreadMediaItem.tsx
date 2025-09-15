@@ -68,7 +68,7 @@ const ThreadMediaItem: FC<props> = props => {
           {!outBound && is_group && (
             <Text
               style={{
-                fontSize: 14,
+                fontSize:theme.typography.subSubTitle,
                 fontFamily: theme.fonts.bold,
                 color: theme.colors.text,
                 margin: 10,
@@ -96,7 +96,7 @@ const ThreadMediaItem: FC<props> = props => {
                 <VectorIcon type='Octicons' name="download" size={53} color={'white'} />
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: theme.typography.subSubTitle,
                     alignSelf: 'flex-start',
                     color:theme.colors.white,
                     fontFamily: theme.fonts.regular,
@@ -110,7 +110,7 @@ const ThreadMediaItem: FC<props> = props => {
           <Text
             style={{
               fontFamily: theme.fonts.regular,
-              fontSize: 15,
+              fontSize:theme.typography.subSubTitle,
               alignSelf: 'flex-end',
               margin: 15,
               color: theme.colors.white,
@@ -136,7 +136,7 @@ const ThreadMediaItem: FC<props> = props => {
             {!outBound && is_group && (
               <Text
                 style={{
-                  fontSize: 14,
+                  fontSize: theme.typography.subSubTitle,
                   fontFamily: theme.fonts.bold,
                   color:theme.colors.text,
                   margin: 10,
@@ -176,7 +176,7 @@ const ThreadMediaItem: FC<props> = props => {
                 <VectorIcon type='Octicons' name="download" size={53} color={'white'} />
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: theme.typography.subSubTitle,
                     color: theme.colors.text,
                     fontFamily: theme.fonts.regular,
                     marginTop: 10,
@@ -198,7 +198,7 @@ const ThreadMediaItem: FC<props> = props => {
             <Text
               style={{
                 fontFamily: theme.fonts.regular,
-                fontSize: 15,
+                fontSize: theme.typography.subSubTitle,
                 alignSelf: 'flex-end',
                 margin: 15,
                 color: theme.colors.text,
@@ -212,7 +212,7 @@ const ThreadMediaItem: FC<props> = props => {
               {!outBound && is_group && (
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize:theme.typography.subSubTitle,
                     fontFamily: theme.fonts.bold,
                     color:theme.colors.text,
                     margin: 10,
@@ -296,7 +296,7 @@ const ThreadMediaItem: FC<props> = props => {
                 <Text
                   style={{
                     fontFamily: theme.fonts.regular,
-                    fontSize: 15,
+                    fontSize:theme.typography.subSubTitle,
                     alignSelf: 'flex-end',
                     margin: 15,
                     color: theme.colors.text,
@@ -325,7 +325,7 @@ const ThreadMediaItem: FC<props> = props => {
         {!outBound && is_group && (
           <Text
             style={{
-              fontSize: 14,
+              fontSize: theme.typography.subSubTitle,
               fontFamily: theme.fonts.bold,
               color:theme.colors.text,
               marginTop: 10,
@@ -395,7 +395,7 @@ const ThreadMediaItem: FC<props> = props => {
         <Text
           style={{
             fontFamily: theme.fonts.regular,
-            fontSize: 10,
+            fontSize: theme.typography.label,
             alignSelf: 'flex-end',
             color: theme.colors.text,
             marginTop: 0,

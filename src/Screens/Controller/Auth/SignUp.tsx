@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 import authStyles from '../../Style/LoginStyle';
-import {GetTheme} from '../../../Constant/Colors';
 import {SNACKBAR_MESSAGE_LENGTH, USER_TYPE} from '../../../Constant/Constant';
 import RadioButton from '../../../Components/Buttons/RadioButton';
 import {signUpValidationSchema, validation} from '../../../chat-services/validation';
@@ -15,7 +14,7 @@ import {
   validateMobileNumber,
 } from '../../../chat-services/common';
 import { checkIfEmailExists, createUser } from '../../../chat-firebase/auth';
-import { Button,SpinnerModal } from 'react-native-dex-moblibs';
+import { Button,PageContainer,SpinnerModal, useStylesheet } from 'react-native-dex-moblibs';
 
 interface ISignup {
   name: string;
@@ -38,7 +37,7 @@ const Signup: React.FC<ISignup> = props => {
 
   const {navigation} = props;
   const styles = authStyles();
-  const theme = GetTheme();
+  const {theme} = useStylesheet()
   const options = [
     {key: 1, value: USER_TYPE.HOST},
     {key: 2, value: USER_TYPE.PLAYER},
@@ -151,10 +150,10 @@ const registerUser = async () => {
   };
 
   return (
-    <View style={styles.container}>
+    <PageContainer style={styles.container}>
       <Text style={styles.title}>Sign Up</Text>
       <TextInput
-        placeholderTextColor={theme.text}
+        placeholderTextColor={theme.colors.text}
         placeholder="Enter Name"
         style={[styles.input, {marginTop: 50}]}
         value={name}
@@ -178,7 +177,7 @@ const registerUser = async () => {
       )}
 
       <TextInput
-        placeholderTextColor={theme.text}
+        placeholderTextColor={theme.colors.text}
         placeholder="Enter Email"
         style={[styles.input, {marginTop: 20}]}
         value={email}
@@ -201,7 +200,7 @@ const registerUser = async () => {
         <Text style={[styles.error, {color: 'red'}]}>{errors?.email}</Text>
       )}
       <TextInput
-        placeholderTextColor={theme.text}
+        placeholderTextColor={theme.colors.text}
         placeholder="Enter Mobile"
         keyboardType={'number-pad'}
         style={[styles.input, {marginTop: 20}]}
@@ -227,7 +226,7 @@ const registerUser = async () => {
       )}
 
       <TextInput
-        placeholderTextColor={theme.text}
+        placeholderTextColor={theme.colors.text}
         placeholder="Enter Password"
         style={[styles.input, {marginTop: 20}]}
         value={password}
@@ -251,7 +250,7 @@ const registerUser = async () => {
       )}
 
       <TextInput
-        placeholderTextColor={theme.text}
+        placeholderTextColor={theme.colors.text}
         placeholder="Enter Confirm Password"
         style={[styles.input, {marginTop: 20}]}
         value={confirmPassword}
@@ -305,7 +304,6 @@ const registerUser = async () => {
       <SpinnerModal
         content={'Loading....'}
         visible={isLoading}
-        // overlayColor={theme.headerTheme}
       />
 
       <Text
@@ -315,7 +313,7 @@ const registerUser = async () => {
         }}>
         Or Login
       </Text>
-    </View>
+    </PageContainer>
   );
 };
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text,FlatList,Image,TouchableOpacity,Alert, ImageBackground} from 'react-native';
 import chatStyles from '../../Style/ChatListStyle';
-import { FONTS } from '../../../Constant/Fonts';
 
 import HeaderSeven from '../../../Components/Header/HeaderSeven';
 import { HEIGHT, MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
@@ -97,7 +96,7 @@ const {theme}=useStylesheet()
             <View style={{flex:0.7}}>
             <Text style={{marginLeft:10}} numberOfLines={1}>{item.fileName}</Text>
             </View>
-            <Text style={{ fontFamily:theme.fonts.regular,fontSize: 10, alignSelf: 'flex-end', color: theme.colors.borderColor,marginTop:0 }}>
+            <Text style={{ fontFamily:theme.fonts.regular,fontSize: theme.typography.label, alignSelf: 'flex-end', color: theme.colors.borderColor,marginTop:0 }}>
 {item?.created ? dayDate(item?.created) : ''}
 </Text>
             </TouchableOpacity>

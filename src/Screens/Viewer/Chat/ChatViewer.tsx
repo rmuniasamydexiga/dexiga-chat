@@ -3,12 +3,11 @@ import {
   View,
   Text,
   Alert,
-  SafeAreaView,
   KeyboardAvoidingView,
 } from 'react-native';
 import dynamicStyles from './styles';
 import MessageThread from '../../../Components/chat/MessageThread';
-import BottomInput from '../../../Components/chat/BottomInput';
+import BottomInput from '../../../Components/chat/bottom-input';
 import ActionSheet from 'react-native-actionsheet';
 import HeaderOne from '../../../Components/Header/HeaderOne';
 import HeaderThree from '../../../Components/Header/HeaderThree';
@@ -19,7 +18,7 @@ import {
   MESSAGE_TYPE,
   WIDTH,
 } from '../../../Constant/Constant';
-import { PageContainer } from 'react-native-dex-moblibs';
+import { PageContainer, useStylesheet } from 'react-native-dex-moblibs';
 
 interface IChatViewer {
   disPlayName: string;
@@ -137,7 +136,7 @@ const ChatViewer: React.FC<IChatViewer> = props => {
   const photoUploadDialogRef = useRef<any>();
   const longPressActionSheetRef = useRef<any>();
   const longPressAudioVideoActionSheetRef = useRef<any>();
-
+const {theme} = useStylesheet();
   const onChangeText = (text: string) => {
     onChangeTextInput(text);
   };
@@ -269,7 +268,7 @@ const ChatViewer: React.FC<IChatViewer> = props => {
               style={{
                 marginLeft: WIDTH / 15,
                 alignItems: 'center',
-                fontSize: 16,
+                fontSize: theme.typography.subSubTitle,
                 fontFamily: theme.fonts.bold,
               }}>
               {inputHideMessage}

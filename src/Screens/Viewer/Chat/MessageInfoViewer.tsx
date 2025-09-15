@@ -1,11 +1,9 @@
 import React from 'react';
-import { View, Text,FlatList,Image,TouchableOpacity,Alert, SafeAreaView} from 'react-native';
+import { View, Text,FlatList,Image,TouchableOpacity} from 'react-native';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import chatStyles from '../../Style/ChatListStyle';
-import { FONTS } from '../../../Constant/Fonts';
 import { verticalScale } from '../../../Constant/Metrics';
 import { WIDTH } from '../../../Constant/Constant';
-import { font_size } from '../../../chat-services/Helpers';
 import ThreadItem from '../../../Components/chat/ThreadItem';
 import { dayDate } from '../../../chat-services/DayHelper';
 import { getNameWithList } from '../../../chat-services/common';
@@ -43,7 +41,7 @@ const Messagestatus=({title,time,tickColor,isGroupOrBoardCast,messageListeners}:
 return <View style={{borderBottomWidth:0.5,margin:10 }}>
 <View style={{margin:10 ,flexDirection:'row'}}>
 <VectorIcon name={'checkmark-done-outline'} color={tickColor} size={30} type='Ionicons'/>
-<Text style={{marginLeft:10,fontSize:font_size(14),fontFamily:theme.fonts.bold}}>{title}</Text>
+<Text style={{marginLeft:10,fontSize:theme.typography.label,fontFamily:theme.fonts.bold}}>{title}</Text>
 </View>
 {isGroupOrBoardCast?
 <>
@@ -75,7 +73,7 @@ return <View style={{borderBottomWidth:0.5,margin:10 }}>
                 <Row style={{ alignItems: "center" }}>
                   <Col>
                     <Text
-                      style={{ fontFamily:theme.fonts.bold, fontSize: 16, color: theme.colors.text }}
+                      style={{ fontFamily:theme.fonts.bold, fontSize:theme.typography.subSubTitle, color: theme.colors.text }}
                     >
                       {getNameWithList(item.receiverId,allUser?.completeData)}
                     </Text>
@@ -86,7 +84,7 @@ return <View style={{borderBottomWidth:0.5,margin:10 }}>
               
               </Col>
             </Grid>
-            <Text style={{marginLeft:10,fontSize:font_size(14),fontFamily:theme.fonts.bold}}>{dayDate(title==='Delivery'?item?.deliveryDate:item?.seenDate)
+            <Text style={{marginLeft:10,fontSize:theme.typography.label,fontFamily:theme.fonts.bold}}>{dayDate(title==='Delivery'?item?.deliveryDate:item?.seenDate)
 }</Text>
 
           </TouchableOpacity>
@@ -95,7 +93,7 @@ return <View style={{borderBottomWidth:0.5,margin:10 }}>
         keyExtractor={(item, index) => index.toString()}
       />
 </>:
-<Text style={{marginLeft:10,fontSize:font_size(14),fontFamily:theme.fonts.bold}}>{time}</Text>
+<Text style={{marginLeft:10,fontSize:theme.typography.label,fontFamily:theme.fonts.bold}}>{time}</Text>
 }
 </View>
 }
@@ -107,7 +105,7 @@ return <View style={{borderBottomWidth:0.5,margin:10 }}>
                 <VectorIcon name={'arrow-back-ios-new'} size={30} onPress={()=>navigationBack()} type='MaterialIcons' />
                 </View>
                 <View style={{flex:0.75}}>
-                <Text style={{fontFamily:theme.fonts.bold,fontSize:font_size(14),color:theme.colors.text}}>Message Info </Text>
+                <Text style={{fontFamily:theme.fonts.bold,fontSize:theme.typography.subSubTitle,color:theme.colors.text}}>Message Info </Text>
                 </View>
              </View>
           

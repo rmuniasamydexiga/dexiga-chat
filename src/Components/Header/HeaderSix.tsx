@@ -60,12 +60,12 @@ const HeaderSix: FC<props> = (props) => {
                  onPress={() => props.onPress()}
                     >
             {/* <SvgXml xml={BACK_BUTTON} width={15} height={20}/> */}
-                  <FontAwesome name='angle-left' size={35} color={theme.colors.white}></FontAwesome>
+                  <VectorIcon type="FontAwesome" name='angle-left' size={35} color={theme.colors.white}></VectorIcon>
                 </TouchableOpacity>
 			</View>
                 <View style={{flex:0.7,alignSelf:'center',marginLeft:10,marginTop:props.subTitle===""?12:0}}>
-          <Text style={{fontSize:16,fontWeight:'700',color:theme.colors.white}}>{props.title}</Text>
-          <Text style={{fontSize:12,fontWeight:'400',color:theme.colors.white}}>{props.subTitle}</Text>
+          <Text style={{fontSize:theme.typography.subSubTitle,fontFamily:theme.fonts.bold,color:theme.colors.white}}>{props.title}</Text>
+          <Text style={{fontSize:theme.typography.label,fontFamily:theme.fonts.regular,color:theme.colors.white}}>{props.subTitle}</Text>
 
           </View>
           <View style={{flex:0.25,flexDirection:'row'}}>

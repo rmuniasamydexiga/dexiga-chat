@@ -1,10 +1,11 @@
 import { StyleSheet, Dimensions } from 'react-native';
-
+import { useStylesheet } from 'react-native-dex-moblibs';
 
 
 
 const chatStyles = () => {
 
+const { theme } = useStylesheet();
 
  return StyleSheet.create({
     container: {
@@ -20,8 +21,9 @@ const chatStyles = () => {
       },
       title: {
         color: 'purple',
-        fontSize: 20,
-        fontWeight: '600',
+        fontSize: theme.typography.superText,
+        fontFamily: theme.fonts.bold
+       
       },
       userItem: {
         width: Dimensions.get('window').width - 50,
@@ -38,7 +40,7 @@ const chatStyles = () => {
         width: 40,
         height: 40,
       },
-      name: { color: 'black', marginLeft: 20, fontSize: 20 },
+      name: { color: 'black', marginLeft: 20, fontSize: theme.typography.superText},
   });
 };
 

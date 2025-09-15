@@ -82,8 +82,8 @@ const HeaderFour: FC<props> = props => {
         <View style={{flex: 0.6}}>
           <Text
             style={{
-              fontSize: 16,
-              fontWeight: '700',
+              fontSize: theme.typography.subSubTitle,
+              fontFamily: theme.fonts.bold,
               color: theme.colors.white,
               margin: 8,
             }}>
@@ -140,8 +140,8 @@ const HeaderFour: FC<props> = props => {
           }}>
           <Text
             style={{
-              fontSize: 16,
-              fontWeight: '700',
+              fontSize: theme.typography.subSubTitle,
+              fontFamily: theme.fonts.bold,
               color: theme.colors.white,
               margin: 8,
             }}>

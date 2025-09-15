@@ -3,12 +3,10 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet,
   ImageBackground,
   TextInput,
 } from 'react-native';
 
-import {FONT_SIZE} from '../../Constant/FontSize';
  import {verticalScale, moderateScale} from '../../Constant/Metrics';
 import {PopupMenu} from '../Menu/Menu';
 import { useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
@@ -32,15 +30,7 @@ interface props {
 
 const HeaderFive: FC<props> = props => {
   const {theme}=useStylesheet()
-  const styles = StyleSheet.create({
-    HeaderText: {
-      fontSize: moderateScale(FONT_SIZE.font_20),
-      fontFamily: theme.fonts.bold,
-      color: theme.colors.text,
-      textAlignVertical: 'center',
-      marginBottom: '2%',
-    },
-  });
+
 
   return props.showTextInput ? (
     <ImageBackground
@@ -97,17 +87,18 @@ const HeaderFive: FC<props> = props => {
               justifyContent: 'center',
             }}
             onPress={() => props.onPress()}>
-            <FontAwesome
+            <VectorIcon
+              type="FontAwesome"
               name="angle-left"
               size={40}
-              color={theme.colors.white}></FontAwesome>
+              color={theme.colors.white}></VectorIcon>
           </TouchableOpacity>
         </View>
         <View style={{flex: 0.7, alignSelf: 'center', marginLeft: 10}}>
-          <Text style={{fontSize: 16, fontWeight: '700', color: theme.colors.text}}>
+          <Text style={{fontSize: theme.typography.subSubTitle, fontFamily: theme.fonts.bold, color: theme.colors.text}}>
             {props.title}
           </Text>
-          <Text style={{fontSize: 12, fontWeight: '400', color: theme.colors.text}}>
+          <Text style={{fontSize: theme.typography.label, fontFamily: theme.fonts.regular, color: theme.colors.text}}>
             {props.subTitle}
           </Text>
         </View>

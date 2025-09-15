@@ -1,39 +1,36 @@
 import { StyleSheet } from 'react-native';
-
-import { GetTheme } from '../../Constant/Colors';
-import { FONTS } from '../../Constant/Fonts';
+import { useStylesheet } from 'react-native-dex-moblibs';
 
 
 
 const authStyles = () => {
-  const  theme= GetTheme()
-
+const {theme}=useStylesheet()
 
  return StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor:theme.background
+      backgroundColor:theme.colors.background
     },
     title: {
       fontSize: 30,
-      color: theme.text,
+      color: theme.colors.text,
       alignSelf: 'center',
       marginTop: 100,
-      fontWeight: '600',
+    fontFamily:theme.fonts.bold
     },
     input: {
       width: '90%',
       height: 50,
-      color:theme.text,
+      color:theme.colors.text,
       borderWidth: 0.5,
       fontFamily:theme.fonts.regular,
-      borderColor:theme.text,
+      borderColor:theme.colors.text,
       borderRadius: 10,
       alignSelf: 'center',
       paddingLeft: 20,
     },
     error: {
-      fontFamily:theme.fonts.regular,   
+      fontFamily:theme.fonts.regular,
       marginTop:10,
       paddingLeft: 20,
     },
@@ -45,10 +42,10 @@ const authStyles = () => {
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: 50,
-      backgroundColor: theme.headerTheme
+      backgroundColor: theme.colors.primary
     },
     btnText: {
-      color: 'white',
+      color:  theme.colors.text,
       fontSize: 20,
     },
     orLogin: {
@@ -57,8 +54,8 @@ const authStyles = () => {
       fontSize: 20,
       
       textDecorationLine: 'underline',
-      fontFamily:FONTS.OpenSans_Medium,
-      color: 'black',
+      fontFamily:theme.fonts.regular,
+      color:  theme.colors.textInverse,
     },
   });
 };
