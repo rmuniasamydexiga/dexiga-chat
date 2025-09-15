@@ -9,8 +9,9 @@ import {
   getFileUrlForInternal,
   getFileUrlForInternalReceiver,
   isUrlValid,
-} from '../../Controller/Chat/Helper/MediaHelper';
-import { showLog } from '../../../Helper/common';
+} from '../../../chat-services/MediaHelper';
+import { showLog } from '../../../chat-services/common';
+import { PageContainer } from 'react-native-dex-moblibs';
 interface User {
   name: string;
   email: string;
@@ -31,7 +32,7 @@ const MediaViewingViewer: React.FC<IPlayerListViewer> = props => {
 
     
 
-    <SafeAreaView style={[styles.container]}>
+  <PageContainer>
       <HeaderTwo
         isShowDownLoad={false}
         title={data.messageType}
@@ -73,7 +74,7 @@ const MediaViewingViewer: React.FC<IPlayerListViewer> = props => {
     />
        
       )}
-    </SafeAreaView>
+  </PageContainer>
   );
 };
 

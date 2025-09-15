@@ -6,7 +6,7 @@ import dynamicStyles from "../../Screens/Viewer/Chat/styles";
 import ThreadItem from "./ThreadItem";
 import { IUser } from "../../Interfaces/Chat";
 import { useSelector } from "react-redux";
-import { selectedChannelDetails } from "../../Redux/chat/reducers";
+import { selectedChannelDetails } from "../../redux/chatSlice";
 import { MESSAGE_CONTENT, MESSAGE_TYPE, WIDTH } from "../../Constant/Constant";
 import { GetTheme } from "../../Constant/Colors";
 

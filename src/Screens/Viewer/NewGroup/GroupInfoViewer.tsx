@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text,  FlatList, Image, TouchableOpacity,Alert, ImageBackground} from 'react-native';
 import { GetTheme } from '../../../Constant/Colors';
 import { FONTS } from '../../../Constant/Fonts';
-import { font_size } from '../../../Helper/Helpers';
+import { font_size } from '../../../chat-services/Helpers';
 import HeaderFive from '../../../Components/Header/HeaderFive';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import ActionSheet from 'react-native-actionsheet';
@@ -10,7 +10,7 @@ import Feather from 'react-native-vector-icons/Feather'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { CHAT_DETAILS_CONFIGURE, MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
-import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../Controller/Chat/Helper/MediaHelper';
+import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
 
 interface User {
   name: string;

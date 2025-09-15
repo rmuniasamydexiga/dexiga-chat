@@ -3,8 +3,8 @@ import { GROUP_PERMISSIONS } from '../../../Constant/Constant';
 import GroupPermissionsViewer from '../../Viewer/NewGroup/GroupPermissionsViewer';
 import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import {  selectGroupPermission, selectedChannelDetails, setChatChanneDetails, setPermssions } from '../../../Redux/chat/reducers';
-import { channelPermissionUpdate } from '../../../firebase/channel';
+import {  selectGroupPermission, selectedChannelDetails, setChatChanneDetails, setPermssions } from '../../../redux/chatSlice';
+import { channelPermissionUpdate } from '../../../chat-firebase/channel';
 import { BackHandler } from 'react-native';
 
 

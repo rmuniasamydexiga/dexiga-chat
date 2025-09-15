@@ -13,13 +13,13 @@ import {
   selectedChannelDetails,
   setChatChanneDetails,
   setChatList,
-} from '../../../Redux/chat/reducers';
+} from '../../../redux/chatSlice';
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
-import {deleteBraodCast, updateBroadCast} from '../../../firebase/channel';
+import {deleteBraodCast, updateBroadCast} from '../../../chat-firebase/channel';
 
 import BroadCastInfoViewer from '../../Viewer/Newbroadcast/BroadCastInfoViewer';
 import {BackHandler} from 'react-native';
-import {showLog} from '../../../Helper/common';
+import {showLog} from '../../../chat-services/common';
 
 interface Props {
   user: any;

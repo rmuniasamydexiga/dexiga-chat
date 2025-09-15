@@ -12,7 +12,7 @@ import FastImage from 'react-native-fast-image';
 import Icon from 'react-native-vector-icons/Ionicons';
 import dynamicStyles from '../../Screens/Viewer/Chat/styles';
 import ThreadMediaItem from './ThreadMediaItem';
-import {dayFormatwithUnix} from '../../Helper/DayHelper';
+import {dayFormatwithUnix} from '../../chat-services/DayHelper';
 import {GetTheme} from '../../Constant/Colors';
 import {
   CHAT_OPTIONS,
@@ -20,14 +20,14 @@ import {
   MESSAGE_TYPE,
   WIDTH,
 } from '../../Constant/Constant';
-import {checkFileOrDirectoryExists} from '../../Screens/Controller/Chat/Helper/MediaHelper';
+import {checkFileOrDirectoryExists} from '../../chat-services/MediaHelper';
 import {FONTS} from '../../Constant/Fonts';
 import Octicons from 'react-native-vector-icons/Octicons';
-import {getFizeInUint, showLog} from '../../Helper/common';
+import {getFizeInUint, showLog} from '../../chat-services/common';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import {useSelector} from 'react-redux';
-import {selectAudioDuration} from '../../Redux/chat/reducers';
-import {decrypt} from '../../Helper/EndToEndEncryption';
+import {selectAudioDuration} from '../../redux/chatSlice';
+import {decrypt} from '../../chat-services/EndToEndEncryption';
 import React from 'react';
 
 interface props {

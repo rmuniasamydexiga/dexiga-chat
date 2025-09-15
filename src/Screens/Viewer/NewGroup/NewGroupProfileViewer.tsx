@@ -9,7 +9,6 @@ import {
   TextInput,
   SafeAreaView,
 } from 'react-native';
-import ContactsFloatingIcon from '../../../Components/chat/ContactsFloatingIcon';
 import {Col, Grid} from 'react-native-easy-grid';
 import {GetTheme} from '../../../Constant/Colors';
 
@@ -17,7 +16,8 @@ import {WIDTH} from '../../../Constant/Constant';
 import HeaderSeven from '../../../Components/Header/HeaderSeven';
 import Feather from 'react-native-vector-icons/Feather';
 import {FONTS} from '../../../Constant/Fonts';
-import {getName} from '../../../Helper/common';
+import {getName} from '../../../chat-services/common';
+import { PageContainer,ContactsFloatingIcon } from 'react-native-dex-moblibs';
 
 interface User {
   name: string;
@@ -54,8 +54,7 @@ const NewGroupProfileViewer: React.FC<IPlayerListViewer> = props => {
   } = props;
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={{flex: 1, backgroundColor: theme.background}}>
+    <PageContainer>
         <HeaderSeven
           title={'New Group'}
           onPress={() => navigationGoback()}
@@ -174,8 +173,7 @@ const NewGroupProfileViewer: React.FC<IPlayerListViewer> = props => {
             // saveFIle()
             contactOnNavigation()
           }></ContactsFloatingIcon>
-      </View>
-    </SafeAreaView>
+      </PageContainer>
   );
 };
 

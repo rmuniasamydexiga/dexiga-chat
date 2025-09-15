@@ -1,11 +1,5 @@
+import React from 'react';
 import {
-  ReactElement,
-  JSXElementConstructor,
-  ReactNode,
-  ReactPortal,
-} from 'react';
-import {
-  Alert,
   FlatList,
   Image,
   ImageBackground,
@@ -14,12 +8,12 @@ import {
   View,
 } from 'react-native';
 import {Col, Grid, Row} from 'react-native-easy-grid';
-import {dayFormatwithUnix} from '../../Helper/DayHelper';
+import {dayFormatwithUnix} from '../../chat-services/DayHelper';
 import ListEmptyComponent from './ListEmptyCompont';
 import {GetTheme} from '../../Constant/Colors';
 import {FONTS} from '../../Constant/Fonts';
 import {CHAT_OPTIONS} from '../../Constant/Constant';
-import {checkPlayerBlockOrNot, getMessage, getName} from '../../Helper/common';
+import {checkPlayerBlockOrNot, getMessage, getName} from '../../chat-services/common';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {SCREEN_NAMES} from '../../Constant/ScreenName';
 import AntDesign from 'react-native-vector-icons/AntDesign';

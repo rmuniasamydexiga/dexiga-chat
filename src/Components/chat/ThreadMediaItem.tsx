@@ -13,15 +13,15 @@ import Video from 'react-native-video';
 import {
   getFileUrlForInternal,
   getFileUrlForInternalReceiver,
-} from '../../Screens/Controller/Chat/Helper/MediaHelper';
+} from '../../chat-services/MediaHelper';
 import PlayIcon from 'react-native-vector-icons/FontAwesome';
 import Octicons from 'react-native-vector-icons/Octicons';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
-import {dayFormatwithUnix} from '../../Helper/DayHelper';
+import {dayFormatwithUnix} from '../../chat-services/DayHelper';
 import {FONTS} from '../../Constant/Fonts';
 import {GetTheme} from '../../Constant/Colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {getFizeInUint, showLog} from '../../Helper/common';
+import {getFizeInUint, showLog} from '../../chat-services/common';
 import React from 'react';
 
 interface props {

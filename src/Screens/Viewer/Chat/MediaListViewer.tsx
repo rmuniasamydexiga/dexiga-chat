@@ -8,11 +8,11 @@ import { FONTS } from '../../../Constant/Fonts';
 import HeaderSeven from '../../../Components/Header/HeaderSeven';
 import { HEIGHT, MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
 import { verticalScale } from '../../../Constant/Metrics';
-import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../Controller/Chat/Helper/MediaHelper';
+import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { dayDate, dayFormatwithUnix } from '../../../Helper/DayHelper';
-import ListEmptyComponent from '../../../Components/chat/ListEmptyCompont';
-import { getName } from '../../../Helper/common';
+import { dayDate, dayFormatwithUnix } from '../../../chat-services/DayHelper';
+import { getName } from '../../../chat-services/common';
+import { ListEmptyComponent } from 'react-native-dex-moblibs';
 interface User {
   name: string;
   email: string;
@@ -63,8 +63,10 @@ const MediaListViewer: React.FC <IPlayerListViewer>= (props) => {
         numColumns={3}
         ListEmptyComponent={()=>
             <ListEmptyComponent
-            message={"No Media Found"}
-            />
+            title={"No Media Found"} description={''} 
+            type={'MaterialIcons'} 
+            name={''} size={0}         
+               />
         }
 
         renderItem={({ item, index }) => {

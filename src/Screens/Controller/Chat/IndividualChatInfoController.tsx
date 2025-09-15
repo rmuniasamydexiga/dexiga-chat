@@ -15,7 +15,7 @@ import {
   setChatChanneDetails,
   setParticipantsList,
   setPermssions,
-} from '../../../Redux/chat/reducers';
+} from '../../../redux/chatSlice';
 import GroupInfoViewer from '../../Viewer/NewGroup/GroupInfoViewer';
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 import {
@@ -24,13 +24,13 @@ import {
   onLeaveGroup,
   persistChannelParticipations,
   updateBroadCast,
-} from '../../../firebase/channel';
-import {channelManager} from '../../../firebase';
+} from '../../../chat-firebase/channel';
+import {channelManager} from '../../../chat-firebase';
 import {useAuth} from '../../../Router/Context/Auth';
 import BroadCastInfoViewer from '../../Viewer/Newbroadcast/BroadCastInfoViewer';
 import {BackHandler} from 'react-native';
 import IndividualChatInfoViewer from '../../Viewer/Chat/IndividualChatInfoViewer';
-import {showLog} from '../../../Helper/common';
+import {showLog} from '../../../chat-services/common';
 
 interface Props {
   user: any;

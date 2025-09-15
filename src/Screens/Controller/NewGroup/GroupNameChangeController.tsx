@@ -4,8 +4,8 @@ import {  useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { SCREEN_NAMES } from '../../../Constant/ScreenName';
-import { selectGroupPermission, selectUser, selectedChannelDetails, setChatChanneDetails } from '../../../Redux/chat/reducers';
-import {  sendInfoMessage, updateChannel } from '../../../firebase/channel';
+import { selectGroupPermission, selectUser, selectedChannelDetails, setChatChanneDetails } from '../../../redux/chatSlice';
+import {  sendInfoMessage, updateChannel } from '../../../chat-firebase/channel';
 import GroupChangeViewer from '../../Viewer/NewGroup/GroupNameChangeViewer';
 import { MESSAGE_CONTENT } from '../../../Constant/Constant';
 

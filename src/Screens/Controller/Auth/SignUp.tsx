@@ -1,22 +1,22 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, Alert} from 'react-native';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
-import firestore from '@react-native-firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 import authStyles from '../../Style/LoginStyle';
 import {GetTheme} from '../../../Constant/Colors';
-import SelectButton from '../../../Components/Buttons/SelectButton';
 import {SNACKBAR_MESSAGE_LENGTH, USER_TYPE} from '../../../Constant/Constant';
 import RadioButton from '../../../Components/Buttons/RadioButton';
-import {signUpValidationSchema, validation} from '../../../Helper/validation';
+import {signUpValidationSchema, validation} from '../../../chat-services/validation';
 import {
   showLog,
   snackBarMessage,
   validateMobileNumber,
-} from '../../../Helper/common';
+} from '../../../chat-services/common';
 import Spinner from '../../../Components/Loader/Spinner';
+import { checkIfEmailExists, createUser } from '../../../chat-firebase/auth';
+import { Button } from 'react-native-dex-moblibs';
 
 interface ISignup {
   name: string;
@@ -28,13 +28,13 @@ interface ISignup {
 }
 
 const Signup: React.FC<ISignup> = props => {
-  const [name, setName] = useState<string>('');
+  const [name, setName] = useState<string>('muniyaraj');
   const [errors, setErrors] = useState<any>(null);
-  const [email, setEmail] = useState<string>('');
-  const [mobile, setMobile] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [selectedOption, setSelectedOption] = useState<string>(USER_TYPE.HOST);
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>('muni120@gmail.com');
+  const [mobile, setMobile] = useState<string>('1234567890');
+  const [password, setPassword] = useState<string>('Muni1@123');
+  const [selectedOption, setSelectedOption] = useState<string>(USER_TYPE.PLAYER);
+  const [confirmPassword, setConfirmPassword] = useState<string>('Muni1@123');
   const [isLoading, setIsLoading] = useState(false);
 
   const {navigation} = props;
@@ -67,67 +67,66 @@ const Signup: React.FC<ISignup> = props => {
       setErrors(result.error);
     }
   };
-  const registerUser = async () => {
-    try {
-      const userId = uuidv4();
-      const req = {
-        name,
-        userName: name,
-        email,
-        password,
-        mobile,
-        userId,
-        confirmPassword,
-        userType: selectedOption,
-      };
+const registerUser = async () => {
+  try {
+    const userId = uuidv4();
+    const req = {
+      name,
+      userName: name,
+      email,
+      password,
+      mobile,
+      userId: userId,
+      confirmPassword,
+      userType: selectedOption,
+    };
 
-      const result = await validation(signUpValidationSchema, req);
-      if (!result.status) {
-        setErrors(result.error);
-        return;
-      }
-
-      setIsLoading(true);
-      setErrors(null);
-
-      const querySnapshot = await firestore()
-        .collection('users')
-        .where('email', '==', email)
-        .get();
-
-      if (!querySnapshot.empty) {
-        setIsLoading(false);
-        Alert.alert('Email Already Exist');
-        return;
-      }
-
-      await firestore()
-        .collection('users')
-        .doc(userId)
-        .set({
-          name,
-          userName: name,
-          email,
-          password,
-          mobile,
-          userId,
-          userType: selectedOption,
-        });
-
-      setIsLoading(false);
-      setTimeout(() => {
-        snackBarMessage(
-          'User Registered Successfully',
-          SNACKBAR_MESSAGE_LENGTH.LONG,
-        );
-        navigation.navigate(SCREEN_NAMES.LOGIN);
-      }, 1000);
-    } catch (e: unknown) {
-      const errorMsg = e instanceof Error ? e.message : String(e);
-      showLog('SignUpError', errorMsg);
-      setIsLoading(false);
+    const result = await validation(signUpValidationSchema, req);
+    if (!result.status) {
+      setErrors(result.error);
+      return;
     }
-  };
+
+    setIsLoading(true);
+    setErrors(null);
+
+    // ✅ Check if email exists
+    const emailExists = await checkIfEmailExists(email);
+    console.log('Email exists:', JSON.stringify(req));
+    if (emailExists) {
+      setIsLoading(false);
+      Alert.alert('Email Already Exist');
+      return;
+    }else{
+          setIsLoading(false);
+
+    }
+
+    // ✅ Create user
+   let res= await createUser(userId, {
+      name,
+      userName: name,
+      email,
+      password,
+      mobile,
+      userId,
+      userType: selectedOption,
+    });
+    console.log("resresres==>",JSON.stringify(res))
+
+    setTimeout(() => {
+      snackBarMessage(
+        'User Registered Successfully',
+        SNACKBAR_MESSAGE_LENGTH.LONG,
+      );
+      navigation.navigate(SCREEN_NAMES.LOGIN);
+    }, 2000);
+  } catch (e: unknown) {
+    const errorMsg = e instanceof Error ? e.message : String(e);
+    showLog('SignUpError', errorMsg);
+    setIsLoading(false);
+  }
+};
 
   const validate = (): boolean => {
     let isValid = true;
@@ -296,18 +295,13 @@ const Signup: React.FC<ISignup> = props => {
         ))}
       </View>
       <View style={{flex: 1, alignItems: 'center', marginTop: 10}}>
-        <SelectButton
-          Text={'SUBMIT'}
-          Width={220}
-          onPress={() => {
-            //  if (validate()) {
-            registerUser();
-            // } else {
-            //   Alert.alert('Please Enter Correct Data');
-            // }
-          }}
-          textColor={theme.white}
-        />
+           
+                       <Button
+                                      title={'SUBMIT'}
+                                      style={{ width: 220}}
+                                      onPress={()=>registerUser()}
+                                    />
+       
       </View>
       <Spinner
         textContent={'Loading....'}

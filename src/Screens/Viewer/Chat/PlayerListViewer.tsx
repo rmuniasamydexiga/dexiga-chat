@@ -13,7 +13,7 @@ import HeaderFive from '../../../Components/Header/HeaderFive';
 import {GetTheme} from '../../../Constant/Colors';
 import chatStyles from '../../Style/ChatListStyle';
 import {FONTS} from '../../../Constant/Fonts';
-import {getName} from '../../../Helper/common';
+import {getName} from '../../../chat-services/common';
 import ListComponent from '../../../Components/chat/ListComponents';
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -22,6 +22,7 @@ import BottomInput from '../../../Components/chat/BottomInput';
 import {FROM_NAVIGATION} from '../../../Constant/Constant';
 import dynamicStyles from './styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { PageContainer } from 'react-native-dex-moblibs';
 
 interface IPlayerListViewer {
   users: any;
@@ -65,7 +66,7 @@ const PlayerListViewer: React.FC<IPlayerListViewer> = props => {
   };
 
   return (
-    <SafeAreaView style={{flex:1}}>
+    <PageContainer>
     <KeyboardAvoidingView style={[styles.container]}>
       <HeaderFive
         title={'Select Contact'}
@@ -123,7 +124,7 @@ const PlayerListViewer: React.FC<IPlayerListViewer> = props => {
         </View>
       )}
     </KeyboardAvoidingView>
-    </SafeAreaView>
+    </PageContainer>
   );
 };
 

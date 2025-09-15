@@ -4,17 +4,19 @@ import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 import Login from '../../Viewer/Auth/Login';
 import firestore from '@react-native-firebase/firestore';
-import {firebaseAuth} from '../../../firebase';
+import {firebaseAuth} from '../../../chat-firebase';
 import {USER_TYPE} from '../../../Constant/Constant';
-import {STORAGE, getData, setData} from '../../../Helper/StorageHelper';
-import {setChatList, setUser, setUserList} from '../../../Redux/chat/reducers';
+import {STORAGE} from '../../../chat-services/StorageHelper';
+import {setChatList, setUser, setUserList} from '../../../redux/chatSlice';
 import {useDispatch} from 'react-redux';
-import {signInValidationSchema, validation} from '../../../Helper/validation';
+import {signInValidationSchema, validation} from '../../../chat-services/validation';
 import {useAuth} from '../../../Router/Context/Auth';
-import {channelManager, firebaseStorage, firebaseUser} from '../../../firebase';
-import {dayDate} from '../../../Helper/DayHelper';
-import {showLog} from '../../../Helper/common';
-import {getAllUserList} from '../../../firebase/user';
+import {channelManager, firebaseStorage, firebaseUser} from '../../../chat-firebase';
+import {dayDate} from '../../../chat-services/DayHelper';
+import {showLog} from '../../../chat-services/common';
+import {getAllUserList} from '../../../chat-firebase/user';
+import { loginUser } from '../../../chat-firebase/auth';
+import { getData, setData } from 'react-native-dex-moblibs';
 
 const LoginController: FC = props => {
   const navigation: any = useNavigation();
@@ -95,74 +97,41 @@ const LoginController: FC = props => {
     }
   };
 
-  const loginFun = async () => {
-    try {
-      let validationResult = await validation(
-        signInValidationSchema,
-        userInputs,
-      );
-      if (validationResult.status) {
-        setErrors(null);
-        setIsLoading(true);
-        firestore()
-          .collection('users')
-          .where('email', '==', userInputs.email)
-          .get()
-          .then(
-            (res: {
-              docs: {data: () => {(): any; new (): any; userId: string}}[];
-            }) => {
-              if (res.docs !== []) {
-                firebaseAuth.fetchAndStorePushTokenIfPossible({
-                  id: res.docs[0].data().userId,
-                  userID: res.docs[0].data().userId,
-                });
-                if (res.docs[0].data().password === userInputs.password) {
-                  setUserInputs({
-                    email: '',
-                    password: '',
-                    userType: '',
-                  });
-                  if (res.docs[0].data().userType === userInputs.userType) {
-                    let name: string | null = res.docs[0].data().name;
-                    let email: string | null = res.docs[0].data().email;
-                    let userId: string | null = res.docs[0].data().userId;
-                    let users: any = {
-                      name: name,
-                      id: userId,
-                      userID: userId,
-                      email: email,
-                    };
-                    dispatch(setUser(users));
-                    goToNext(
-                      res.docs[0].data().name,
-                      res.docs[0].data().email,
-                      res.docs[0].data().userId,
-                    );
-                  } else {
-                    Alert.alert('User not found');
-                  }
-                } else {
-                  Alert.alert('Wrong Password');
-                }
-              } else {
-                Alert.alert('User not found');
-              }
-            },
-          )
-          .catch((error: any) => {
-            setIsLoading(false);
+const loginFun = async () => {
+  try {
+    let validationResult = await validation(signInValidationSchema, userInputs);
 
-            Alert.alert('User not found');
-          });
-      } else {
-        setErrors(validationResult?.error);
-      }
-    } catch (e) {
-      Alert.alert('Error', (e as Error).message, [{text: 'OK'}]);
+    if (!validationResult.status) {
+      setErrors(validationResult.error);
+      return;
     }
-    //navigation.navigate(SCREEN_NAMES.CHAT_LIST)
-  };
+
+    setErrors(null);
+    setIsLoading(true);
+
+    const result = await loginUser(
+      userInputs.email,
+      userInputs.password,
+      userInputs.userType,
+    );
+
+    setIsLoading(false);
+
+    if (result.error) {
+      Alert.alert(result.error);
+      return;
+    }
+
+    const user = result.user;
+    dispatch(setUser(user));
+    setUserInputs({ email: '', password: '', userType: '' });
+    goToNext(user.name, user.email, user.userID);
+
+  } catch (e: any) {
+    setIsLoading(false);
+    Alert.alert('Error', e.message, [{ text: 'OK' }]);
+  }
+};
 
   const goToNext = async (name: string, email: string, userId: string) => {
     await setData(STORAGE.NAME, name);
@@ -331,7 +300,7 @@ const LoginController: FC = props => {
         updateChannelsStore(hydratedChannel);
       });
     } catch (e) {
-      showLog('hydratedChannelErrorrr===>', e);
+      showLog('hydratedChannelErrorrr===>', e.message);
     }
   };
   const updateChannelsStore = async (hydratedChannel: any[]) => {

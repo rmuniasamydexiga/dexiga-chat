@@ -16,9 +16,9 @@ import PlayerListController from '../../Screens/Controller/Chat/PlayerListContro
 import {MenuProvider} from 'react-native-popup-menu';
 import MediaViewingController from '../../Screens/Controller/Chat/MediaViewingController';
 import {Provider, useDispatch} from 'react-redux';
-import {store} from '../../Redux/store';
+import {store} from '../../redux/store';
 import {AuthProvider, useAuth} from '../Context/Auth';
-import SplashScreenController from '../../Screens/Controller/Splash/Splash';
+import SplashScreenController from '../../Screens/Controller/Auth/Splash';
 import AddNewBroadCastController from '../../Screens/Controller/NewBroadCast/NewBroadCastController';
 import AddNewGroupController from '../../Screens/Controller/NewGroup/NewGroupController';
 import AddNewGroupProfileController from '../../Screens/Controller/NewGroup/NewGroupProfileController';
@@ -35,10 +35,10 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 export const navigationRef = createNavigationContainerRef();
 import messaging from '@react-native-firebase/messaging';
-import OffLineAlert from '../../Components/OffLineAlert';
 import NetInfo from '@react-native-community/netinfo';
 import GroupNameChangeController from '../../Screens/Controller/NewGroup/GroupNameChangeController';
-import {showLog} from '../../Helper/common';
+import {showLog} from '../../chat-services/common';
+import { ThemeProviderWrapper } from '../ThemeProviderWrapper';
 
 const App = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -93,9 +93,10 @@ const App = () => {
   return (
     <NavigationContainer ref={navigationRef}>
       <Provider store={store}>
+                    <ThemeProviderWrapper>
+
         <AuthProvider>
           <MenuProvider>
-            {isConnected === false ? <OffLineAlert></OffLineAlert> : null}
             <Stack.Navigator
               initialRouteName={SCREEN_NAMES.SPLASH_SCREEN}
               screenOptions={{
@@ -177,6 +178,7 @@ const App = () => {
             </Stack.Navigator>
           </MenuProvider>
         </AuthProvider>
+        </ThemeProviderWrapper>
       </Provider>
     </NavigationContainer>
   );

@@ -1,6 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 import {currentTimestamp} from './channel';
-import {showLog} from '../Helper/common';
+import {showLog} from '../chat-services/common';
 
 const notificationsRef = firestore().collection('notifications');
 

@@ -7,14 +7,15 @@ import {
   CHAT_DETAILS_CONFIGURE,
   ERROR_MESSAGE_CONTENT,
 } from '../../../Constant/Constant';
-import {STORAGE, getData} from '../../../Helper/StorageHelper';
+import {STORAGE} from '../../../chat-services/StorageHelper';
 import {
   selectChatList,
   selectUser,
   selectUserList,
-} from '../../../Redux/chat/reducers';
+} from '../../../redux/chatSlice';
 import {Alert} from 'react-native';
-import {checkPlayerBlockOrNot} from '../../../Helper/common';
+import {checkPlayerBlockOrNot} from '../../../chat-services/common';
+import { getData } from 'react-native-dex-moblibs';
 
 interface Props {
   user: any;
@@ -54,24 +55,7 @@ const AddNewGroupController: React.FC = () => {
     setUserId(userId);
   };
 
-  // const getUsers = async () => {
-  // let   id = await getData(STORAGE.USERID)||''
-  //   const email =await  getData(STORAGE.EMAIL)|| '';
-  //   const tempData: User[] = [];
-  //   firestore()
-  //     .collection('users')
-  //     .where('email', '!=', email)
-  //     .get()
-  //     .then((res: { docs: any[]; }) => {
-
-  //       res.docs.forEach(item => {
-  //         tempData.push(item.data() as User);
-  //       });
-  //       setUserFilter(tempData)
-
-  //       setUsers(tempData);
-  //     });
-  // };
+ 
   const onFriendItemPress = (friend: any) => {
     let i = 1;
     if (

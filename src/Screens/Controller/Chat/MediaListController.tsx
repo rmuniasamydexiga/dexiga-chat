@@ -2,11 +2,11 @@ import {  Alert, Platform, PermissionsAndroid } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import { selectDocumentList, selectMediaList, selectUser, selectedChannelDetails } from '../../../Redux/chat/reducers';
+import { selectDocumentList, selectMediaList, selectUser, selectedChannelDetails } from '../../../redux/chatSlice';
 import MediaListViewer from '../../Viewer/Chat/MediaListViewer';
 import { SCREEN_NAMES } from '../../../Constant/ScreenName';
 import { MESSAGE_TYPE } from '../../../Constant/Constant';
-import { getFileViewer } from './Helper/MediaHelper';
+import { getFileViewer } from '../../../chat-services/MediaHelper';
 
 
 

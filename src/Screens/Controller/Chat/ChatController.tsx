@@ -3,6 +3,7 @@ import {
   Alert,
   Platform,
   Linking,
+
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {
@@ -17,14 +18,13 @@ import storage from '@react-native-firebase/storage';
 import AudioRecorderPlayer, {
   AVEncoderAudioQualityIOSType,
   AVEncodingOption,
-  AVModeIOSOption,
   AudioEncoderAndroidType,
   AudioSet,
   AudioSourceAndroidType,
   OutputFormatAndroidType,
 } from 'react-native-audio-recorder-player';
-import {channelManager, firebaseStorage} from '../../../firebase';
-import StyleDict from '../../../Helper/AppStyle';
+import {channelManager, firebaseStorage} from '../../../chat-firebase';
+import StyleDict from '../../../chat-services/AppStyle';
 import ChatViewer from '../../Viewer/Chat/ChatViewer';
 import {
   CHAT_DETAILS_CONFIGURE,
@@ -42,12 +42,12 @@ import {
   muteChat,
   deleteChat,
   currentTimestamp,
-  deleteBraodCast,
+  deleteBroadcast,
   exitTheGroup,
   makeAdmin,
   onLeaveGroup,
   updateMessageStatusThread,
-} from '../../../firebase/channel';
+} from '../../../chat-firebase/channel';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   selectChannelGroupParticipants,
@@ -66,7 +66,7 @@ import {
   setMediaList,
   setParticipantsList,
   setThread,
-} from '../../../Redux/chat/reducers';
+} from '../../../redux/chatSlice';
 import DocumentPicker from 'react-native-document-picker';
 import {
   checkFileOrDirectoryExists,
@@ -80,23 +80,28 @@ import {
   readFileName,
   readFileNameMedia,
   readInternalFileName,
-} from './Helper/MediaHelper';
+} from '../../../chat-services/MediaHelper';
 import {
   getFileSizeLimit,
   requestAudioPermission,
   requestPerMissions,
   showLog,
   snackBarMessage,
-} from '../../../Helper/common';
+} from '../../../chat-services/common';
 
 import {useAuth} from '../../../Router/Context/Auth';
 import {
   broadCastPushNotifications,
   groupPushNotifications,
   indiviualPushNotifications,
-} from './Helper/NotificationHelper';
+} from '../../../chat-services/NotificationHelper';
 import Clipboard from '@react-native-clipboard/clipboard';
-import {encrypt, sharedKeyAlgorthim} from '../../../Helper/EndToEndEncryption';
+import {encrypt, sharedKeyAlgorthim} from '../../../chat-services/EndToEndEncryption';
+import ActionSheet from 'react-native-actionsheet';
+import MessageThread from '../../../Components/chat/MessageThread';
+import HeaderThree from '../../../Components/Header/HeaderThree';
+import HeaderOne from '../../../Components/Header/HeaderOne';
+import dynamicStyles from '../../Viewer/Chat/styles';
 
 const audioRecorderPlayer = new AudioRecorderPlayer();
 
@@ -125,7 +130,13 @@ const ChatController: React.FC = () => {
     url: null,
   });
 
-  const [selectedMessage, setSeletedMessage] = useState([]);
+  // Define a type for your message object
+  type MessageType = {
+    id: string;
+    content?: string;
+    [key: string]: any;
+  };
+  const [selectedMessage, setSeletedMessage] = useState<MessageType[]>([]);
   const [isHeaderChage, setIsHeaderChange] = useState<boolean>(false);
 
   const [menuVisible, setMenuVisble] = useState(false);
@@ -133,6 +144,8 @@ const ChatController: React.FC = () => {
   const navigation = useNavigation<any>();
 
   let appStyles = StyleDict;
+    const styles = dynamicStyles(null);
+
   const route = useRoute();
 
   const groupSettingsActionSheetRef = useRef<any>();
@@ -180,12 +193,14 @@ const ChatController: React.FC = () => {
   useEffect(() => {
     let listener = updateMessageStatusThread(
       channel,
-      MESSAGE_STATUS.READ,
+      // MESSAGE_STATUS.READ,
       user?.id,
       channel?.participants?.[0]?.is_broadCast,
     );
     return () => {
-      listener();
+      if (listener) {
+        listener();
+      }
     };
   }, []);
 
@@ -216,7 +231,7 @@ const ChatController: React.FC = () => {
   const onPressMenu = async (data: string) => {
     if (data === 'copy') {
       let message = selectedMessage?.[0]?.content;
-      Clipboard.setString(message);
+      Clipboard.setString(message ?? '');
       setIsHeaderChange(false);
       snackBarMessage('Message copied', SNACKBAR_MESSAGE_LENGTH.SHORT);
 
@@ -239,9 +254,9 @@ const ChatController: React.FC = () => {
     ) {
       await muteChat(channel, user?.userID, data);
     } else if (data === CHAT_DETAILS_CONFIGURE.CLEAR_CHAT) {
-      clearChatMessage(data);
+      clearChatMessage();
     } else if (data === CHAT_DETAILS_CONFIGURE.DELETE_BRAOD_CAST) {
-      await deleteBraodCast(channel, user?.userID, data);
+      await deleteBroadcast(channel, user?.userID, data);
       let chatLists = chatList.filter(ele => ele.id !== channel.id);
       dispatch(setChatList(chatLists));
     } else if (data === CHAT_DETAILS_CONFIGURE.EXIT_GROUP) {
@@ -264,7 +279,7 @@ const ChatController: React.FC = () => {
           );
           if (findUserData.isAdmin) {
             let fileteGroupParticpantsList = groupParticpantsList.filter(
-              ele => ele.user !== users.userID,
+              (              ele: { user: any; }) => ele.user !== users.userID,
             );
             fileteGroupParticpantsList.sort(
               (a: {name: string}, b: {name: string}) => {
@@ -456,7 +471,6 @@ const ChatController: React.FC = () => {
   };
 
   const onChangeTextInput = (text: string) => {
-    // setData(STORAGE)
     setInputValue(text);
   };
 
@@ -592,6 +606,7 @@ const ChatController: React.FC = () => {
                 messsageType,
                 '',
                 response?.data,
+                fileInfo // Add the missing 9th argument here
               );
               let userData = usersSubscribe?.data.find(
                 (element: {id: any}) => element?.id === ele?.userId,
@@ -601,7 +616,7 @@ const ChatController: React.FC = () => {
                 threadData.receiverId = ele.userId;
                 threadData.channel = ele.channelID;
                 threadData.masterChannel = channel?.id;
-                channelManager.addmessageInfo(threadData);
+                channelManager.addMessageInfo(threadData);
                 broadCastPushNotifications(
                   channel,
                   user,
@@ -617,7 +632,7 @@ const ChatController: React.FC = () => {
               if (ele?.id && ele?.id !== user?.id) {
                 let threadData = response.data;
                 threadData.receiverId = ele?.id;
-                channelManager.addmessageInfo(threadData);
+                channelManager.addMessageInfo(threadData);
               }
             });
             groupPushNotifications(
@@ -1000,10 +1015,10 @@ const ChatController: React.FC = () => {
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setUploadProgress(uploadProgress1);
       },
-      async (url: any, fileInfo: any) => {
+      (url: any, fileInfo: any) => {
         if (url) {
-          await setUploadProgress(0);
-          await setDownloadUrl(url); // This should correctly update the downloadUrl state.
+          setUploadProgress(0);
+          setDownloadUrl(url); // This should correctly update the downloadUrl state.
           onSendStorageData(
             url,
             uploadData.mime.startsWith('image') === true
@@ -1145,76 +1160,7 @@ const ChatController: React.FC = () => {
       onMessageLongPress(item);
     }
   };
-  // const downloadFile = (data: {
-  //   url: any;
-  //   fileName: string;
-  //   messageType: string;
-  // }) => {
-  //   let FILE_URL = data?.url;
-  //   const {config, fs} = RNFetchBlob;
-  //   let RootDir = IS_ANDROID ? fs.dirs.PictureDir : fs.dirs.DocumentDir;
-  //   let downloadProgress = 0; // Initialize download progress as 0
-  //   let fileNames = getFileName(data);
-
-  //   let options = {};
-  //   if (IS_IOS) {
-  //     options = {
-  //       fileCache: true,
-  //       // useDownloadManager: true,
-  //       // notification: true,
-  //       // mediaScannable: true,
-  //       path: RootDir + '/' + fileNames,
-  //       IOSBackgroundTask: true,
-  //       // addAndroidDownloads: {
-  //       //   path: fs.dirs.DocumentDir + '/' + fileNames,
-  //       //   description: 'Downloading file...',
-  //       //   notification: true,
-  //       //   useDownloadManager: true,
-  //       // },
-  //     };
-  //   } else {
-  //     options = {
-  //       fileCache: true,
-  //       // path: RootDir + '/' + fileNames,
-  //       // IOSBackgroundTask:true,
-  //       addAndroidDownloads: {
-  //         path: RootDir + '/' + fileNames,
-  //         description: 'Downloading file...',
-  //         notification: true,
-  //         useDownloadManager: true,
-  //       },
-  //     };
-  //   }
-
-  //   config(options)
-  //     .fetch('GET', FILE_URL)
-  //     .progress(async (received, total) => {
-  //       // Calculate download progress as a percentage
-  //       const progress = (received / total) * 100;
-  //       downloadProgress = progress;
-  //       showLog('progress', progress);
-  //     })
-  //     .then(async res => {
-  //       let fileList = await readFileName();
-
-  //       dispatch(setFileList(fileList));
-  //       downloadProgress = 100; // Set progress to 100% when download is complete
-  //     })
-  //     .catch(error => {
-  //       // Download failed or was canceled
-  //       downloadProgress = -1; // Set progress to -1 to indicate failure or cancellation
-  //       console.error('Download failed or was canceled:', error);
-  //     })
-  //     .finally(() => {
-  //       // You can use downloadProgress here to determine if the download was successful
-  //       if (downloadProgress === 100) {
-  //         // Download was successful
-  //       } else if (downloadProgress === -1) {
-  //         // Download failed or was canceled
-  //       }
-  //     });
-  // };
-
+ 
   const onMediaClose = () => {
     setIsMediaViewerOpen(false);
   };
@@ -1627,7 +1573,7 @@ const ChatController: React.FC = () => {
 
   async function getApiCall() {
     let result = await channelManager.getUserParticipants(channel.id, user.id);
-    if (result && result[0].data()) {
+    if (result && result?.[0]?.data()) {
       let channelData = result[0].data();
       let sharedKeyResult = sharedKeyAlgorthim(
         channelData.publicKey,
@@ -1638,6 +1584,7 @@ const ChatController: React.FC = () => {
       }
     }
   }
+ 
   return (
     <ChatViewer
       fileList={fileList}

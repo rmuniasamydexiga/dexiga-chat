@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { CHAT_DETAILS_CONFIGURE, ERROR_MESSAGE_CONTENT, GROUP_PERMISSIONS, MESSAGE_CONTENT } from '../../../Constant/Constant';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectChannelGroupParticipants, selectDocumentList, selectMediaList, selectUser, selectedChannelDetails, setChatChanneDetails, setParticipantsList, setPermssions } from '../../../Redux/chat/reducers';
+import { selectChannelGroupParticipants, selectDocumentList, selectMediaList, selectUser, selectedChannelDetails, setChatChanneDetails, setParticipantsList, setPermssions } from '../../../redux/chatSlice';
 import GroupInfoViewer from '../../Viewer/NewGroup/GroupInfoViewer';
 import { SCREEN_NAMES } from '../../../Constant/ScreenName';
-import { currentTimestamp, exitTheGroup, makeAdmin, onLeaveGroup, persistChannelParticipations, sendInfoMessage } from '../../../firebase/channel';
-import { channelManager } from '../../../firebase';
+import { currentTimestamp, exitTheGroup, makeAdmin, onLeaveGroup, persistChannelParticipations, sendInfoMessage } from '../../../chat-firebase/channel';
+import { channelManager } from '../../../chat-firebase';
 import { useAuth } from '../../../Router/Context/Auth';
 import { Alert } from 'react-native';
 

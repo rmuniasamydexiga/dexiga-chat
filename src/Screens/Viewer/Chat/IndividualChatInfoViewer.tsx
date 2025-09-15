@@ -6,7 +6,7 @@ import { FONTS } from '../../../Constant/Fonts';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { CHAT_DETAILS_CONFIGURE, MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../Controller/Chat/Helper/MediaHelper';
+import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
 import HeaderSix from '../../../Components/Header/HeaderSix';
 
 interface User {

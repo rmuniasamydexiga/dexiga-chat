@@ -9,13 +9,13 @@ import {
   selectGroupPermission,
   selectUser,
   setChatChanneDetails,
-} from '../../../Redux/chat/reducers';
+} from '../../../redux/chatSlice';
 import NewGroupProfileViewer from '../../Viewer/NewGroup/NewGroupProfileViewer';
 import {
   broadcastPushNotificationsforGroup,
   creatNewGroup,
-} from '../../../firebase/channel';
-import {STORAGE, getData} from '../../../Helper/StorageHelper';
+} from '../../../chat-firebase/channel';
+import {STORAGE, getData} from '../../../chat-services/StorageHelper';
 
 interface Props {
   user: any;

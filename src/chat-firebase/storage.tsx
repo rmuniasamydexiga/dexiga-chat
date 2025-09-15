@@ -1,5 +1,5 @@
 import { ReactNativeFirebase } from '@react-native-firebase/app';
-import { ErrorCode } from '../Helper/Helpers';
+import { ErrorCode } from '../chat-services/Helpers';
 import storage, { FirebaseStorageTypes } from '@react-native-firebase/storage';
 
 const getBlob = async (uri) => {

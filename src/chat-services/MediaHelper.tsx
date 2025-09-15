@@ -2,13 +2,13 @@ import * as RNFS from 'react-native-fs';
 import RNFetchBlob from 'rn-fetch-blob';
 import FileViewer from 'react-native-file-viewer';
 import storage from '@react-native-firebase/storage';
-import {showLog} from '../../../../Helper/common';
+import {showLog} from './common';
 import {
   FILE_PATH,
   IS_ANDROID,
   IS_IOS,
   MESSAGE_TYPE,
-} from '../../../../Constant/Constant';
+} from '../Constant/Constant';
 import {FFmpegKit} from 'ffmpeg-kit-react-native';
 
 export const isUrlValid = (userInput: string) => {

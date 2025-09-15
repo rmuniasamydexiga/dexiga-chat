@@ -5,7 +5,8 @@ import {  HEIGHT } from '../../../Constant/Constant';
 import HeaderSeven from '../../../Components/Header/HeaderSeven';
 import Entypo from 'react-native-vector-icons/Entypo'
 import { FONTS } from '../../../Constant/Fonts';
-import { font_size } from '../../../Helper/Helpers';
+import { font_size } from '../../../chat-services/Helpers';
+import { PageContainer } from 'react-native-dex-moblibs';
 
 interface User {
   name: string;
@@ -62,8 +63,7 @@ const theme=GetTheme()
     </View>
   }
   return (
-    <SafeAreaView style={{flex:1}}>
-    <View style={{flex:1,backgroundColor:theme.background}}>
+ <PageContainer>
         <HeaderSeven title={'Group Permissions'} 
         onPress={()=>navigationGoBack()} 
           menuVisible={false}
@@ -101,8 +101,7 @@ const theme=GetTheme()
   }}
 />
     
-    </View>
-    </SafeAreaView>
+    </PageContainer>
   );
 };
 

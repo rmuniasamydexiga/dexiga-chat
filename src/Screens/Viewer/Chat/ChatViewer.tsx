@@ -19,6 +19,7 @@ import {
   MESSAGE_TYPE,
   WIDTH,
 } from '../../../Constant/Constant';
+import { PageContainer } from 'react-native-dex-moblibs';
 
 interface IChatViewer {
   disPlayName: string;
@@ -88,7 +89,7 @@ const ChatViewer: React.FC<IChatViewer> = props => {
     disPlayName,
     onSendInput,
     thread,
-    inputValue,
+  inputValue,
     onChangeTextInput,
     user,
     inReplyToItem,
@@ -351,7 +352,7 @@ const ChatViewer: React.FC<IChatViewer> = props => {
     );
   };
   return (
-    <SafeAreaView style={styles.personalChatContainer}>
+    <PageContainer>
       {IS_IOS ? (
         <KeyboardAvoidingView style={{flex: 1}} behavior={'padding'}>
           {ConditionalRendering()}
@@ -359,7 +360,7 @@ const ChatViewer: React.FC<IChatViewer> = props => {
       ) : (
         ConditionalRendering()
       )}
-    </SafeAreaView>
+    </PageContainer>
   );
 };
 

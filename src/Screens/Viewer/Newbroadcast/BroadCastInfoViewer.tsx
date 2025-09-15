@@ -2,14 +2,15 @@ import React from 'react';
 import {View, Text,  FlatList, Image, TouchableOpacity,Alert, ImageBackground, SafeAreaView} from 'react-native';
 import { GetTheme } from '../../../Constant/Colors';
 import { FONTS } from '../../../Constant/Fonts';
-import { font_size } from '../../../Helper/Helpers';
+import { font_size } from '../../../chat-services/Helpers';
 import HeaderFive from '../../../Components/Header/HeaderFive';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../Controller/Chat/Helper/MediaHelper';
+import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
 import Spinner from '../../../Components/Loader/Spinner';
+import { PageContainer } from 'react-native-dex-moblibs';
 
 interface User {
   name: string;
@@ -85,7 +86,7 @@ const theme=GetTheme()
  
 
   return (
-    <SafeAreaView style={{flex:1,backgroundColor:'#faf9f7'}}>
+    <PageContainer>
           <HeaderFive 
         title={channel?.name}
         isHideSearch={true}
@@ -205,9 +206,9 @@ const theme=GetTheme()
   </TouchableOpacity>
 
 </View>
-    
-    </SafeAreaView>
-  );
+
+</PageContainer>
+);
 };
 
 export default BroadCastInfoViewer;

@@ -1,5 +1,6 @@
 
-import chatReducer from './chat/reducers'
+import chatReducer from './chatSlice'
+import themeDataReducer from './themeSlice'
 import { configureStore } from '@reduxjs/toolkit';
 
 
@@ -7,6 +8,10 @@ import { configureStore } from '@reduxjs/toolkit';
 export const store = configureStore({
     reducer: {
         chat: chatReducer,
+          themeData: themeDataReducer,
+
+
+
 
       },
       middleware: (getDefaultMiddleware) =>
@@ -17,3 +22,5 @@ export const store = configureStore({
         // other middleware options if needed
       }), 
     })
+
+

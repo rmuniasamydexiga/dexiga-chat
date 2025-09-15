@@ -1,6 +1,6 @@
-import {showLog} from '../../../../Helper/common';
-import {IUser} from '../../../../Interfaces/Chat';
-import {notificationManager} from '../../../../firebase';
+import {showLog} from './common';
+import {IUser} from '../Interfaces/Chat';
+import {notificationManager} from '../chat-firebase';
 
 export const indiviualPushNotifications = (
   channel: any,

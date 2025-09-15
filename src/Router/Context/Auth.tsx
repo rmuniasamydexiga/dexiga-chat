@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { setChatChanneDetails } from '../../Redux/chat/reducers';
+import { setChatChanneDetails } from '../../redux/chatSlice';
 import { useDispatch } from 'react-redux';
 
 

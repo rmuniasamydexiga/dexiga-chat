@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
 import PlayerListViewer from '../../Viewer/Chat/PlayerListViewer';
-import firestore from '@react-native-firebase/firestore';
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -13,8 +12,8 @@ import {
   setBulkChatSendList,
   setChatChanneDetails,
   setInternalFileList,
-} from '../../../Redux/chat/reducers';
-import {STORAGE, getData} from '../../../Helper/StorageHelper';
+} from '../../../redux/chatSlice';
+import {STORAGE} from '../../../chat-services/StorageHelper';
 import {Use} from 'react-native-svg';
 import {isAnyOf} from '@reduxjs/toolkit';
 import {string} from 'yup';
@@ -26,15 +25,16 @@ import {
   SNACKBAR_MESSAGE_LENGTH,
 } from '../../../Constant/Constant';
 import {Alert, Platform} from 'react-native';
-import {directoryTOSaveFile, readInternalFileName} from './Helper/MediaHelper';
-import {channelManager, firebaseStorage} from '../../../firebase';
+import {directoryTOSaveFile, readInternalFileName} from '../../../chat-services/MediaHelper';
+import {channelManager, firebaseStorage} from '../../../chat-firebase';
 import {useAuth} from '../../../Router/Context/Auth';
 import {
   checkPlayerBlockOrNot,
   getFileSizeLimit,
   snackBarMessage,
-} from '../../../Helper/common';
+} from '../../../chat-services/common';
 import Snackbar from 'react-native-snackbar';
+import { getData } from 'react-native-dex-moblibs';
 
 interface Props {
   user: any;

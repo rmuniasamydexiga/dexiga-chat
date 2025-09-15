@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import MediaViewingViewer from '../../Viewer/Chat/MediaViewingViewer';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import { selectChannelGroupParticipants, selectFlieList, selectInternalFlieList, selectUser, selectedChannelDetails } from '../../../Redux/chat/reducers';
+import { selectChannelGroupParticipants, selectFlieList, selectInternalFlieList, selectUser, selectedChannelDetails } from '../../../redux/chatSlice';
 import MessageInfoViewer from '../../Viewer/Chat/MessageInfoViewer';
-import { getMessageInformation } from '../../../firebase/channel';
+import { getMessageInformation } from '../../../chat-firebase/channel';
 import { useAuth } from '../../../Router/Context/Auth';
 
 

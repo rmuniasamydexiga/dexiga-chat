@@ -4,7 +4,7 @@ import { GetTheme } from '../../../Constant/Colors';
 
 import HeaderSeven from '../../../Components/Header/HeaderSeven';
 import { FONTS } from '../../../Constant/Fonts';
-import SelectButton from '../../../Components/Buttons/SelectButton';
+import { Button, wp } from 'react-native-dex-moblibs';
 
 
 
@@ -62,10 +62,18 @@ const GroupChangeViewer: React.FC<IGroupChangeViewer> = (props) => {
       </View>
       <View style={{ flex: 1, alignItems: 'center', marginTop: 10, flexDirection: 'row' }}>
         <View style={{ marginHorizontal: 10 }}>
-          <SelectButton Text={'OK'} Width={160} ButtonColor={theme.headerTheme} onPress={() => updateGroup()} textColor={theme.WhiteAndBlack} />
+            <Button
+                  title={'OK'}
+                  style={{ width: wp('90%') }}
+                  onPress={updateGroup}
+                />
         </View>
         <View style={{ marginHorizontal: 10 }}>
-          <SelectButton Text={'Cancel'} Width={160} ButtonColor={theme.headerTheme} onPress={() => navigationGoback()} textColor={theme.WhiteAndBlack} />
+           <Button
+                  title={'OK'}
+                  style={{ width: wp('90%') }}
+                  onPress={navigationGoback}
+                />
         </View>
       </View>
     </View>

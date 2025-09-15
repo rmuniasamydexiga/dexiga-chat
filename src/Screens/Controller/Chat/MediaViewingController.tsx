@@ -2,10 +2,10 @@ import {Alert, Platform, PermissionsAndroid} from 'react-native';
 import React from 'react';
 import MediaViewingViewer from '../../Viewer/Chat/MediaViewingViewer';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {downloadFile} from './Helper/MediaHelper';
+import {downloadFile} from '../../../chat-services/MediaHelper';
 import {useSelector} from 'react-redux';
-import {selectUser} from '../../../Redux/chat/reducers';
-import {showLog} from '../../../Helper/common';
+import {selectUser} from '../../../redux/chatSlice';
+import {showLog} from '../../../chat-services/common';
 
 const MediaViewingController: React.FC = () => {
   const navigation = useNavigation();

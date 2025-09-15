@@ -11,14 +11,12 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
-import ContactsFloatingIcon from '../../../Components/chat/ContactsFloatingIcon';
 import {Col, Grid, Row} from 'react-native-easy-grid';
 import {GetTheme} from '../../../Constant/Colors';
-import {channelManager, firebaseStorage, firebaseUser} from '../../../firebase';
-import {dayDate, dayFormatwithUnix} from '../../../Helper/DayHelper';
+import {channelManager, firebaseUser} from '../../../chat-firebase';
+import {dayDate, dayFormatwithUnix} from '../../../chat-services/DayHelper';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   resetChat,
@@ -30,7 +28,7 @@ import {
   setInternalFileList,
   setUser,
   setUserList,
-} from '../../../Redux/chat/reducers';
+} from '../../../redux/chatSlice';
 import HeaderFour from '../../../Components/Header/HeaderFour';
 import {useAuth} from '../../../Router/Context/Auth';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -43,17 +41,18 @@ import {
 } from '../../../Constant/Constant';
 
 import {IUser} from '../../../Interfaces/Chat';
-import {readFileName, readInternalFileName} from './Helper/MediaHelper';
+import {readFileName, readInternalFileName} from '../../../chat-services/MediaHelper';
 import chatStyles from '../../Style/ChatListStyle';
-import {requestPerMissions, showLog} from '../../../Helper/common';
+import {requestPerMissions, showLog} from '../../../chat-services/common';
 import {FONTS} from '../../../Constant/Fonts';
 import ActionSheet from 'react-native-actionsheet';
 
 import {launchCamera} from 'react-native-image-picker';
 import ImagePicker from 'react-native-image-crop-picker';
-import {getAllUserList} from '../../../firebase/user';
+import {getAllUserList} from '../../../chat-firebase/user';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {PERMISSIONS, RESULTS, check, request} from 'react-native-permissions';
+import { clearAll, getData, PageContainer ,ContactsFloatingIcon} from 'react-native-dex-moblibs';
 // import {
 //   decrypt,
 //   diffieHellManAlgorthim,
@@ -145,7 +144,7 @@ const ChatList: React.FC = () => {
     const getUsers = async () => {
       getStored();
 
-      const userId = (await AsyncStorage.getItem('USERID')) || '';
+      const userId = (await getData('USERID')) || '';
       setUserId(userId);
 
       const usersSubscription: any = firebaseUser.subscribeUsers(
@@ -223,7 +222,7 @@ const ChatList: React.FC = () => {
 
   const onPressMenu = async (data: string) => {
     if (data === CHAT_DETAILS_CONFIGURE.LOG_OUT) {
-      await AsyncStorage.clear();
+      await clearAll();
       dispatch(resetChat());
       resetChatAlldata();
       navigation.navigate(SCREEN_NAMES.LOGIN);
@@ -260,9 +259,9 @@ const ChatList: React.FC = () => {
   };
 
   const getStored = async () => {
-    let name: string | null = await AsyncStorage.getItem('NAME');
-    let email: string | null = await AsyncStorage.getItem('EMAIL');
-    let userId: string | null = await AsyncStorage.getItem('USERID');
+    let name: string | null = await getData('NAME');
+    let email: string | null = await getData('EMAIL');
+    let userId: string | null = await getData('USERID');
     let users: IUser = {
       name: name,
       id: userId,
@@ -289,7 +288,7 @@ const ChatList: React.FC = () => {
     channelParticipantUnsubscribe: any,
   ) => {
     try {
-      const userID = (await AsyncStorage.getItem('USERID')) || '';
+      const userID = (await getData('USERID')) || '';
       const allUsers = userData?.data;
       let channels = channelsUnsubscribe;
       let participations = channelParticipantUnsubscribe;
@@ -535,7 +534,7 @@ const ChatList: React.FC = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <PageContainer>
       <KeyboardAvoidingView style={[styles.container]}>
         <HeaderFour
           searchValue={searchValue}
@@ -700,7 +699,7 @@ const ChatList: React.FC = () => {
             // navigation.navigate(SCREEN_NAMES.ADD_NEW_GROUP_PROFILE)
           }}></ContactsFloatingIcon>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+      </PageContainer>
   );
 };
 

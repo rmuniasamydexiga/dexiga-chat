@@ -10,7 +10,6 @@ import {
   SafeAreaView,
   TextInput,
 } from 'react-native';
-import ContactsFloatingIcon from '../../../Components/chat/ContactsFloatingIcon';
 import {Col, Grid, Row} from 'react-native-easy-grid';
 import {GetTheme} from '../../../Constant/Colors';
 import chatStyles from '../../Style/ChatListStyle';
@@ -18,8 +17,9 @@ import HeaderSix from '../../../Components/Header/HeaderSix';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {FONTS} from '../../../Constant/Fonts';
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
-import {getName} from '../../../Helper/common';
+import {getName} from '../../../chat-services/common';
 import {ERROR_MESSAGE_CONTENT} from '../../../Constant/Constant';
+import { PageContainer,ContactsFloatingIcon } from 'react-native-dex-moblibs';
 interface User {
   name: string;
   email: string;
@@ -79,7 +79,7 @@ const AddNewBroadCastViewer: React.FC<IPlayerListViewer> = props => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <PageContainer>
       <KeyboardAvoidingView style={[styles.container]}>
         <HeaderSix
           title={title}
@@ -382,7 +382,7 @@ const AddNewBroadCastViewer: React.FC<IPlayerListViewer> = props => {
           </>
         )}
       </KeyboardAvoidingView>
-    </SafeAreaView>
+      </PageContainer>
   );
 };
 

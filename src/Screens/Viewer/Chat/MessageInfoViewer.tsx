@@ -7,11 +7,12 @@ import { FONTS } from '../../../Constant/Fonts';
 import { verticalScale } from '../../../Constant/Metrics';
 import { WIDTH } from '../../../Constant/Constant';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { font_size } from '../../../Helper/Helpers';
+import { font_size } from '../../../chat-services/Helpers';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ThreadItem from '../../../Components/chat/ThreadItem';
-import { dayDate } from '../../../Helper/DayHelper';
-import { getNameWithList } from '../../../Helper/common';
+import { dayDate } from '../../../chat-services/DayHelper';
+import { getNameWithList } from '../../../chat-services/common';
+import { PageContainer } from '../../../../libs/moblibs/lib/module';
 
 interface User {
   name: string;
@@ -101,11 +102,7 @@ return <View style={{borderBottomWidth:0.5,margin:10 }}>
 </View>
 }
   return (
-    <SafeAreaView
-      style={[
-        styles.container
-      ]}
-    >
+   <PageContainer>
              <View style={{flex:0.1,flexDirection:'row',alignItems:'center'}}>
                 <View style={{flex:0.05}}/>
                 <View style={{flex:0.2}}>
@@ -157,8 +154,8 @@ return <View style={{borderBottomWidth:0.5,margin:10 }}>
      />
 
      </View>
+     </PageContainer>
    
-    </SafeAreaView>
   );
 };
 

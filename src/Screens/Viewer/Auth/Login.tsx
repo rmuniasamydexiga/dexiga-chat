@@ -4,10 +4,10 @@ import {GetTheme} from '../../../Constant/Colors';
 import {FONTS} from '../../../Constant/Fonts';
 import {USER_TYPE} from '../../../Constant/Constant';
 import RadioButton from '../../../Components/Buttons/RadioButton';
-import SelectButton from '../../../Components/Buttons/SelectButton';
 import {useNavigation} from '@react-navigation/native';
 import authStyles from '../../Style/LoginStyle';
 import Spinner from '../../../Components/Loader/Spinner';
+import { Button, PageContainer, wp } from 'react-native-dex-moblibs';
 
 interface props {
   selectedOption: string;
@@ -95,13 +95,12 @@ const Login: FC<props> = props => {
             ))}
           </View>
           <View style={{flex: 1, alignItems: 'center', marginTop: 10}}>
-            <SelectButton
-              Text={'SUBMIT'}
-              Width={220}
-              ButtonColor={Theme.headerTheme}
-              onPress={() => props.loginFun()}
-              textColor={Theme.white}
-            />
+         
+               <Button
+                              title={'SUBMIT'}
+                              style={{ width: 220}}
+                              onPress={()=>props.loginFun()}
+                            />
           </View>
         </View>
         <View style={{flex: 1, alignItems: 'center', marginTop: 50}}>
@@ -125,7 +124,7 @@ const Login: FC<props> = props => {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: Theme.BackgroundColor}}>
+    <PageContainer style={{flex: 1, backgroundColor: Theme.BackgroundColor}}>
       {RenderComponent()}
       {props.isLoading && (
         <Spinner
@@ -134,7 +133,7 @@ const Login: FC<props> = props => {
           overlayColor={Theme.headerTheme}
         />
       )}
-    </View>
+    </PageContainer>
   );
 };
 

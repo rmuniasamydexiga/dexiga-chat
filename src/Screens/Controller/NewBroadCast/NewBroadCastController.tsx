@@ -6,7 +6,6 @@ import {
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import firestore from '@react-native-firebase/firestore';
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -14,12 +13,12 @@ import {
   selectUser,
   selectUserList,
   setChatChanneDetails,
-} from '../../../Redux/chat/reducers';
+} from '../../../redux/chatSlice';
 import AddNewBroadCastViewer from '../../Viewer/Newbroadcast/Newbroadcast';
 import {CHAT_DETAILS_CONFIGURE} from '../../../Constant/Constant';
-import {creatNewBroadCast} from '../../../firebase/channel';
+import {creatNewBroadCast} from '../../../chat-firebase/channel';
 import {BackHandler, Keyboard} from 'react-native';
-import {STORAGE, getData} from '../../../Helper/StorageHelper';
+import {STORAGE} from '../../../chat-services/StorageHelper';
 
 interface Props {
   user: any;

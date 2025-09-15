@@ -1,16 +1,13 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
-import { GetTheme } from '../../Constant/Colors';
 
 
 
 const chatStyles = () => {
-  const  theme= GetTheme()
 
 
  return StyleSheet.create({
     container: {
-        backgroundColor: theme.background,
         flex: 1,
       },
       header: {

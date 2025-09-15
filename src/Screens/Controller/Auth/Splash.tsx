@@ -2,16 +2,17 @@ import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 
-import SplashScreenViewer from '../../Viewer/Splash/Splash';
+import SplashScreenViewer from '../../Viewer/Auth/Splash';
 import SplashScreen from 'react-native-splash-screen';
-import {STORAGE, getData} from '../../../Helper/StorageHelper';
-import {setChatList, setUser, setUserList} from '../../../Redux/chat/reducers';
+import {STORAGE} from '../../../chat-services/StorageHelper';
+import {setChatList, setUser, setUserList} from '../../../redux/chatSlice';
 import {useDispatch} from 'react-redux';
-import {channelManager, firebaseStorage, firebaseUser} from '../../../firebase';
+import {channelManager, firebaseStorage, firebaseUser} from '../../../chat-firebase';
 import {useAuth} from '../../../Router/Context/Auth';
-import {dayDate} from '../../../Helper/DayHelper';
-import {showLog} from '../../../Helper/common';
-import {getAllUserList} from '../../../firebase/user';
+import {dayDate} from '../../../chat-services/DayHelper';
+import {showLog} from '../../../chat-services/common';
+import {getAllUserList} from '../../../chat-firebase/user';
+import { getData } from 'react-native-dex-moblibs';
 
 const SplashScreenController: React.FC = () => {
   const navigation = useNavigation<any>();
@@ -124,10 +125,11 @@ const SplashScreenController: React.FC = () => {
       const userID = (await getData('USERID')) || '';
       const allUsers = userData?.data;
       let channels = channelsUnsubscribe;
-      let participations = channelParticipantUnsubscribe;
+      let participations = channelParticipantUnsubscribe??[]; 
       if (!channels || !allUsers || !participations) {
         return;
       }
+      console.log("participations",participations)
       const myChannels = channels.filter((channel: {id: any}) =>
         participations?.find(
           (participation: {channel: any}) =>
@@ -246,7 +248,7 @@ const SplashScreenController: React.FC = () => {
         updateChannelsStore(hydratedChannel);
       });
     } catch (e) {
-      showLog('hydratedChannelErrorrr===>', e);
+      showLog('hydratedChannelErrorrr===> splash', e.message);
     }
   };
   const updateChannelsStore = async (hydratedChannel: any[]) => {
