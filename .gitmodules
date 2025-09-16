@@ -1,0 +1,3 @@
+[submodule "libs/moblibs"]
+    path = libs/moblibs
+    url = git@bitbucket.org:phubai/moblibs.git

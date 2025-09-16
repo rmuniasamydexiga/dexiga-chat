@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyDQPEK7_fOj7gPxX0QmfQW4-6OPQybt5VI</string>
+	<string>AIzaSyAUuwREP94Fuyl6fmcBaXSyUYkdi-rlEpA</string>
 	<key>GCM_SENDER_ID</key>
-	<string>667959404530</string>
+	<string>376452017396</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.dexiga.chisholm</string>
 	<key>PROJECT_ID</key>
-	<string>chisholm-trail</string>
+	<string>dexigachat-15c9e</string>
 	<key>STORAGE_BUCKET</key>
-	<string>chisholm-trail.firebasestorage.app</string>
+	<string>dexigachat-15c9e.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:667959404530:ios:2d2d8e8ae6ad74df34ed6b</string>
+	<string>1:376452017396:ios:8db1bddd581002c9b282a1</string>
 </dict>
 </plist>
