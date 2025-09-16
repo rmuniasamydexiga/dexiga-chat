@@ -6,7 +6,7 @@ import {
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import {SCREEN_NAMES} from '../../../Constant/ScreenName';
+import {Paths} from '../../../Constant/ScreenName';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   selectChatList,
@@ -14,7 +14,6 @@ import {
   selectUserList,
   setChatChanneDetails,
 } from '../../../redux/chatSlice';
-import AddNewBroadCastViewer from '../../Viewer/Newbroadcast/Newbroadcast';
 import {CHAT_DETAILS_CONFIGURE} from '../../../Constant/Constant';
 import {createNewBroadCast} from '../../../chat-firebase/channel';
 import {BackHandler, Keyboard} from 'react-native';
@@ -134,7 +133,7 @@ const {images}=useAssets()
       };
 
       dispatch(setChatChanneDetails(channel));
-      navigation.navigate(SCREEN_NAMES.CHAT);
+      navigation.navigate(Paths.CHAT);
     }
   };
 
@@ -150,7 +149,7 @@ const {images}=useAssets()
     });
     setUserFilter(userFilter);
   };
-  const title= route?.params?.fromNavigation === SCREEN_NAMES.BROADCAST_INFO
+  const title= route?.params?.fromNavigation === Paths.BROADCAST_INFO
           ? 'Edit recipients'
           : CHAT_DETAILS_CONFIGURE.NEW_BRAOD_CAST;
           let  groupParticpantsList: any[]=[]
@@ -272,7 +271,7 @@ const {images}=useAssets()
                                       fontSize: theme.typography.label,
                                       color:theme.colors.borderColor,
                                     }}>{`User Already Added to this ${
-                                   route?.params?.fromNavigation === SCREEN_NAMES.BROADCAST_INFO
+                                   route?.params?.fromNavigation === Paths.BROADCAST_INFO
                                       ? 'BroadCast'
                                       : 'Group'
                                   }`}</Text>
@@ -446,8 +445,8 @@ const {images}=useAssets()
                 name="arrow-right-thin"
                 contactOnNavigation={() =>
                 {
-        if (route?.params?.fromNavigation === SCREEN_NAMES.BROADCAST_INFO) {
-          navigation.navigate(SCREEN_NAMES.BROADCAST_INFO, {
+        if (route?.params?.fromNavigation === Paths.BROADCAST_INFO) {
+          navigation.navigate(Paths.BROADCAST_INFO, {
             groupSletecedUser: selectedBroadCast,
           });
         } else {

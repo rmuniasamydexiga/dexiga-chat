@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { selectDocumentList, selectMediaList, selectUser, selectedChannelDetails } from '../../../redux/chatSlice';
-import MediaListViewer from '../../Viewer/Chat/MediaListViewer';
-import { SCREEN_NAMES } from '../../../Constant/ScreenName';
+import { Paths } from '../../../Constant/ScreenName';
 import { MESSAGE_TYPE } from '../../../Constant/Constant';
 import { getFileUrlForInternal, getFileViewer } from '../../../chat-services/MediaHelper';
 import { View, Text,FlatList,TouchableOpacity, ImageBackground} from 'react-native';
@@ -31,7 +30,7 @@ const   navigationToMediaList=(data)=>{
         if(data.messageType===MESSAGE_TYPE.DOCUMENT){
           getFileViewer(data)
         }else{
-        navigation.navigate(SCREEN_NAMES.MEDIA_VIEWER,{data:data})
+        navigation.navigate(Paths.MEDIA_VIEWER,{data:data})
         }
     }
    const goNavigationBack=()=>{

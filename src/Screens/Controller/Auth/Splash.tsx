@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {SCREEN_NAMES} from '../../../Constant/ScreenName';
+import {Paths} from '../../../Constant/ScreenName';
 
 import SplashScreen from 'react-native-splash-screen';
 import {STORAGE} from '../../../chat-services/StorageHelper';
@@ -272,9 +272,9 @@ const SplashScreenController: React.FC = () => {
     let userId: string | null = (await getData(STORAGE.USERID)) || null;
 
     if (userId) {
-      navigation.navigate(SCREEN_NAMES.CHAT_LIST);
+      navigation.navigate(Paths.CHAT_LIST);
     } else {
-      navigation.navigate(SCREEN_NAMES.LOGIN);
+      navigation.navigate(Paths.LOGIN);
     }
     SplashScreen.hide();
   };

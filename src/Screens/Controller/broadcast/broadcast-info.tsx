@@ -14,7 +14,7 @@ import {
   setChatChanneDetails,
   setChatList,
 } from '../../../redux/chatSlice';
-import {SCREEN_NAMES} from '../../../Constant/ScreenName';
+import {Paths} from '../../../Constant/ScreenName';
 import {deleteBraodCast, updateBroadCast} from '../../../chat-firebase/channel';
 
 import {HeaderFive, PageContainer, useStylesheet,SpinnerModal, VectorIcon, useAssets } from 'react-native-dex-moblibs';
@@ -78,7 +78,7 @@ const {images}=useAssets()
 
     setIsLoading(false);
     if (result) {
-      navigation.navigate(SCREEN_NAMES.CHAT_LIST);
+      navigation.navigate(Paths.CHAT_LIST);
     }
   };
   useFocusEffect(
@@ -99,8 +99,8 @@ const {images}=useAssets()
    const  onFriendItemPress=(data: any) => {
         SetSelectedUser(data);
         if (data?.name === 'Edit recipients') {
-          navigation.navigate(SCREEN_NAMES.ADD_NEW_BROAD_CAST, {
-            fromNavigation: SCREEN_NAMES.BROADCAST_INFO,
+          navigation.navigate(Paths.ADD_NEW_BROAD_CAST, {
+            fromNavigation: Paths.BROADCAST_INFO,
             groupParticpantsList:
               channel?.participants?.[0]?.broadCastUserChannels,
           });
@@ -117,7 +117,7 @@ const {images}=useAssets()
             participants: [selectedUser],
           };
           dispatch(setChatChanneDetails(channel));
-          navigation.navigate(SCREEN_NAMES.CHAT);
+          navigation.navigate(Paths.CHAT);
         }
       }
 
@@ -140,11 +140,11 @@ const {images}=useAssets()
         isHideSearch={true}
         subTitle={`BroadCast List ${groupParticpantsList.length} recipients`}
         isHideDot={true}
-        onPress={() => navigation.navigate(SCREEN_NAMES.CHAT)}
+        onPress={() => navigation.navigate(Paths.CHAT)}
         menuVisible={false} menuList={[]} 
              ></HeaderFive>
      {mediaList.length+documentList.length!==0&&<View style={{margin:10,backgroundColor:theme.colors.background,borderColor:'grey',borderRadius:10}}>
-  <TouchableOpacity style={{ flexDirection:'row',height:30}} onPress={()=>navigation.navigate(SCREEN_NAMES.MEDIA_LIST)}>
+  <TouchableOpacity style={{ flexDirection:'row',height:30}} onPress={()=>navigation.navigate(Paths.MEDIA_LIST)}>
   <View style={{flex:0.9,justifyContent:'center'}} >
   <Text style={{fontFamily:theme.fonts.regular,marginLeft:10}}>Media and documents</Text>
   </View>

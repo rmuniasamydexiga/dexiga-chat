@@ -1,8 +1,8 @@
 import React, {FC, useEffect, useState} from 'react';
 import {Alert, BackHandler} from 'react-native';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
-import {SCREEN_NAMES} from '../../../Constant/ScreenName';
-import Login from '../../Viewer/Auth/Login';
+import {Paths} from '../../../Constant/ScreenName';
+import Login from './Login';
 import {firebaseAuth} from '../../../chat-firebase';
 import {USER_TYPE} from '../../../Constant/Constant';
 import {STORAGE} from '../../../chat-services/StorageHelper';
@@ -66,7 +66,7 @@ const LoginController: FC = props => {
         id: userId,
         userID: userId,
       });
-      navigation.navigate(SCREEN_NAMES.CHAT_LIST);
+      navigation.navigate(Paths.CHAT_LIST);
     }
   };
   const valueValidation = (value: any, type: string) => {
@@ -323,9 +323,9 @@ const loginFun = async () => {
     setIsLoading(false);
 
     if (userId) {
-      navigation.navigate(SCREEN_NAMES.CHAT_LIST);
+      navigation.navigate(Paths.CHAT_LIST);
     } else {
-      navigation.navigate(SCREEN_NAMES.LOGIN);
+      navigation.navigate(Paths.LOGIN);
     }
   };
 

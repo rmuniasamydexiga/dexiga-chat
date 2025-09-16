@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
-import {SCREEN_NAMES} from '../../../Constant/ScreenName';
+import {Paths} from '../../../Constant/ScreenName';
 import {useDispatch, useSelector} from 'react-redux';
-import AddNewBroadCastViewer from '../../Viewer/Newbroadcast/Newbroadcast';
 import {
   CHAT_DETAILS_CONFIGURE,
   ERROR_MESSAGE_CONTENT,
@@ -123,15 +122,15 @@ const {images}=useAssets()
   };
 
   const createNewGroup = () => {
-    if (route?.params?.formNavigation === SCREEN_NAMES.GROUP_INFO) {
+    if (route?.params?.formNavigation === Paths.GROUP_INFO) {
       let selectedBroadCasts = selectedBroadCast;
       setSelectedBroadCast([]);
-      navigation.navigate(SCREEN_NAMES.GROUP_INFO, {
+      navigation.navigate(Paths.GROUP_INFO, {
         groupSletecedUser: selectedBroadCasts,
         users: users,
       });
     } else {
-      navigation.navigate(SCREEN_NAMES.ADD_NEW_GROUP_PROFILE, {
+      navigation.navigate(Paths.ADD_NEW_GROUP_PROFILE, {
         groupSletecedUser: selectedBroadCast,
         users: users,
       });
@@ -156,7 +155,7 @@ const groupParticpantsList=route?.params?.groupParticpantsList||null
       <PageContainer>
         <KeyboardAvoidingView style={[styles.container]}>
           <HeaderSix
-            title={route?.params?.formNavigation === SCREEN_NAMES.GROUP_INFO
+            title={route?.params?.formNavigation === Paths.GROUP_INFO
           ? 'Add Participants'
           : CHAT_DETAILS_CONFIGURE.NEW_GROUP}
             searchValue={searchValue}
@@ -267,7 +266,7 @@ const groupParticpantsList=route?.params?.groupParticpantsList||null
                                       fontSize: theme.typography.label,
                                       color:theme.colors.borderColor,
                                     }}>{`User Already Added to this ${
-                                    route?.params?.fromNavigation === SCREEN_NAMES.BROADCAST_INFO
+                                    route?.params?.fromNavigation === Paths.BROADCAST_INFO
                                       ? 'BroadCast'
                                       : 'Group'
                                   }`}</Text>

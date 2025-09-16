@@ -41,7 +41,7 @@ import {
   MESSAGE_TYPE,
   SNACKBAR_MESSAGE_LENGTH,
 } from '../../../Constant/Constant';
-import {SCREEN_NAMES} from '../../../Constant/ScreenName';
+import {Paths} from '../../../Constant/ScreenName';
 import {
   blockChat,
   muteChat,
@@ -172,7 +172,7 @@ const ChatController: React.FC = () => {
   useFocusEffect(
     React.useCallback(() => {
       const backAction = () => {
-        navigation.navigate(SCREEN_NAMES.CHAT_LIST);
+        navigation.navigate(Paths.CHAT_LIST);
         return true;
       };
       const backHandler = BackHandler.addEventListener(
@@ -315,13 +315,13 @@ const ChatController: React.FC = () => {
     } else if (data === CHAT_DETAILS_CONFIGURE.DELETE_GROUP) {
       onLeaveGroup(channel.id, user?.id, res => {
         getChannelParticipants();
-        navigation.navigate(SCREEN_NAMES.CHAT_LIST);
+        navigation.navigate(Paths.CHAT_LIST);
       });
     } else if (data === 'info') {
       let message = selectedMessage[0];
       setSeletedMessage([]);
       setIsHeaderChange(false);
-      navigation.navigate(SCREEN_NAMES.MESSAGE_INFO, {message: message});
+      navigation.navigate(Paths.MESSAGE_INFO, {message: message});
     }
   };
 
@@ -1135,7 +1135,7 @@ const ChatController: React.FC = () => {
             //   let uri=getFileUrlForInternal(item)
             //   VideoPlayerBridge.renderVideoFromUrl(uri);
             // }else{
-            navigation.navigate(SCREEN_NAMES.MEDIA_VIEWER, {data: item});
+            navigation.navigate(Paths.MEDIA_VIEWER, {data: item});
             // }
           } else {
             let result = await saveFileData(item);
@@ -1146,7 +1146,7 @@ const ChatController: React.FC = () => {
           console.log('item', item);
 
           if (!result) {
-            navigation.navigate(SCREEN_NAMES.MEDIA_VIEWER, {data: item});
+            navigation.navigate(Paths.MEDIA_VIEWER, {data: item});
           } else {
             saveFileData(item);
             // downloadFile(item);
@@ -1667,7 +1667,7 @@ const ChatController: React.FC = () => {
     onMessageLongPress(data);
   };
   const navigationGOBack=()=>{
-navigation.navigate(SCREEN_NAMES.CHAT_LIST)
+navigation.navigate(Paths.CHAT_LIST)
   }
   const  menuList=
         channel?.participants?.[0]?.is_group
@@ -1709,11 +1709,11 @@ navigation.navigate(SCREEN_NAMES.CHAT_LIST)
   
       const   navigationTitlePress=() => {
         if (channel?.participants?.[0]?.is_group) {
-          navigation.navigate(SCREEN_NAMES.GROUP_INFO);
+          navigation.navigate(Paths.GROUP_INFO);
         } else if (channel?.participants?.[0]?.is_broadCast) {
-          navigation.navigate(SCREEN_NAMES.BROADCAST_INFO);
+          navigation.navigate(Paths.BROADCAST_INFO);
         } else {
-          navigation.navigate(SCREEN_NAMES.INDIVIDUAL_INFO);
+          navigation.navigate(Paths.INDIVIDUAL_INFO);
         }
       }
    const ConditionalRendering = () => {

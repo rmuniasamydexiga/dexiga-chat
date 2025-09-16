@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 
 import {useNavigation, useRoute} from '@react-navigation/native';
 
-import {SCREEN_NAMES} from '../../../Constant/ScreenName';
+import {Paths} from '../../../Constant/ScreenName';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   selectGroupPermission,
@@ -78,7 +78,7 @@ const {theme}=useStylesheet()
           participants: [result?.data],
         };
         dispatch(setChatChanneDetails(channel));
-        navigation.navigate(SCREEN_NAMES.CHAT);
+        navigation.navigate(Paths.CHAT);
       }
     }
   };
@@ -141,7 +141,7 @@ const {theme}=useStylesheet()
             }}>
             <TouchableOpacity
               style={{flex: 1, marginLeft: 10, flexDirection: 'row'}}
-              onPress={() => navigation.navigate(SCREEN_NAMES.ADD_NEW_GROUP_PERMISSIONS)}>
+              onPress={() => navigation.navigate(Paths.ADD_NEW_GROUP_PERMISSIONS)}>
               <View style={{flex: 0.9, justifyContent: 'center'}}>
                 <Text
                   style={{fontFamily: theme.fonts.regular, color: theme.colors.text}}>

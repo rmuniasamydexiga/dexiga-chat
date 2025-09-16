@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
-import {SCREEN_NAMES} from '../../../Constant/ScreenName';
+import {Paths} from '../../../Constant/ScreenName';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   reSetBulkChatSendList,
@@ -122,7 +122,7 @@ const PlayerListController: React.FC = () => {
       } else {
         dispatch(setChatChanneDetails(channel));
 
-        navigation.navigate(SCREEN_NAMES.CHAT);
+        navigation.navigate(Paths.CHAT);
       }
     } else {
       Alert.alert('', ERROR_MESSAGE_CONTENT.UN_BLOCK_ARE_YOU, [
@@ -187,7 +187,7 @@ const PlayerListController: React.FC = () => {
           Alert.alert('Oops! An error has occured. Please try again.');
         },
       );
-      navigation.navigate(SCREEN_NAMES.CHAT_LIST);
+      navigation.navigate(Paths.CHAT_LIST);
     } else {
       snackBarMessage(
         'File Size is To High Please Upload' + ' ' + MAXIMUM_FILE_SIZE + ' Mb',
@@ -228,7 +228,7 @@ const PlayerListController: React.FC = () => {
             throw new Error('Function not implemented.');
           } } isHideSearch={false}      />
         <ChatUserList
-          fromNavigation={route?.params?.fromNavigation || SCREEN_NAMES.PLAYER_LIST}
+          fromNavigation={route?.params?.fromNavigation || Paths.PLAYER_LIST}
           data={userFilter}
           EmptyListMesage={'No Users Founds'}
           selectedUser={bulkChatSendList}

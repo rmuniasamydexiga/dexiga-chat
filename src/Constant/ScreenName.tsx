@@ -1,4 +1,4 @@
-export const SCREEN_NAMES = {
+export const Paths = {
     HOME: "HomeController",
     PROFILE: "ProfileController",
     LOGIN: "LoginController",

@@ -12,7 +12,7 @@ import {
   Platform,
 } from 'react-native';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {SCREEN_NAMES} from '../../../Constant/ScreenName';
+import {Paths} from '../../../Constant/ScreenName';
 import {Col, Grid, Row} from 'react-native-easy-grid';
 import {channelManager, firebaseUser} from '../../../chat-firebase';
 import {useDispatch, useSelector} from 'react-redux';
@@ -219,11 +219,11 @@ const{images}=useAssets()
       await clearAll();
       dispatch(resetChat());
       resetChatAlldata();
-      navigation.navigate(SCREEN_NAMES.LOGIN);
+      navigation.navigate(Paths.LOGIN);
     } else if (data === CHAT_DETAILS_CONFIGURE.NEW_BRAOD_CAST) {
-      navigation.navigate(SCREEN_NAMES.ADD_NEW_BROAD_CAST);
+      navigation.navigate(Paths.ADD_NEW_BROAD_CAST);
     } else if (data === CHAT_DETAILS_CONFIGURE.NEW_GROUP) {
-      navigation.navigate(SCREEN_NAMES.ADD_NEW_GROUP);
+      navigation.navigate(Paths.ADD_NEW_GROUP);
     }
 
     setMenuVisible(!menuVisible);
@@ -457,7 +457,7 @@ const{images}=useAssets()
     };
 
     dispatch(setChatChanneDetails(channel));
-    navigation.navigate(SCREEN_NAMES.CHAT);
+    navigation.navigate(Paths.CHAT);
   };
   const listEmptyComponent = () => {
     return (
@@ -500,7 +500,7 @@ const{images}=useAssets()
         }
         images.source = image.path;
 
-        navigation.navigate(SCREEN_NAMES.PLAYER_LIST, {
+        navigation.navigate(Paths.PLAYER_LIST, {
           fromNavigation: FROM_NAVIGATION.BULK_DOCUMENT_SEND,
           mediaDetails: image,
         });
@@ -519,7 +519,7 @@ const{images}=useAssets()
           images.fileName = images.fileName;
         }
 
-        navigation.navigate(SCREEN_NAMES.PLAYER_LIST, {
+        navigation.navigate(Paths.PLAYER_LIST, {
           fromNavigation: FROM_NAVIGATION.BULK_DOCUMENT_SEND,
           mediaDetails: images,
         });
@@ -682,7 +682,7 @@ const{images}=useAssets()
             // diffieHellManAlgorthim()
             // groupChatSimulation();
             // groupEncryption()
-            navigation.navigate(SCREEN_NAMES.PLAYER_LIST);
+            navigation.navigate(Paths.PLAYER_LIST);
 
             // navigation.navigate(SCREEN_NAMES.GROUP_NAME_CHANGE)
 

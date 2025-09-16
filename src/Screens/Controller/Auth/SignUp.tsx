@@ -3,7 +3,7 @@ import {View, Text, TextInput, Alert} from 'react-native';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import { v4 as uuidv4 } from 'uuid';
 
-import {SCREEN_NAMES} from '../../../Constant/ScreenName';
+import {Paths} from '../../../Constant/ScreenName';
 import authStyles from '../../Style/LoginStyle';
 import {SNACKBAR_MESSAGE_LENGTH, USER_TYPE} from '../../../Constant/Constant';
 import {signUpValidationSchema, validation} from '../../../chat-services/validation';
@@ -115,7 +115,7 @@ const registerUser = async () => {
         'User Registered Successfully',
         SNACKBAR_MESSAGE_LENGTH.LONG,
       );
-      navigation.navigate(SCREEN_NAMES.LOGIN);
+      navigation.navigate(Paths.LOGIN);
     }, 2000);
   } catch (e: unknown) {
     const errorMsg = e instanceof Error ? e.message : String(e);

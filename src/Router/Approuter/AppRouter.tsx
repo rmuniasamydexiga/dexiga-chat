@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/native';
 import {TransitionPresets, createStackNavigator} from '@react-navigation/stack';
 import 'react-native-gesture-handler';
-import {SCREEN_NAMES} from '../../Constant/ScreenName';
+import {Paths} from '../../Constant/ScreenName';
 
 import LoginController from '../../Screens/Controller/Auth/LoginController';
 import ChatController from '../../Screens/Controller/Chat/chat-inbox';
@@ -76,7 +76,7 @@ const App = () => {
           name: outBound.name,
           participants: [outBound.sender],
         };
-        navigationRef.navigate(SCREEN_NAMES.CHAT, {channel: channel});
+        navigationRef.navigate(Paths.CHAT, {channel: channel});
       }
     });
   }, []);
@@ -97,78 +97,78 @@ const App = () => {
         <AuthProvider>
           <MenuProvider>
             <Stack.Navigator
-              initialRouteName={SCREEN_NAMES.SPLASH_SCREEN}
+              initialRouteName={Paths.SPLASH_SCREEN}
               screenOptions={{
                 headerShown: false,
                 ...TransitionPresets.SlideFromRightIOS,
               }}>
               <Stack.Screen
-                name={SCREEN_NAMES.SPLASH_SCREEN}
+                name={Paths.SPLASH_SCREEN}
                 component={SplashScreenController}
               />
               <Stack.Screen
-                name={SCREEN_NAMES.LOGIN}
+                name={Paths.LOGIN}
                 component={LoginController}
               />
-              <Stack.Screen name={SCREEN_NAMES.SIGNUP} component={Signup} />
+              <Stack.Screen name={Paths.SIGNUP} component={Signup} />
               <Stack.Screen
-                name={SCREEN_NAMES.CHAT_LIST}
+                name={Paths.CHAT_LIST}
                 component={ChatList}
               />
               <Stack.Screen
-                name={SCREEN_NAMES.PLAYER_LIST}
+                name={Paths.PLAYER_LIST}
                 component={PlayerListController}
               />
               <Stack.Screen
-                name={SCREEN_NAMES.MEDIA_VIEWER}
+                name={Paths.MEDIA_VIEWER}
                 component={MediaViewingController}
               />
           
               <Stack.Screen
-                name={SCREEN_NAMES.ADD_NEW_BROAD_CAST}
+                name={Paths.ADD_NEW_BROAD_CAST}
                 component={AddNewBroadCastController}
               />
               <Stack.Screen
-                name={SCREEN_NAMES.ADD_NEW_GROUP}
+                name={Paths.ADD_NEW_GROUP}
                 component={AddNewGroupController}
               />
 
               <Stack.Screen
-                name={SCREEN_NAMES.ADD_NEW_GROUP_PROFILE}
+                name={Paths.ADD_NEW_GROUP_PROFILE}
                 component={AddNewGroupProfileController}
               />
               <Stack.Screen
-                name={SCREEN_NAMES.ADD_NEW_GROUP_PERMISSIONS}
+                name={Paths.ADD_NEW_GROUP_PERMISSIONS}
                 component={GroupPermissionsController}
               />
               <Stack.Screen
-                name={SCREEN_NAMES.GROUP_INFO}
+                name={Paths.GROUP_INFO}
                 component={GroupInfoController}
               />
               <Stack.Screen
-                name={SCREEN_NAMES.BROADCAST_INFO}
+                name={Paths.BROADCAST_INFO}
                 component={BroadCastInfoController}
               />
               <Stack.Screen
-                name={SCREEN_NAMES.INDIVIDUAL_INFO}
+                name={Paths.INDIVIDUAL_INFO}
                 component={IndividualChatInfoController}
               />
 
               <Stack.Screen
-                name={SCREEN_NAMES.MESSAGE_INFO}
+                name={Paths.MESSAGE_INFO}
                 component={MessageInfoController}
               />
               <Stack.Screen
-                name={SCREEN_NAMES.MEDIA_LIST}
+                name={Paths.MEDIA_LIST}
                 component={MediaListController}
               />
               <Stack.Screen
-                name={SCREEN_NAMES.GROUP_NAME_CHANGE}
+                name={Paths.GROUP_NAME_CHANGE}
                 component={GroupNameChangeController}
               />
 
               <Stack.Screen
-                name={SCREEN_NAMES.CHAT}
+                name={Paths.CHAT}
                 component={ChatController}
               />
             </Stack.Navigator>
