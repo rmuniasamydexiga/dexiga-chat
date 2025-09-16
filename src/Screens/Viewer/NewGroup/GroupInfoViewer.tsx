@@ -11,7 +11,7 @@ interface User {
   email: string;
 }
 
-interface IPlayerListViewer {
+interface IGroupInfoViewer {
   mode: string;
   users: any;
   selectedBroadCast:any[]
@@ -46,7 +46,7 @@ interface IPlayerListViewer {
   
 }
 
-const GroupInfoViewer: React.FC<IPlayerListViewer>=(props) => {
+const GroupInfoViewer: React.FC<IGroupInfoViewer>=(props) => {
 const{theme}=useStylesheet()
 
   const {

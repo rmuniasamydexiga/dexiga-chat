@@ -14,7 +14,7 @@ import {getName} from '../../../chat-services/common';
 import {ERROR_MESSAGE_CONTENT} from '../../../Constant/Constant';
 import {HeaderSix, PageContainer,ContactsFloatingIcon, useStylesheet, VectorIcon, useAssets,chatStyles } from 'react-native-dex-moblibs';
 
-interface IPlayerListViewer {
+interface IAddNewBroadCastViewer {
   user: any;
   selectedBroadCast: any[];
   onFriendItemPress: (item: any) => void;
@@ -34,7 +34,7 @@ interface IPlayerListViewer {
   setBroadcastName: (txt: any) => void;
 }
 
-const AddNewBroadCastViewer: React.FC<IPlayerListViewer> = props => {
+const AddNewBroadCastViewer: React.FC<IAddNewBroadCastViewer> = props => {
   const {
     user,
     usersList,

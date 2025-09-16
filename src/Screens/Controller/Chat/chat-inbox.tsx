@@ -3,6 +3,10 @@ import {
   Alert,
   Platform,
   Linking,
+  KeyboardAvoidingView,
+   View,
+  Text,
+
 
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
@@ -24,7 +28,7 @@ import AudioRecorderPlayer, {
   OutputFormatAndroidType,
 } from 'react-native-audio-recorder-player';
 import {channelManager, firebaseStorage} from '../../../chat-firebase';
-import ChatViewer from '../../Viewer/Chat/ChatViewer';
+import ChatViewer from './ChatViewer';
 import {
   CHAT_DETAILS_CONFIGURE,
   CHAT_OPTIONS,
@@ -32,6 +36,8 @@ import {
   IS_IOS,
   MAXIMUM_FILE_SIZE,
   MESSAGE_STATUS,
+  ERROR_MESSAGE_CONTENT,
+  WIDTH,
   MESSAGE_TYPE,
   SNACKBAR_MESSAGE_LENGTH,
 } from '../../../Constant/Constant';
@@ -87,6 +93,7 @@ import {
   showLog,
 } from '../../../chat-services/common';
 
+
 import {useAuth} from '../../../Router/Context/Auth';
 import {
   broadCastPushNotifications,
@@ -94,8 +101,11 @@ import {
   indiviualPushNotifications,
 } from '../../../chat-services/NotificationHelper';
 import Clipboard from '@react-native-clipboard/clipboard';
-import {encrypt, sharedKeyAlgorthim} from '../../../chat-services/EndToEndEncryption';
-import { snackBarMessage } from 'react-native-dex-moblibs';
+import { sharedKeyAlgorthim} from '../../../chat-services/EndToEndEncryption';
+import {   } from 'react-native-dex-moblibs';
+import { BottomInput, MessageThread, PageContainer, useStylesheet,HeaderOne, HeaderThree,snackBarMessage} from 'react-native-dex-moblibs';
+import ActionSheet from 'react-native-actionsheet';
+
 
 const audioRecorderPlayer = new AudioRecorderPlayer();
 
@@ -123,6 +133,8 @@ const ChatController: React.FC = () => {
     isPlaying: false,
     url: null,
   });
+  const {theme} = useStylesheet();
+
 
   // Define a type for your message object
   type MessageType = {
@@ -138,7 +150,6 @@ const ChatController: React.FC = () => {
   const navigation = useNavigation<any>();
 
 
-  const route = useRoute();
 
   const groupSettingsActionSheetRef = useRef<any>();
   const privateSettingsActionSheetRef = useRef<any>();
@@ -151,6 +162,12 @@ const ChatController: React.FC = () => {
   const [sharedKey, setSharedKey] = useState('');
 
   const isFocused = useIsFocused();
+
+
+  const TrackInteractive = true;
+  const photoUploadDialogRef = useRef<any>();
+  const longPressActionSheetRef = useRef<any>();
+  const longPressAudioVideoActionSheetRef = useRef<any>();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -1576,28 +1593,83 @@ const ChatController: React.FC = () => {
       }
     }
   }
- 
-  return (
-    <ChatViewer
-      fileList={fileList}
-      internalFileList={internalFileList}
-      disPlayName={getDisPlayNameName()}
-      isTitleBtnDisable={false}
-      is_group={!getChanelTitleBtnDisable()}
-      isInPutHide={getIsInputHideOrNot(groupParticpantsList)}
-      groupParticpantsList={groupParticpantsList}
-      inputHideMessage={getIsInputHideMessage(groupParticpantsList)}
-      user={user}
-      selectedMessage={selectedMessage}
-      menuVisible={menuVisible}
-      thread={thread}
-      isHeaderChage={isHeaderChage}
-      inputValue={inputValue}
-      inReplyToItem={inReplyToItem}
-      onAddMediaPress={message => onAddMediaPress(message)}
-      onSendInput={onSendInput}
-      channel={channel}
-      menuList={
+
+  // viewer logic
+
+    const onChangeText = (text: string) => {
+    onChangeTextInput(text);
+  };
+
+  const onSend = () => {
+    onSendInput();
+  };
+
+  const onPhotoUploadDialogDone = async (index: number) => {
+    if (index == 0) {
+      longPressAudioVideoActionSheetRef.current.show();
+    }
+    if (index == 1) {
+      onOpenPhotos();
+    } else if (index === 2) {
+      onLaunchDocument();
+    }
+  };
+
+  const onGroupSettingsActionDone = (index: number) => {
+    if (index == 0) {
+      showRenameDialog(true);
+    } else if (index == 1) {
+      onLeave();
+    }
+  };
+
+  const onVideoPhotoPress = (index: number) => {
+    if (index == 0) {
+      onLaunchCameraVideo();
+    } else if (index == 1) {
+      onLaunchCameraPhoto();
+    }
+  };
+
+  const onPrivateSettingsActionDone = (index: number) => {
+    if (index == 2) {
+      return;
+    }
+    var message, actionCallback;
+    if (index == 0) {
+      actionCallback = onUserBlockPress;
+      message =
+        "Are you sure you want to block this user? You won't see their messages again.";
+    } else if (index == 1) {
+      actionCallback = onUserReportPress;
+      message =
+        "Are you sure you want to report this user? You won't see their messages again.";
+    }
+    Alert.alert('Are you sure?', message, [
+      {
+        text: 'Yes',
+        onPress: actionCallback,
+      },
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+    ]);
+  };
+
+  const onReplyPress = (index: number) => {
+    if (index == 0) {
+      onReplyActionPress(selectedMessage);
+    }
+  };
+
+  const messageUnSelect = async (data: any) => {
+    onMessageLongPress(data);
+  };
+  const navigationGOBack=()=>{
+navigation.navigate(SCREEN_NAMES.CHAT_LIST)
+  }
+  const  menuList=
         channel?.participants?.[0]?.is_group
           ? [
               CHAT_DETAILS_CONFIGURE.CLEAR_CHAT,
@@ -1633,34 +1705,9 @@ const ChatController: React.FC = () => {
                 ? CHAT_DETAILS_CONFIGURE.MUTE
                 : CHAT_DETAILS_CONFIGURE.UN_MUTE,
             ]
-      }
-      onChangeTextInput={onChangeTextInput}
-      onLaunchCamera={onLaunchCamera}
-      onLaunchCameraVideo={onLaunchCameraVideo}
-      onLaunchCameraPhoto={onLaunchCameraPhoto}
-      onLaunchDocument={onLaunchDocument}
-      onOpenPhotos={onOpenPhotos}
-      navigationGOBack={() => navigation.navigate(SCREEN_NAMES.CHAT_LIST)}
-      sharedKey={sharedKey}
-      uploadProgress={uploadProgress}
-      onPressMenu={data => onPressMenu(data)}
-      isMediaViewerOpen={isMediaViewerOpen}
-      onChatMediaPress={data => onChatMediaPress(data)}
-      onMediaClose={() => onMediaClose}
-      isRenameDialogVisible={isRenameDialogVisible}
-      groupSettingsActionSheetRef={groupSettingsActionSheetRef}
-      privateSettingsActionSheetRef={privateSettingsActionSheetRef}
-      showRenameDialog={() => showRenameDialog}
-      onChangeName={() => onChangeName}
-      onLeave={() => onLeave}
-      onUserBlockPress={() => onUserBlockPress}
-      onUserReportPress={() => onUserReportPress}
-      onReplyActionPress={item => onReplyActionPress(item)}
-      onReplyingToDismiss={() => onReplyingToDismiss}
-      onSenderProfilePicturePress={function (): void {
-        throw new Error('Function not implemented.');
-      }}
-      navigationTitlePress={() => {
+      
+  
+      const   navigationTitlePress=() => {
         if (channel?.participants?.[0]?.is_group) {
           navigation.navigate(SCREEN_NAMES.GROUP_INFO);
         } else if (channel?.participants?.[0]?.is_broadCast) {
@@ -1668,16 +1715,163 @@ const ChatController: React.FC = () => {
         } else {
           navigation.navigate(SCREEN_NAMES.INDIVIDUAL_INFO);
         }
-      }}
-      startRecord={() => recordStart()}
-      stopRecord={type => recordStop(type)}
-      recorderDetails={recorderDetails}
-      onMessageLongPress={data => onMessageLongPress(data)}
-      onPressDeleteMessage={() => deleteChatMessage()}
-      pauseAudio={() => stopAudio()}
-      audioDetails={audioDetails}
-    />
+      }
+   const ConditionalRendering = () => {
+    return (
+      <>
+        {!isHeaderChage ? (
+          <HeaderOne
+            isTitleBtnDisable={false}
+            outBond={selectedMessage?.[0]?.senderID === user?.id}
+            title={getDisPlayNameName()}
+            onPress={() => navigationGOBack()}
+            menuVisible={menuVisible}
+            menuList={menuList}
+            onPressMenu={data => onPressMenu(data)}
+            navigationTitlePress={() => navigationTitlePress()}></HeaderOne>
+        ) : (
+          <HeaderThree
+            title={getDisPlayNameName()}
+            outBond={
+              selectedMessage?.[0]?.senderID === user?.id &&
+              selectedMessage.length == 1
+            }
+            onPress={() => navigationGOBack()}
+            menuVisible={menuVisible}
+            showCopyButton={
+              selectedMessage.length === 1 &&
+              selectedMessage[0].messageType === MESSAGE_TYPE.TEXT
+            }
+            menuList={menuList}
+            onPressDeleteMessage={() => deleteChatMessage()}
+            onPressMenu={data => onPressMenu(data)}
+          />
+        )}
+        <MessageThread
+          thread={thread}
+          is_group={!getChanelTitleBtnDisable()}
+          fileList={fileList}
+          groupParticpantsList={groupParticpantsList}
+          internalFileList={internalFileList}
+          isHeaderChage={isHeaderChage}
+          user={user}
+          sharedKey={sharedKey}
+          uploadProgress={uploadProgress}
+          messageSelectionList={selectedMessage}
+          messageUnSelect={data => messageUnSelect(data)}
+          onChatMediaPress={data => onChatMediaPress(data)}
+          onSenderProfilePicturePress={()=>{
+            console.log("Error===>")
+          }}
+          onMessageLongPress={onMessageLongPress}
+          title={''}
+          onPress={function (): void {
+            throw new Error('Function not implemented.');
+          }}
+          pauseAudio={() => stopAudio()}
+          audioDetails={audioDetails}
+        />
+
+        {getIsInputHideOrNot(groupParticpantsList) ? (
+          <View>
+            <Text
+              style={{
+                marginLeft: WIDTH / 15,
+                alignItems: 'center',
+                fontSize: theme.typography.subSubTitle,
+                fontFamily: theme.fonts.bold,
+              }}>
+              {getIsInputHideMessage(groupParticpantsList)}
+            </Text>
+          </View>
+        ) : (
+          <BottomInput
+            uploadProgress={uploadProgress}
+            value={inputValue}
+            onChangeText={onChangeText}
+            onSend={onSend}
+            trackInteractive={TrackInteractive}
+            onAddMediaPress={() => {
+              if (channel?.participants?.[0]?.blockedBy === user?.id) {
+                onAddMediaPress(ERROR_MESSAGE_CONTENT.UN_BLOCK);
+              } else {
+                photoUploadDialogRef.current.show();
+              }
+            }}
+            inReplyToItem={inReplyToItem}
+            onReplyingToDismiss={onReplyingToDismiss}
+            item={undefined}
+            startRecord={() => recordStart()}
+            stopRecord={type => recordStop(type)}
+            recorderDetails={recorderDetails}
+          />
+        )}
+
+        <ActionSheet
+          title={'Are you sure?'}
+          options={['Confirm', 'Cancel']}
+          cancelButtonIndex={1}
+          destructiveButtonIndex={0}
+          onPress={() => null}
+        />
+        <ActionSheet
+          ref={photoUploadDialogRef}
+          title={'Photo Upload'}
+          options={[
+            'Launch Camera',
+            'Open Photo Gallery',
+            'Document',
+            'Cancel',
+          ]}
+          cancelButtonIndex={3}
+          onPress={onPhotoUploadDialogDone}
+        />
+        <ActionSheet
+          ref={groupSettingsActionSheetRef}
+          title={'Group Settings'}
+          options={['Rename Group', 'Leave Group', 'Cancel']}
+          cancelButtonIndex={2}
+          destructiveButtonIndex={1}
+          onPress={onGroupSettingsActionDone}
+        />
+        <ActionSheet
+          ref={privateSettingsActionSheetRef}
+          title={'Actions'}
+          options={['Block user', 'Report user', 'Cancel']}
+          cancelButtonIndex={2}
+          onPress={onPrivateSettingsActionDone}
+        />
+
+        <ActionSheet
+          ref={longPressActionSheetRef}
+          title={'Actions'}
+          options={['Reply', 'Cancel']}
+          cancelButtonIndex={1}
+          onPress={onReplyPress}
+        />
+        <ActionSheet
+          ref={longPressAudioVideoActionSheetRef}
+          title={'Actions'}
+          options={['Video', 'Photo', 'Cancel']}
+          cancelButtonIndex={2}
+          onPress={onVideoPhotoPress}
+        />
+      </>
+    );
+  };
+  return (
+    <PageContainer>
+      {IS_IOS ? (
+        <KeyboardAvoidingView style={{flex: 1}} behavior={'padding'}>
+          {ConditionalRendering()}
+        </KeyboardAvoidingView>
+      ) : (
+        ConditionalRendering()
+      )}
+    </PageContainer>
   );
+ 
+ 
 };
 
 export default ChatController;

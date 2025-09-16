@@ -81,7 +81,23 @@ export const subscribeChannels = async (callback: any) => {
   );
 };
 
-
+export const deleteBraodCast = async (
+  channel: any,
+  userId: string,
+  type: string
+) => {
+  try {
+    const channelRef = doc(db, "channels", channel?.id); // collection name: channels
+    await updateDoc(channelRef, {
+      mutedBy: userId,
+      isDelete: true,
+    });
+    return true;
+  } catch (e) {
+    console.error("Error deleting broadcast:", e);
+    return false;
+  }
+};
 
 export const channelMessageStatusWithOutSnapShots = async (userId: any) => {
   try {
@@ -894,6 +910,166 @@ export const updateBroadCast = async (
       broadCastUserChannels: broadCastUserList,
     },
   };
+};
+
+export const updateChannel = async (
+  channelID: string | undefined,
+  requestData: any
+) => {
+  try {
+    if (!channelID) throw new Error("Channel ID is undefined");
+
+    const channelRef = doc(db, "channels", channelID);
+    await updateDoc(channelRef, requestData);
+
+    return { success: true, data: requestData };
+  } catch (e) {
+    showLog("errorr==>", e);
+    return { success: false, error: e };
+  }
+};
+
+
+export const sendInfoMessage = async (
+  user: any,
+  channel: any,
+  message: any,
+  selcetedUser: any | null
+) => {
+  try {
+    let request: any = {
+      content: message,
+      created: currentTimestamp(),
+      senderFirstName: user.name || "",
+      senderID: user?.id,
+      actionId: selcetedUser?.id || user?.id,
+      messageType: MESSAGE_TYPE.INFORMATION,
+    };
+
+    // reference to /channels/{channel.id}/thread
+    const threadRef = collection(db, "channels", channel.id, "thread");
+
+    // add message to thread subcollection
+    const messageResult = await addDoc(threadRef, { ...request });
+
+    // update parent channel document
+    const channelRef = doc(db, "channels", channel.id);
+    await updateDoc(channelRef, {
+      lastMessage: request.content,
+      lastMessageDate: currentTimestamp(),
+    });
+
+    return { success: true, messageId: messageResult.id, data: request };
+  } catch (error) {
+    console.error("error", error);
+    return { success: false, error: error, data: [] };
+  }
+};
+
+const selectOption = (selectPermission: any[], data: string) => {
+  let result = false;
+  if (selectPermission) {
+    const findData = selectPermission.find((ele) => ele.type === data);
+    if (findData) {
+      result = findData.is_select;
+    }
+  }
+  return result;
+};
+
+export const channelPermissionUpdate = async (
+  channelID: string | undefined,
+  selectPermission: any[]
+) => {
+  try {
+    if (!channelID) throw new Error("Channel ID is undefined");
+
+    const data = {
+      is_edit: selectOption(selectPermission, "edit"),
+      is_message: selectOption(selectPermission, "message"),
+      is_user_add: selectOption(selectPermission, "add-user"),
+      is_user_approved: selectOption(selectPermission, "user"),
+    };
+
+    const channelRef = doc(db, "channels", channelID);
+    await updateDoc(channelRef, data);
+
+    return { success: true, data };
+  } catch (e) {
+    showLog("errorr==>", e);
+    return { success: false, error: e };
+  }
+};
+
+export const creatNewGroup = async (
+  dataArray: any,
+  userId: string | null,
+  groupName: string,
+  selectPermission: any,
+  user: any
+) => {
+  try {
+    let channelID = String(uuidv4());
+
+    const channelData = {
+      creator_id: userId,
+      creatorID: userId,
+      id: channelID,
+      name: groupName || "",
+      channelID,
+      is_group: true,
+      is_edit: selectOption(selectPermission, "edit"),
+      is_message: selectOption(selectPermission, "message"),
+      is_user_add: selectOption(selectPermission, "add-user"),
+      is_user_approved: selectOption(selectPermission, "user"),
+      lastMessageDate: currentTimestamp(),
+    };
+
+    // save channel data
+    const channelRef = doc(db, "channels", channelID);
+    await setDoc(channelRef, channelData);
+
+    // persist participants
+    persistChannelParticipations(
+      [...dataArray, { userId: userId, isAdmin: true }],
+      channelID,
+      true
+    );
+
+    // add system thread message for group creation
+    const threadRef = collection(db, "channels", channelID, "thread");
+    const createThreadDetails = {
+      content: `${MESSAGE_CONTENT.CREATE_GROUP}`,
+      created: currentTimestamp(),
+      senderFirstName: user.name || "",
+      senderID: userId,
+      messageType: MESSAGE_TYPE.INFORMATION,
+    };
+    await addDoc(threadRef, createThreadDetails);
+
+    // add system thread messages for each added user
+    for (const ele of dataArray) {
+      const addThreadDetails = {
+        content: `${MESSAGE_CONTENT.ADD}`,
+        created: currentTimestamp(),
+        senderFirstName: user.name || "",
+        senderID: userId,
+        actionId: ele.userId || ele.userID,
+        messageType: MESSAGE_TYPE.INFORMATION,
+      };
+      await addDoc(threadRef, addThreadDetails);
+    }
+
+    return {
+      status: true,
+      data: {
+        ...channelData,
+      },
+    };
+  } catch (error) {
+    console.error("Error creating new group:", error);
+    return { status: false, error };
+  }
 };
 
 export const currentTimestamp = () => {

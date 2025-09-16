@@ -9,26 +9,25 @@ import 'react-native-gesture-handler';
 import {SCREEN_NAMES} from '../../Constant/ScreenName';
 
 import LoginController from '../../Screens/Controller/Auth/LoginController';
-import ChatController from '../../Screens/Controller/Chat/ChatController';
+import ChatController from '../../Screens/Controller/Chat/chat-inbox';
 import Signup from '../../Screens/Controller/Auth/SignUp';
-import ChatList from '../../Screens/Controller/Chat/chatListController';
-import PlayerListController from '../../Screens/Controller/Chat/PlayerListController';
+import ChatList from '../../Screens/Controller/Chat/chat-list';
+import PlayerListController from '../../Screens/Controller/Chat/player-list';
 import {MenuProvider} from 'react-native-popup-menu';
-import MediaViewingController from '../../Screens/Controller/Chat/MediaViewingController';
-import {Provider, useDispatch} from 'react-redux';
+import MediaViewingController from '../../Screens/Controller/Chat/media-viewer';
+import {Provider} from 'react-redux';
 import {store} from '../../redux/store';
 import {AuthProvider, useAuth} from '../Context/Auth';
 import SplashScreenController from '../../Screens/Controller/Auth/Splash';
-import AddNewBroadCastController from '../../Screens/Controller/NewBroadCast/NewBroadCastController';
-import AddNewGroupController from '../../Screens/Controller/NewGroup/NewGroupController';
-import AddNewGroupProfileController from '../../Screens/Controller/NewGroup/NewGroupProfileController';
-import GroupPermissionsController from '../../Screens/Controller/NewGroup/GroupPermissionsController';
-import GroupInfoController from '../../Screens/Controller/NewGroup/GroupInfoController';
-import BroadCastInfoController from '../../Screens/Controller/NewBroadCast/BroadCastInfoController';
-import MessageInfoController from '../../Screens/Controller/Chat/MessageController';
-import MediaListController from '../../Screens/Controller/Chat/MediaListController';
-import IndividualChatInfoController from '../../Screens/Controller/Chat/IndividualChatInfoController';
-import Page from '../../Screens/Controller/Page';
+import AddNewBroadCastController from '../../Screens/Controller/broadcast/create-broadcast';
+import AddNewGroupController from '../../Screens/Controller/group/create-group';
+import AddNewGroupProfileController from '../../Screens/Controller/group/NewGroupProfileController';
+import GroupPermissionsController from '../../Screens/Controller/group/group-permissions';
+import GroupInfoController from '../../Screens/Controller/group/GroupInfoController';
+import BroadCastInfoController from '../../Screens/Controller/broadcast/broadcast-info';
+import MessageInfoController from '../../Screens/Controller/Chat/message-info';
+import MediaListController from '../../Screens/Controller/Chat/media-list';
+import IndividualChatInfoController from '../../Screens/Controller/Chat/individual-chat-info';
 
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -36,7 +35,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 export const navigationRef = createNavigationContainerRef();
 import messaging from '@react-native-firebase/messaging';
 import NetInfo from '@react-native-community/netinfo';
-import GroupNameChangeController from '../../Screens/Controller/NewGroup/GroupNameChangeController';
+import GroupNameChangeController from '../../Screens/Controller/group/group-name-change';
 import {showLog} from '../../chat-services/common';
 import { ThemeProviderWrapper } from '../ThemeProviderWrapper';
 
@@ -124,10 +123,7 @@ const App = () => {
                 name={SCREEN_NAMES.MEDIA_VIEWER}
                 component={MediaViewingController}
               />
-                  <Stack.Screen
-                name={SCREEN_NAMES.PAGE}
-                component={Page}
-              />
+          
               <Stack.Screen
                 name={SCREEN_NAMES.ADD_NEW_BROAD_CAST}
                 component={AddNewBroadCastController}

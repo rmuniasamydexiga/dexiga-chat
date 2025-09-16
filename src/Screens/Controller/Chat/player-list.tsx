@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
-import PlayerListViewer from '../../Viewer/Chat/PlayerListViewer';
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -14,9 +13,7 @@ import {
   setInternalFileList,
 } from '../../../redux/chatSlice';
 import {STORAGE} from '../../../chat-services/StorageHelper';
-import {Use} from 'react-native-svg';
-import {isAnyOf} from '@reduxjs/toolkit';
-import {string} from 'yup';
+
 import {
   ERROR_MESSAGE_CONTENT,
   FROM_NAVIGATION,
@@ -24,7 +21,7 @@ import {
   MESSAGE_TYPE,
   SNACKBAR_MESSAGE_LENGTH,
 } from '../../../Constant/Constant';
-import {Alert, Platform} from 'react-native';
+import {Alert, Image, KeyboardAvoidingView, Platform, Text, TouchableOpacity, View} from 'react-native';
 import {directoryTOSaveFile, readInternalFileName} from '../../../chat-services/MediaHelper';
 import {channelManager, firebaseStorage} from '../../../chat-firebase';
 import {useAuth} from '../../../Router/Context/Auth';
@@ -33,11 +30,9 @@ import {
   getFileSizeLimit,
 } from '../../../chat-services/common';
 import Snackbar from 'react-native-snackbar';
-import { getData, snackBarMessage } from 'react-native-dex-moblibs';
+import { chatStyles, ChatUserList, dynamicStyles, getData, HeaderFive, PageContainer, snackBarMessage, useAssets, useStylesheet } from 'react-native-dex-moblibs';
 
-interface Props {
-  user: any;
-}
+
 interface User {
   name: string;
   email: string;
@@ -57,6 +52,11 @@ const PlayerListController: React.FC = () => {
   const bulkChatSendList = useSelector(selectedBulkChatSendList);
   const route = useRoute<any>();
   const dispatch = useDispatch();
+    const styles = chatStyles();
+    const bottomStyles = dynamicStyles(null);
+    const {theme}=useStylesheet()
+  
+    const {images}=useAssets()
 
   useEffect(() => {
     // getUsers();
@@ -195,31 +195,79 @@ const PlayerListController: React.FC = () => {
       );
     }
   };
-  return (
-    <PlayerListViewer
-      users={userFilter}
-      searchPressBack={() => {
-        setShowTextInput(!showTextInput);
+  
+    return (
+      <PageContainer>
+      <KeyboardAvoidingView style={[styles.container]}>
+        <HeaderFive
+          title={'Select Contact'}
+          subTitle={userFilter.length + ' contacts'}
+          showTextInput={showTextInput}
+          searchPressBack={() => {
+              setShowTextInput(!showTextInput);
         searchText('');
-      }}
-      user={user}
-      chatList={chatList}
-      onSend={() => sendMediaMessage()}
-      selctedName={getSelecteName(bulkChatSendList)}
-      selectedUser={bulkChatSendList}
-      fromNavigation={route?.params?.fromNavigation}
-      showTextInput={showTextInput}
-      searchText={txt => searchText(txt)}
-      searchPress={() => {
-        setShowTextInput(!showTextInput);
-      }}
-      navigstionBack={() => {
+          }}
+          searchText={txt => searchText(txt)}
+          onPress={() => {
         navigation.goBack();
         return true;
-      }}
-      onFriendItemPress={(item: any) => onFriendItemPress(item)}
-    />
-  );
+          }}
+          searchPress={() => {
+                    setShowTextInput(!showTextInput);
+
+          }}
+          menuVisible={false}
+          menuList={[]}
+          isHideDot={true}
+          onPressMenu={function (data: string): void {
+            throw new Error('Function not implemented.');
+          } }
+          onPressDeleteMessage={function (): void {
+            throw new Error('Function not implemented.');
+          } } onPressmenuVisible={function (): void {
+            throw new Error('Function not implemented.');
+          } } isHideSearch={false}      />
+        <ChatUserList
+          fromNavigation={route?.params?.fromNavigation || SCREEN_NAMES.PLAYER_LIST}
+          data={userFilter}
+          EmptyListMesage={'No Users Founds'}
+          selectedUser={bulkChatSendList}
+          userId={user?.id}
+          chatList={chatList}
+          onFriendItemPress={data => onFriendItemPress(data)}
+        />
+  
+        {bulkChatSendList.length !== 0 && (
+          <View style={bottomStyles.TypeMessageInput}>
+            <Text
+              style={{
+                width: '85%',
+                padding: 10,
+                justifyContent: 'center',
+                fontFamily: theme.fonts.regular,
+              }}>
+              {getSelecteName(bulkChatSendList)}
+            </Text>
+  
+            <View
+              style={{
+                alignItems: 'center',
+                width: '15%',
+                justifyContent: 'center',
+              }}>
+              <TouchableOpacity
+                onPress={()=>sendMediaMessage()}
+                style={[bottomStyles.inputIconContainer]}>
+                <Image style={bottomStyles.inputIcon} source={images.send} />
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+      </KeyboardAvoidingView>
+      </PageContainer>
+    );
+    
+
 };
 
 export default PlayerListController;

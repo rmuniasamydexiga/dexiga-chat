@@ -1,27 +1,44 @@
-import React from 'react';
+import {  Alert, Platform, PermissionsAndroid } from 'react-native';
+import React, { useState } from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { selectDocumentList, selectMediaList, selectUser, selectedChannelDetails } from '../../../redux/chatSlice';
+import MediaListViewer from '../../Viewer/Chat/MediaListViewer';
+import { SCREEN_NAMES } from '../../../Constant/ScreenName';
+import { MESSAGE_TYPE } from '../../../Constant/Constant';
+import { getFileUrlForInternal, getFileViewer } from '../../../chat-services/MediaHelper';
 import { View, Text,FlatList,TouchableOpacity, ImageBackground} from 'react-native';
-
-import {  MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
-import { getFileUrlForInternal } from '../../../chat-services/MediaHelper';
-import { getName } from '../../../chat-services/common';
 import { dayDate, ListEmptyComponent, useStylesheet, VectorIcon, verticalScale,HeaderSeven,chatStyles } from 'react-native-dex-moblibs';
+import { getName } from '../../../chat-services/common';
 
-interface IMediaListViewer {
-  channel:any
-  navigstionBack:()=>void
-  navigationTab:(index:number)=>void,
-  activeTabIndex:number,
-  mediaList:any,
-  documentList:any
-  navigationToMediaList:(data:any)=>void
-}
 
-const MediaListViewer: React.FC <IMediaListViewer>= (props) => {
-  const {channel,navigstionBack,navigationTab,activeTabIndex,mediaList,documentList,navigationToMediaList}=props
+
+
+  
+const MediaListController: React.FC= () => {
+const navigation=useNavigation()
+const route=useRoute<any>()
+const user=useSelector(selectUser)
+const channel=useSelector(selectedChannelDetails)
+const [activeTabIndex,setActiveTabIndex]=useState(0)
+    const mediaList=useSelector(selectMediaList)  
+    const documentList=useSelector(selectDocumentList)
+ 
   const styles =chatStyles()
 const {theme}=useStylesheet()
 
-  return (
+const   navigationToMediaList=(data)=>{
+        if(data.messageType===MESSAGE_TYPE.DOCUMENT){
+          getFileViewer(data)
+        }else{
+        navigation.navigate(SCREEN_NAMES.MEDIA_VIEWER,{data:data})
+        }
+    }
+   const goNavigationBack=()=>{
+    navigation.goBack()
+   }
+
+     return (
     <View
       style={[
         styles.container
@@ -31,9 +48,9 @@ const {theme}=useStylesheet()
       title={getName(channel)} 
       subTitle={""}
       activeIndex={activeTabIndex}
-      navigationTab={(data)=>navigationTab(data)}
+      navigationTab={(data)=>setActiveTabIndex(data)}
       isMediaHeader={true}
-      onPress={()=>navigstionBack()} 
+      onPress={()=>navigation.goBack()} 
       menuVisible={false} menuList={[]} onPressMenu={function (data: string): void {
         throw new Error('Function not implemented.');
       } } 
@@ -102,5 +119,6 @@ const {theme}=useStylesheet()
   );
 };
 
-export default MediaListViewer;
+export default MediaListController;
+
 
