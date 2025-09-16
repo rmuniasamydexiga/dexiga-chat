@@ -1748,6 +1748,7 @@ navigation.navigate(SCREEN_NAMES.CHAT_LIST)
           />
         )}
         <MessageThread
+        channel={channel}
           thread={thread}
           is_group={!getChanelTitleBtnDisable()}
           fileList={fileList}
