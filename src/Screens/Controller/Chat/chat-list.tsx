@@ -221,9 +221,9 @@ const{images}=useAssets()
       resetChatAlldata();
       navigation.navigate(Paths.LOGIN);
     } else if (data === CHAT_DETAILS_CONFIGURE.NEW_BRAOD_CAST) {
-      navigation.navigate(Paths.ADD_NEW_BROAD_CAST);
+      navigation.navigate(Paths.AddNewBroadCast);
     } else if (data === CHAT_DETAILS_CONFIGURE.NEW_GROUP) {
-      navigation.navigate(Paths.ADD_NEW_GROUP);
+      navigation.navigate(Paths.AddNewGroup);
     }
 
     setMenuVisible(!menuVisible);
@@ -457,7 +457,7 @@ const{images}=useAssets()
     };
 
     dispatch(setChatChanneDetails(channel));
-    navigation.navigate(Paths.CHAT);
+    navigation.navigate(Paths.Chat);
   };
   const listEmptyComponent = () => {
     return (
@@ -500,7 +500,7 @@ const{images}=useAssets()
         }
         images.source = image.path;
 
-        navigation.navigate(Paths.PLAYER_LIST, {
+        navigation.navigate(Paths.PlayerList, {
           fromNavigation: FROM_NAVIGATION.BULK_DOCUMENT_SEND,
           mediaDetails: image,
         });
@@ -519,7 +519,7 @@ const{images}=useAssets()
           images.fileName = images.fileName;
         }
 
-        navigation.navigate(Paths.PLAYER_LIST, {
+        navigation.navigate(Paths.PlayerList, {
           fromNavigation: FROM_NAVIGATION.BULK_DOCUMENT_SEND,
           mediaDetails: images,
         });
@@ -682,7 +682,7 @@ const{images}=useAssets()
             // diffieHellManAlgorthim()
             // groupChatSimulation();
             // groupEncryption()
-            navigation.navigate(Paths.PLAYER_LIST);
+            navigation.navigate(Paths.PlayerList);
 
             // navigation.navigate(SCREEN_NAMES.GROUP_NAME_CHANGE)
 

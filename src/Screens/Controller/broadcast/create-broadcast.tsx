@@ -133,7 +133,7 @@ const {images}=useAssets()
       };
 
       dispatch(setChatChanneDetails(channel));
-      navigation.navigate(Paths.CHAT);
+      navigation.navigate(Paths.Chat);
     }
   };
 
@@ -149,7 +149,7 @@ const {images}=useAssets()
     });
     setUserFilter(userFilter);
   };
-  const title= route?.params?.fromNavigation === Paths.BROADCAST_INFO
+  const title= route?.params?.fromNavigation === Paths.BroadcastInfo
           ? 'Edit recipients'
           : CHAT_DETAILS_CONFIGURE.NEW_BRAOD_CAST;
           let  groupParticpantsList: any[]=[]
@@ -271,7 +271,7 @@ const {images}=useAssets()
                                       fontSize: theme.typography.label,
                                       color:theme.colors.borderColor,
                                     }}>{`User Already Added to this ${
-                                   route?.params?.fromNavigation === Paths.BROADCAST_INFO
+                                   route?.params?.fromNavigation === Paths.BroadcastInfo
                                       ? 'BroadCast'
                                       : 'Group'
                                   }`}</Text>
@@ -445,8 +445,8 @@ const {images}=useAssets()
                 name="arrow-right-thin"
                 contactOnNavigation={() =>
                 {
-        if (route?.params?.fromNavigation === Paths.BROADCAST_INFO) {
-          navigation.navigate(Paths.BROADCAST_INFO, {
+        if (route?.params?.fromNavigation === Paths.BroadcastInfo) {
+          navigation.navigate(Paths.BroadcastInfo, {
             groupSletecedUser: selectedBroadCast,
           });
         } else {

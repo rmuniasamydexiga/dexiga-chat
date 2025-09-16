@@ -172,7 +172,7 @@ const ChatController: React.FC = () => {
   useFocusEffect(
     React.useCallback(() => {
       const backAction = () => {
-        navigation.navigate(Paths.CHAT_LIST);
+        navigation.navigate(Paths.ChatList);
         return true;
       };
       const backHandler = BackHandler.addEventListener(
@@ -315,13 +315,13 @@ const ChatController: React.FC = () => {
     } else if (data === CHAT_DETAILS_CONFIGURE.DELETE_GROUP) {
       onLeaveGroup(channel.id, user?.id, res => {
         getChannelParticipants();
-        navigation.navigate(Paths.CHAT_LIST);
+        navigation.navigate(Paths.ChatList);
       });
     } else if (data === 'info') {
       let message = selectedMessage[0];
       setSeletedMessage([]);
       setIsHeaderChange(false);
-      navigation.navigate(Paths.MESSAGE_INFO, {message: message});
+      navigation.navigate(Paths.MessageInfo, {message: message});
     }
   };
 
@@ -1135,7 +1135,7 @@ const ChatController: React.FC = () => {
             //   let uri=getFileUrlForInternal(item)
             //   VideoPlayerBridge.renderVideoFromUrl(uri);
             // }else{
-            navigation.navigate(Paths.MEDIA_VIEWER, {data: item});
+            navigation.navigate(Paths.MediaViewer, {data: item});
             // }
           } else {
             let result = await saveFileData(item);
@@ -1146,7 +1146,7 @@ const ChatController: React.FC = () => {
           console.log('item', item);
 
           if (!result) {
-            navigation.navigate(Paths.MEDIA_VIEWER, {data: item});
+            navigation.navigate(Paths.MediaViewer, {data: item});
           } else {
             saveFileData(item);
             // downloadFile(item);
@@ -1667,7 +1667,7 @@ const ChatController: React.FC = () => {
     onMessageLongPress(data);
   };
   const navigationGOBack=()=>{
-navigation.navigate(Paths.CHAT_LIST)
+navigation.navigate(Paths.ChatList)
   }
   const  menuList=
         channel?.participants?.[0]?.is_group
@@ -1709,11 +1709,11 @@ navigation.navigate(Paths.CHAT_LIST)
   
       const   navigationTitlePress=() => {
         if (channel?.participants?.[0]?.is_group) {
-          navigation.navigate(Paths.GROUP_INFO);
+          navigation.navigate(Paths.GroupInfo);
         } else if (channel?.participants?.[0]?.is_broadCast) {
-          navigation.navigate(Paths.BROADCAST_INFO);
+          navigation.navigate(Paths.BroadcastInfo);
         } else {
-          navigation.navigate(Paths.INDIVIDUAL_INFO);
+          navigation.navigate(Paths.IndividualChatInfo);
         }
       }
    const ConditionalRendering = () => {

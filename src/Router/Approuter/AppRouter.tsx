@@ -9,25 +9,25 @@ import 'react-native-gesture-handler';
 import {Paths} from '../../Constant/ScreenName';
 
 import LoginController from '../../Screens/Controller/Auth/LoginController';
-import ChatController from '../../Screens/Controller/Chat/chat-inbox';
+import ChatController from '../../Screens/Controller/chat/chat-inbox';
 import Signup from '../../Screens/Controller/Auth/SignUp';
-import ChatList from '../../Screens/Controller/Chat/chat-list';
-import PlayerListController from '../../Screens/Controller/Chat/player-list';
+import ChatList from '../../Screens/Controller/chat/chat-list';
+import PlayerListController from '../../Screens/Controller/chat/player-list';
 import {MenuProvider} from 'react-native-popup-menu';
-import MediaViewingController from '../../Screens/Controller/Chat/media-viewer';
+import MediaViewingController from '../../Screens/Controller/chat/media-viewer';
 import {Provider} from 'react-redux';
 import {store} from '../../redux/store';
 import {AuthProvider, useAuth} from '../Context/Auth';
 import SplashScreenController from '../../Screens/Controller/Auth/Splash';
 import AddNewBroadCastController from '../../Screens/Controller/broadcast/create-broadcast';
 import AddNewGroupController from '../../Screens/Controller/group/create-group';
-import AddNewGroupProfileController from '../../Screens/Controller/group/NewGroupProfileController';
+import AddNewGroupProfileController from '../../Screens/Controller/group/group-profile';
 import GroupPermissionsController from '../../Screens/Controller/group/group-permissions';
-import GroupInfoController from '../../Screens/Controller/group/GroupInfoController';
+import GroupInfoController from '../../Screens/Controller/group/group-info';
 import BroadCastInfoController from '../../Screens/Controller/broadcast/broadcast-info';
-import MessageInfoController from '../../Screens/Controller/Chat/message-info';
-import MediaListController from '../../Screens/Controller/Chat/media-list';
-import IndividualChatInfoController from '../../Screens/Controller/Chat/individual-chat-info';
+import MessageInfoController from '../../Screens/Controller/chat/message-info';
+import MediaListController from '../../Screens/Controller/chat/media-list';
+import IndividualChatInfoController from '../../Screens/Controller/chat/individual-chat-info';
 
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -76,7 +76,7 @@ const App = () => {
           name: outBound.name,
           participants: [outBound.sender],
         };
-        navigationRef.navigate(Paths.CHAT, {channel: channel});
+        navigationRef.navigate(Paths.Chat, {channel: channel});
       }
     });
   }, []);
@@ -112,63 +112,63 @@ const App = () => {
               />
               <Stack.Screen name={Paths.SIGNUP} component={Signup} />
               <Stack.Screen
-                name={Paths.CHAT_LIST}
+                name={Paths.ChatList}
                 component={ChatList}
               />
               <Stack.Screen
-                name={Paths.PLAYER_LIST}
+                name={Paths.PlayerList}
                 component={PlayerListController}
               />
               <Stack.Screen
-                name={Paths.MEDIA_VIEWER}
+                name={Paths.MediaViewer}
                 component={MediaViewingController}
               />
           
               <Stack.Screen
-                name={Paths.ADD_NEW_BROAD_CAST}
+                name={Paths.AddNewBroadCast}
                 component={AddNewBroadCastController}
               />
               <Stack.Screen
-                name={Paths.ADD_NEW_GROUP}
+                name={Paths.AddNewGroup}
                 component={AddNewGroupController}
               />
 
               <Stack.Screen
-                name={Paths.ADD_NEW_GROUP_PROFILE}
+                name={Paths.AddNewGroupProfile}
                 component={AddNewGroupProfileController}
               />
               <Stack.Screen
-                name={Paths.ADD_NEW_GROUP_PERMISSIONS}
+                name={Paths.AddNewGroupPermissions}
                 component={GroupPermissionsController}
               />
               <Stack.Screen
-                name={Paths.GROUP_INFO}
+                name={Paths.GroupInfo}
                 component={GroupInfoController}
               />
               <Stack.Screen
-                name={Paths.BROADCAST_INFO}
+                name={Paths.BroadcastInfo}
                 component={BroadCastInfoController}
               />
               <Stack.Screen
-                name={Paths.INDIVIDUAL_INFO}
+                name={Paths.IndividualChatInfo}
                 component={IndividualChatInfoController}
               />
 
               <Stack.Screen
-                name={Paths.MESSAGE_INFO}
+                name={Paths.MessageInfo}
                 component={MessageInfoController}
               />
               <Stack.Screen
-                name={Paths.MEDIA_LIST}
+                name={Paths.MediaList}
                 component={MediaListController}
               />
               <Stack.Screen
-                name={Paths.GROUP_NAME_CHANGE}
+                name={Paths.GroupNameChange}
                 component={GroupNameChangeController}
               />
 
               <Stack.Screen
-                name={Paths.CHAT}
+                name={Paths.Chat}
                 component={ChatController}
               />
             </Stack.Navigator>

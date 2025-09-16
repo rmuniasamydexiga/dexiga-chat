@@ -4,7 +4,7 @@ import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import { v4 as uuidv4 } from 'uuid';
 
 import {Paths} from '../../../Constant/ScreenName';
-import authStyles from '../../Style/LoginStyle';
+import authStyles from './LoginStyle';
 import {SNACKBAR_MESSAGE_LENGTH, USER_TYPE} from '../../../Constant/Constant';
 import {signUpValidationSchema, validation} from '../../../chat-services/validation';
 import {

@@ -122,15 +122,15 @@ const {images}=useAssets()
   };
 
   const createNewGroup = () => {
-    if (route?.params?.formNavigation === Paths.GROUP_INFO) {
+    if (route?.params?.formNavigation === Paths.GroupInfo) {
       let selectedBroadCasts = selectedBroadCast;
       setSelectedBroadCast([]);
-      navigation.navigate(Paths.GROUP_INFO, {
+      navigation.navigate(Paths.GroupInfo, {
         groupSletecedUser: selectedBroadCasts,
         users: users,
       });
     } else {
-      navigation.navigate(Paths.ADD_NEW_GROUP_PROFILE, {
+      navigation.navigate(Paths.AddNewGroupProfile, {
         groupSletecedUser: selectedBroadCast,
         users: users,
       });
@@ -155,7 +155,7 @@ const groupParticpantsList=route?.params?.groupParticpantsList||null
       <PageContainer>
         <KeyboardAvoidingView style={[styles.container]}>
           <HeaderSix
-            title={route?.params?.formNavigation === Paths.GROUP_INFO
+            title={route?.params?.formNavigation === Paths.GroupInfo
           ? 'Add Participants'
           : CHAT_DETAILS_CONFIGURE.NEW_GROUP}
             searchValue={searchValue}
@@ -266,7 +266,7 @@ const groupParticpantsList=route?.params?.groupParticpantsList||null
                                       fontSize: theme.typography.label,
                                       color:theme.colors.borderColor,
                                     }}>{`User Already Added to this ${
-                                    route?.params?.fromNavigation === Paths.BROADCAST_INFO
+                                    route?.params?.fromNavigation === Paths.BroadcastInfo
                                       ? 'BroadCast'
                                       : 'Group'
                                   }`}</Text>

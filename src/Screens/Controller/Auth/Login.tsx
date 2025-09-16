@@ -3,7 +3,7 @@ import {View, Text, TextInput, Dimensions} from 'react-native';
 
 import {USER_TYPE} from '../../../Constant/Constant';
 import {useNavigation} from '@react-navigation/native';
-import authStyles from '../../Style/LoginStyle';
+import authStyles from './LoginStyle';
 import { Button, PageContainer, wp,SpinnerModal, useStylesheet, RadioButton } from 'react-native-dex-moblibs';
 
 interface props {

@@ -56,8 +56,8 @@ const documentList=useSelector(selectDocumentList)
 
   }
 
-     const groupUserDetails=getUserInfo(groupParticpantsList: any)
-    const  isExit=getIsExitOrNot(groupParticpantsList:any)
+    const groupUserDetails=getUserInfo(groupParticpantsList)
+    const  isExit=getIsExitOrNot(groupParticpantsList)
 
   const [selectedPermissions, setSelectedPerMissions] = useState([
     {
@@ -156,7 +156,7 @@ const{theme}=useStylesheet()
       onLeaveGroup(channel.id, users?.id, (res) => {
         sendInfoMessage(users,channel,MESSAGE_CONTENT.REMOVE,null)
         getChannelParticipants()
-        navigation.navigate(Paths.CHAT_LIST)
+        navigation.navigate(Paths.ChatList)
       })
     } else {
       let requestData:any={
@@ -209,8 +209,8 @@ const{theme}=useStylesheet()
   }
 
 const  navigatePermissions=() => {
-  navigation.navigate(Paths.ADD_NEW_GROUP_PERMISSIONS,{
-        fromNavigation:Paths.GROUP_INFO,
+  navigation.navigate(Paths.AddNewGroupPermissions,{
+        fromNavigation:Paths.GroupInfo,
         groupPermission:[
         {
           type: 'edit',
@@ -255,7 +255,7 @@ const  navigatePermissions=() => {
             participants: [selectedUser],
           };
           dispatch(setChatChanneDetails(channel))
-         navigation.navigate(Paths.CHAT);
+         navigation.navigate(Paths.Chat);
 
         } else if (data === 1) {
           makeAdmin(channel.id, selectedUser, (res) => {
@@ -292,7 +292,7 @@ const  navigatePermissions=() => {
      
           dispatch(setChatChanneDetails(channel))
       
-         navigation.navigate(Paths.CHAT);
+         navigation.navigate(Paths.Chat);
 
         }
       }
@@ -314,7 +314,7 @@ const  navigatePermissions=() => {
         setMenuVisible(false)
         if(data===CHAT_DETAILS_CONFIGURE.CHANGE_GROUP_NAME){
 if(channel.is_edit||getUserIsAdmin(groupParticpantsList)){
-  navigation.navigate(Paths.GROUP_NAME_CHANGE)
+  navigation.navigate(Paths.GroupNameChange)
 }else{
   Alert.alert(ERROR_MESSAGE_CONTENT.GROUP_EDIT_PERMISSION_ERROR)
 }
@@ -334,7 +334,7 @@ if(channel.is_edit||getUserIsAdmin(groupParticpantsList)){
     </View>
 </View>:<></>}
 {mediaList.length+documentList.length!==0&&<View style={{margin:10,backgroundColor:theme.colors.background,borderColor:'grey',borderRadius:10}}>
-  <TouchableOpacity style={{ flexDirection:'row',height:30}} onPress={()=>navigation.navigate(Paths.MEDIA_LIST)}>
+  <TouchableOpacity style={{ flexDirection:'row',height:30}} onPress={()=>navigation.navigate(Paths.MediaList)}>
   <View style={{flex:0.9,justifyContent:'center'}} >
   <Text style={{fontFamily:theme.fonts.regular,marginLeft:10}}>Media and documents</Text>
   </View>
@@ -357,7 +357,7 @@ if(channel.is_edit||getUserIsAdmin(groupParticpantsList)){
 
             
             style={{height:70,width:WIDTH/5,margin:10}}>
-              <TouchableOpacity style={{flex:1}} onPress={()=>navigation.navigate(Paths.MEDIA_VIEWER,{data:item})}/>
+              <TouchableOpacity style={{flex:1}} onPress={()=>navigation.navigate(Paths.MediaViewer,{data:item})}/>
             </ImageBackground>
           );
         }}
@@ -381,7 +381,7 @@ if(channel.is_edit||getUserIsAdmin(groupParticpantsList)){
             onPress={ (daa) => {
         SetSelectedUser(item)
         if (item?.name === 'Add Participants') {
-          navigation.navigate(Paths.ADD_NEW_GROUP, { formNavigation: Paths.GROUP_INFO ,groupParticpantsList:groupParticpantsList})
+          navigation.navigate(Paths.AddNewGroup, { formNavigation: Paths.GroupInfo ,groupParticpantsList:groupParticpantsList})
         } else {
           groupUserActionSheetRef?.current?.show()
         }

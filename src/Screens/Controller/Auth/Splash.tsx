@@ -272,7 +272,7 @@ const SplashScreenController: React.FC = () => {
     let userId: string | null = (await getData(STORAGE.USERID)) || null;
 
     if (userId) {
-      navigation.navigate(Paths.CHAT_LIST);
+      navigation.navigate(Paths.ChatList);
     } else {
       navigation.navigate(Paths.LOGIN);
     }

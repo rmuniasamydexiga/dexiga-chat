@@ -78,7 +78,7 @@ const {theme}=useStylesheet()
           participants: [result?.data],
         };
         dispatch(setChatChanneDetails(channel));
-        navigation.navigate(Paths.CHAT);
+        navigation.navigate(Paths.Chat);
       }
     }
   };
@@ -141,7 +141,7 @@ const {theme}=useStylesheet()
             }}>
             <TouchableOpacity
               style={{flex: 1, marginLeft: 10, flexDirection: 'row'}}
-              onPress={() => navigation.navigate(Paths.ADD_NEW_GROUP_PERMISSIONS)}>
+              onPress={() => navigation.navigate(Paths.AddNewGroupPermissions)}>
               <View style={{flex: 0.9, justifyContent: 'center'}}>
                 <Text
                   style={{fontFamily: theme.fonts.regular, color: theme.colors.text}}>

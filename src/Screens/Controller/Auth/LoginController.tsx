@@ -66,7 +66,7 @@ const LoginController: FC = props => {
         id: userId,
         userID: userId,
       });
-      navigation.navigate(Paths.CHAT_LIST);
+      navigation.navigate(Paths.ChatList);
     }
   };
   const valueValidation = (value: any, type: string) => {
@@ -323,7 +323,7 @@ const loginFun = async () => {
     setIsLoading(false);
 
     if (userId) {
-      navigation.navigate(Paths.CHAT_LIST);
+      navigation.navigate(Paths.ChatList);
     } else {
       navigation.navigate(Paths.LOGIN);
     }

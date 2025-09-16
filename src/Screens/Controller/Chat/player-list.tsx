@@ -122,7 +122,7 @@ const PlayerListController: React.FC = () => {
       } else {
         dispatch(setChatChanneDetails(channel));
 
-        navigation.navigate(Paths.CHAT);
+        navigation.navigate(Paths.Chat);
       }
     } else {
       Alert.alert('', ERROR_MESSAGE_CONTENT.UN_BLOCK_ARE_YOU, [
@@ -187,7 +187,7 @@ const PlayerListController: React.FC = () => {
           Alert.alert('Oops! An error has occured. Please try again.');
         },
       );
-      navigation.navigate(Paths.CHAT_LIST);
+      navigation.navigate(Paths.ChatList);
     } else {
       snackBarMessage(
         'File Size is To High Please Upload' + ' ' + MAXIMUM_FILE_SIZE + ' Mb',
@@ -228,7 +228,7 @@ const PlayerListController: React.FC = () => {
             throw new Error('Function not implemented.');
           } } isHideSearch={false}      />
         <ChatUserList
-          fromNavigation={route?.params?.fromNavigation || Paths.PLAYER_LIST}
+          fromNavigation={route?.params?.fromNavigation || Paths.PlayerList}
           data={userFilter}
           EmptyListMesage={'No Users Founds'}
           selectedUser={bulkChatSendList}

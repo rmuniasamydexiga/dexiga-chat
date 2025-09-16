@@ -67,7 +67,7 @@ const {theme}=useStylesheet()
   const navigateBlockChat = async (data: string | undefined) => {
     let result = await blockChat(channel, users?.id, data);
     if (result) {
-      navigation.navigate(Paths.CHAT_LIST);
+      navigation.navigate(Paths.ChatList);
     }
   };
   useFocusEffect(
@@ -92,7 +92,7 @@ const {theme}=useStylesheet()
         subTitle={``}
         isHideDot={true}
         isHideSearch={true}
-        onPress={()=>navigation.navigate(Paths.CHAT)} 
+        onPress={()=>navigation.navigate(Paths.Chat)} 
         menuVisible={false} menuList={[]} onPressMenu={function (data: string): void {
           throw new Error('Function not implemented.');
         } } 
@@ -101,7 +101,7 @@ const {theme}=useStylesheet()
         } }
         />
        {mediaList.length+documentList.length!==0&&<View style={{margin:10,backgroundColor:theme.colors.background,borderColor:'grey',borderRadius:10}}>
-    <TouchableOpacity style={{ flexDirection:'row',height:30}} onPress={()=>navigation.navigate(Paths.MEDIA_LIST)}>
+    <TouchableOpacity style={{ flexDirection:'row',height:30}} onPress={()=>navigation.navigate(Paths.MediaList)}>
     <View style={{flex:0.9,justifyContent:'center'}} >
     <Text style={{fontFamily:theme.fonts.regular,marginLeft:10}}>Media and documents</Text>
     </View>
@@ -121,7 +121,7 @@ const {theme}=useStylesheet()
                 <ImageBackground
                   source={{ uri: item.senderID !== users?.id ? getFileUrlForInternalReceiver(item) : getFileUrlForInternal(item) }}
                   style={{ height: 70, width: WIDTH / 5, margin: 10 }}>
-                  <TouchableOpacity style={{ flex: 1 }} onPress={(data) =>         navigation.navigate(Paths.MEDIA_VIEWER, {data: data})
+                  <TouchableOpacity style={{ flex: 1 }} onPress={(data) =>         navigation.navigate(Paths.MediaViewer, {data: data})
 } />
                 </ImageBackground>
               );

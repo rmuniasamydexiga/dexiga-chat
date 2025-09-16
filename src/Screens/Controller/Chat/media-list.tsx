@@ -30,7 +30,7 @@ const   navigationToMediaList=(data)=>{
         if(data.messageType===MESSAGE_TYPE.DOCUMENT){
           getFileViewer(data)
         }else{
-        navigation.navigate(Paths.MEDIA_VIEWER,{data:data})
+        navigation.navigate(Paths.MediaViewer,{data:data})
         }
     }
    const goNavigationBack=()=>{

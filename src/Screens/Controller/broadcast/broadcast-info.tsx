@@ -78,7 +78,7 @@ const {images}=useAssets()
 
     setIsLoading(false);
     if (result) {
-      navigation.navigate(Paths.CHAT_LIST);
+      navigation.navigate(Paths.ChatList);
     }
   };
   useFocusEffect(
@@ -99,8 +99,8 @@ const {images}=useAssets()
    const  onFriendItemPress=(data: any) => {
         SetSelectedUser(data);
         if (data?.name === 'Edit recipients') {
-          navigation.navigate(Paths.ADD_NEW_BROAD_CAST, {
-            fromNavigation: Paths.BROADCAST_INFO,
+          navigation.navigate(Paths.AddNewBroadCast, {
+            fromNavigation: Paths.BroadcastInfo,
             groupParticpantsList:
               channel?.participants?.[0]?.broadCastUserChannels,
           });
@@ -117,7 +117,7 @@ const {images}=useAssets()
             participants: [selectedUser],
           };
           dispatch(setChatChanneDetails(channel));
-          navigation.navigate(Paths.CHAT);
+          navigation.navigate(Paths.Chat);
         }
       }
 
@@ -140,11 +140,11 @@ const {images}=useAssets()
         isHideSearch={true}
         subTitle={`BroadCast List ${groupParticpantsList.length} recipients`}
         isHideDot={true}
-        onPress={() => navigation.navigate(Paths.CHAT)}
+        onPress={() => navigation.navigate(Paths.Chat)}
         menuVisible={false} menuList={[]} 
              ></HeaderFive>
      {mediaList.length+documentList.length!==0&&<View style={{margin:10,backgroundColor:theme.colors.background,borderColor:'grey',borderRadius:10}}>
-  <TouchableOpacity style={{ flexDirection:'row',height:30}} onPress={()=>navigation.navigate(Paths.MEDIA_LIST)}>
+  <TouchableOpacity style={{ flexDirection:'row',height:30}} onPress={()=>navigation.navigate(Paths.MediaList)}>
   <View style={{flex:0.9,justifyContent:'center'}} >
   <Text style={{fontFamily:theme.fonts.regular,marginLeft:10}}>Media and documents</Text>
   </View>
