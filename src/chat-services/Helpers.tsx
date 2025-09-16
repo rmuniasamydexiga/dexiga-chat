@@ -1,9 +1,5 @@
 
- export const containsOnlyLetters = (str: string) => {
-    var regex = /^[a-zA-Z ]+$/;
 
-    return regex.test(str);
-}
 
 
 

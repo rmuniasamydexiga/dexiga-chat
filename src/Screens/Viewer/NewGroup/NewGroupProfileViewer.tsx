@@ -10,10 +10,9 @@ import {
 import {Col, Grid} from 'react-native-easy-grid';
 
 import {WIDTH} from '../../../Constant/Constant';
-import HeaderSeven from '../../../Components/chat/header/header-seven';
 
 import {getName} from '../../../chat-services/common';
-import { PageContainer,ContactsFloatingIcon, VectorIcon, useStylesheet } from 'react-native-dex-moblibs';
+import { HeaderSeven,PageContainer,ContactsFloatingIcon, VectorIcon, useStylesheet, useAssets } from 'react-native-dex-moblibs';
 
 interface User {
   name: string;
@@ -48,6 +47,9 @@ const NewGroupProfileViewer: React.FC<IPlayerListViewer> = props => {
     setgroupName,
     navigationGoback,
   } = props;
+  const {images}=useAssets()
+
+
 
   return (
     <PageContainer>
@@ -72,7 +74,7 @@ const NewGroupProfileViewer: React.FC<IPlayerListViewer> = props => {
                   height: 45,
                   borderRadius: 45,
                 }}
-                source={require('../../../Assets/Images/user.png')}
+                source={images['chat-user']}
                 resizeMode="cover"></ImageBackground>
             </View>
             <View style={{flex: 0.7, marginTop: 10}}>
@@ -144,7 +146,7 @@ const NewGroupProfileViewer: React.FC<IPlayerListViewer> = props => {
                           height: 55,
                           borderRadius: 55,
                         }}
-                        source={require('../../../Assets/Images/user.png')}
+                        source={images['chat-user']}
                         resizeMode="cover"></ImageBackground>
                       <Text
                         style={{

@@ -1,25 +1,13 @@
 import {PermissionsAndroid, Platform} from 'react-native';
 import {
-  CHAT_DETAILS_CONFIGURE,
   CHAT_OPTIONS,
   ERROR_MESSAGE_CONTENT,
   IS_ANDROID,
   MAXIMUM_FILE_SIZE,
-  SNACKBAR_MESSAGE_LENGTH,
 } from '../Constant/Constant';
 import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 
-import Snackbar from 'react-native-snackbar';
-export const snackBarMessage = (text: string, duration: any) => {
-  return Snackbar.show({
-    text: text,
 
-    duration:
-      duration === SNACKBAR_MESSAGE_LENGTH.SHORT
-        ? Snackbar.LENGTH_SHORT
-        : Snackbar.LENGTH_LONG,
-  });
-};
 export const requestPerMissions = async () => {
   if (IS_ANDROID) {
     let Version: any = Platform.Version;
@@ -158,9 +146,6 @@ export const requestAudioPermission = async () => {
         );
       } else {
         let grants1 = await PermissionsAndroid.request(
-          // PermissionsAndroid.PERMISSIONS.READ_MEDIA_AUDIO,
-          // PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES,
-          // PermissionsAndroid.PERMISSIONS.READ_MEDIA_VIDEO,
           PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
           {
             title: 'PERMISSION',
@@ -248,11 +233,7 @@ export function validateEmailAddress(text: string) {
   else return true;
 }
 
-export function stringHasOnlySpace(text: string) {
-  let regex = /^(?!\s*$)[-a-zA-Z0-9_:,.' ']{1,100}$/;
-  if (regex.test(text) === false) return false;
-  else return true;
-}
+
 
 export function validateMobileNumber(number: string | any[] | null) {
   if (number === null) {
@@ -289,14 +270,7 @@ export function validateName(text: string) {
   if (regex.test(text) === false) return false;
   else return true;
 }
-export function onlySpaceNotAllowed(text: string) {
-  if (text) {
-    if (text.trim()) return true;
-    else return false;
-  } else {
-    return false;
-  }
-}
+
 
 export function validateMaximumMinimuString(
   text: string,
@@ -332,5 +306,4 @@ export function checkPlayerBlockOrNot(chatList: any, id1: any, id2: any) {
   } else {
     return '';
   }
-  // channel?.participants?.[0]?.blockedBy !== CHAT_OPTIONS.BOTH && channel?.participants?.[0]?.blockedBy !== user?.userID ?
 }

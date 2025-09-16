@@ -18,10 +18,7 @@ interface IThemeInitialState {
   typography: IFontSize;
 }
 
-//Guideline sizes are based on standard ~5" screen mobile device
-// const guidelineBaseWidth = 350;
-// const guidelineBaseHeight = 680;
-// const scale = (size: number) => (width / guidelineBaseWidth) * size;
+
 
 const fontSizeScale = (size: number) => size;
 const initialState: IThemeInitialState = {

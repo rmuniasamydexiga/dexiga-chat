@@ -3,34 +3,15 @@ import {View, Text,  FlatList, Image, TouchableOpacity, ImageBackground} from 'r
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import { MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
 import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
-import { PageContainer, useStylesheet,SpinnerModal, VectorIcon } from 'react-native-dex-moblibs';
-import ChatHeader from '../../../Components/chat/header/chat-header';
-import HeaderFive from '../../../Components/chat/header/header-five';
+import {HeaderFive, PageContainer, useStylesheet,SpinnerModal, VectorIcon } from 'react-native-dex-moblibs';
 
-interface User {
-  name: string;
-  email: string;
-}
+
 
 interface IPlayerListViewer {
-  mode: string;
   users: any;
-  selectedBroadCast:any[]
   onFriendItemPress:(item: any)=>void
-  navigstionBack:()=>void
-  contactOnNavigation:()=>void
-  removeSelectedContact:(item:any)=>void
-  title:string,
-  groupSletecedUser:any
-  groupPermissionData:any,
-  selectedPermission:any
-  selecteandUnselect:(data:string)=>void
   navigationGoBack:()=>void
-  groupUserActionSheetRef:any
-  onGroupSettingsActionDone:()=>void
-  navigatePermissions:()=>void
   channel:any
-  selectedUser:any
   isExit:boolean
   navigateExitGroup:()=>void
 
@@ -47,20 +28,13 @@ const BroadCastInfoViewer: React.FC<IPlayerListViewer>=(props) => {
 const {theme}=useStylesheet()
 
   const {
-
     navigationGoBack,
-    groupUserActionSheetRef,
-    onGroupSettingsActionDone,
     onFriendItemPress,
-    navigatePermissions,
-  
     navigateExitGroup,
     navigateMediaList,
     channel,
     groupParticpantsList,
     users,
-    isExit,
-    selectedUser,
     groupUserDetails,
     documentList,
     mediaList,
@@ -163,7 +137,7 @@ const {theme}=useStylesheet()
         height: 65,
         borderRadius: 65,
       }}
-      source={require("../../../Assets/Images/user.png")
+      source={images['chat-user']
       }
       resizeMode="cover"
     />

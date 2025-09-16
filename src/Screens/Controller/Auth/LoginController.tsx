@@ -3,7 +3,6 @@ import {Alert, BackHandler} from 'react-native';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 import Login from '../../Viewer/Auth/Login';
-import firestore from '@react-native-firebase/firestore';
 import {firebaseAuth} from '../../../chat-firebase';
 import {USER_TYPE} from '../../../Constant/Constant';
 import {STORAGE} from '../../../chat-services/StorageHelper';
@@ -11,12 +10,11 @@ import {setChatList, setUser, setUserList} from '../../../redux/chatSlice';
 import {useDispatch} from 'react-redux';
 import {signInValidationSchema, validation} from '../../../chat-services/validation';
 import {useAuth} from '../../../Router/Context/Auth';
-import {channelManager, firebaseStorage, firebaseUser} from '../../../chat-firebase';
-import {dayDate} from '../../../chat-services/DayHelper';
+import {channelManager, firebaseUser} from '../../../chat-firebase';
 import {showLog} from '../../../chat-services/common';
 import {getAllUserList} from '../../../chat-firebase/user';
 import { loginUser } from '../../../chat-firebase/auth';
-import { getData, setData } from 'react-native-dex-moblibs';
+import { dayDate, getData, setData } from 'react-native-dex-moblibs';
 
 const LoginController: FC = props => {
   const navigation: any = useNavigation();

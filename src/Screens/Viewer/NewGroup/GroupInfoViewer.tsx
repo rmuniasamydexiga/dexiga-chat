@@ -4,9 +4,7 @@ import { Col, Grid, Row } from 'react-native-easy-grid';
 import ActionSheet from 'react-native-actionsheet';
 import { CHAT_DETAILS_CONFIGURE, MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
 import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
-import { PageContainer, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
-import ChatHeader from '../../../Components/chat/header/chat-header';
-import HeaderFive from '../../../Components/chat/header/header-five';
+import {HeaderFive, PageContainer, useAssets, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
 interface User {
   name: string;
@@ -76,6 +74,7 @@ const{theme}=useStylesheet()
     onPressMenu,
     navigationMediaInfoPress
 }=props
+const {images}=useAssets()
   const getName=(data:any)=>{
     let name="name"
     if(data&&data.name){
@@ -172,7 +171,7 @@ const{theme}=useStylesheet()
         height: 65,
         borderRadius: 65,
       }}
-      source={require("../../../Assets/Images/user.png")
+      source={images['chat-user']
       }
       resizeMode="cover"
     />

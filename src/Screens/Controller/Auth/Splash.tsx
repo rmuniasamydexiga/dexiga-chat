@@ -8,10 +8,9 @@ import {setChatList, setUser, setUserList} from '../../../redux/chatSlice';
 import {useDispatch} from 'react-redux';
 import {channelManager, firebaseStorage, firebaseUser} from '../../../chat-firebase';
 import {useAuth} from '../../../Router/Context/Auth';
-import {dayDate} from '../../../chat-services/DayHelper';
 import {showLog} from '../../../chat-services/common';
 import {getAllUserList} from '../../../chat-firebase/user';
-import { getData } from 'react-native-dex-moblibs';
+import { dayDate, getData, PageContainer } from 'react-native-dex-moblibs';
 import { Dimensions, ImageBackground } from 'react-native';
 const { height, width } = Dimensions.get('window');
 
@@ -280,20 +279,7 @@ const SplashScreenController: React.FC = () => {
     SplashScreen.hide();
   };
 
-  return <ImageBackground
-      style={{
-        width: width,
-        height: height,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-      }}
-      resizeMode={'stretch'}
-     
-      source={require('../../../Assets/Images/splash.jpg')}>
-        
- 
-    
-    </ImageBackground>
+  return <PageContainer/>
 };
 
 export default SplashScreenController;

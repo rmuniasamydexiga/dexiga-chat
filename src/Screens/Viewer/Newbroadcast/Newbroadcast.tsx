@@ -9,17 +9,10 @@ import {
   TextInput,
 } from 'react-native';
 import {Col, Grid, Row} from 'react-native-easy-grid';
-import chatStyles from '../../Style/ChatListStyle';
-import HeaderSix from '../../../Components/chat/header/header-six';
-
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 import {getName} from '../../../chat-services/common';
 import {ERROR_MESSAGE_CONTENT} from '../../../Constant/Constant';
-import { PageContainer,ContactsFloatingIcon, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
-interface User {
-  name: string;
-  email: string;
-}
+import {HeaderSix, PageContainer,ContactsFloatingIcon, useStylesheet, VectorIcon, useAssets,chatStyles } from 'react-native-dex-moblibs';
 
 interface IPlayerListViewer {
   user: any;
@@ -61,6 +54,7 @@ const AddNewBroadCastViewer: React.FC<IPlayerListViewer> = props => {
     setBroadcastName,
   } = props;
 const {theme}=useStylesheet()
+const {images}=useAssets()
   const styles = chatStyles();
   const getUserIsBlocked = (friend: any, index: number) => {
     const id1: any = user?.id;
@@ -132,7 +126,7 @@ const {theme}=useStylesheet()
                             height: 65,
                             borderRadius: 65,
                           }}
-                          source={require('../../../Assets/Images/user.png')}
+                          source={images['chat-user']}
                           resizeMode="cover">
                           {selectedBroadCast &&
                             selectedBroadCast.find(
@@ -242,7 +236,7 @@ const {theme}=useStylesheet()
                               height: 35,
                               borderRadius: 35,
                             }}
-                            source={require('../../../Assets/Images/user.png')}
+                            source={images['chat-user']}
                             resizeMode="cover">
                             <View
                               style={{alignSelf: 'flex-end', marginTop: 15}}>
@@ -297,7 +291,7 @@ const {theme}=useStylesheet()
                               height: 65,
                               borderRadius: 65,
                             }}
-                            source={require('../../../Assets/Images/user.png')}
+                            source={images['chat-user']}
                             resizeMode="cover">
                             {selectedBroadCast &&
                               selectedBroadCast.find(

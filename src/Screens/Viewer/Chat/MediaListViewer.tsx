@@ -1,24 +1,13 @@
 import React from 'react';
-import { View, Text,FlatList,Image,TouchableOpacity,Alert, ImageBackground} from 'react-native';
-import chatStyles from '../../Style/ChatListStyle';
+import { View, Text,FlatList,TouchableOpacity, ImageBackground} from 'react-native';
 
-import HeaderSeven from '../../../Components/chat/header/header-seven';
-import { HEIGHT, MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
-import { verticalScale } from '../../../Constant/Metrics';
-import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
-import { dayDate, dayFormatwithUnix } from '../../../chat-services/DayHelper';
+import {  MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
+import { getFileUrlForInternal } from '../../../chat-services/MediaHelper';
 import { getName } from '../../../chat-services/common';
-import { ListEmptyComponent, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
-interface User {
-  name: string;
-  email: string;
-}
+import { dayDate, ListEmptyComponent, useStylesheet, VectorIcon, verticalScale,HeaderSeven,chatStyles } from 'react-native-dex-moblibs';
 
 interface IPlayerListViewer {
-  mode: string;
-  users: any;
   channel:any
-  onFriendItemPress:(item: any)=>void
   navigstionBack:()=>void
   navigationTab:(index:number)=>void,
   activeTabIndex:number,
@@ -28,7 +17,7 @@ interface IPlayerListViewer {
 }
 
 const MediaListViewer: React.FC <IPlayerListViewer>= (props) => {
-  const {channel,users,onFriendItemPress,navigstionBack,navigationTab,activeTabIndex,mediaList,documentList,navigationToMediaList}=props
+  const {channel,navigstionBack,navigationTab,activeTabIndex,mediaList,documentList,navigationToMediaList}=props
   const styles =chatStyles()
 const {theme}=useStylesheet()
 

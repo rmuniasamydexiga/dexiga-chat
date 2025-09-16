@@ -1,40 +1,16 @@
 import React from 'react';
-import {View, Text,  FlatList, Image, TouchableOpacity,Alert, ImageBackground} from 'react-native';
+import {View, Text,  FlatList, TouchableOpacity, ImageBackground} from 'react-native';
 
 import { CHAT_DETAILS_CONFIGURE, MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
 import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
-import HeaderSix from '../../../Components/chat/header/header-six';
-import { PageContainer, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
+import { PageContainer, useStylesheet, VectorIcon ,HeaderSix} from 'react-native-dex-moblibs';
 
-interface User {
-  name: string;
-  email: string;
-}
 
 interface IPlayerListViewer {
-  mode: string;
   users: any;
-  selectedBroadCast:any[]
-  onFriendItemPress:(item: any)=>void
-  navigstionBack:()=>void
-  contactOnNavigation:()=>void
-  removeSelectedContact:(item:any)=>void
-  title:string,
-  groupSletecedUser:any
-  groupPermissionData:any,
-  selectedPermission:any
-  selecteandUnselect:(data:string)=>void
   navigationGoBack:()=>void
-  groupUserActionSheetRef:any
-  onGroupSettingsActionDone:()=>void
-  navigatePermissions:()=>void
   channel:any
-  selectedUser:any
-  isExit:boolean
   navigateBlockChat:(data: any)=>void
-
-  groupParticpantsList:any
-  groupUserDetails:any
   documentList:any
   mediaList:any
   navigateMediaList:()=>void
@@ -45,21 +21,11 @@ const IndividualChatInfoViewer: React.FC<IPlayerListViewer>=(props) => {
 const {theme}=useStylesheet()
 
   const {
-
     navigationGoBack,
-    groupUserActionSheetRef,
-    onGroupSettingsActionDone,
-    onFriendItemPress,
-    navigatePermissions,
-  
     navigateBlockChat,
     navigateMediaList,
     channel,
-    groupParticpantsList,
     users,
-    isExit,
-    selectedUser,
-    groupUserDetails,
     documentList,
     mediaList,
     navigationMediaInfoPress
@@ -98,17 +64,16 @@ const {theme}=useStylesheet()
       horizontal={true}
         data={mediaList}
         renderItem={({ item, index }) => {
-          return (
-            item.messageType!==MESSAGE_TYPE.DOCUMENT&&
-            <ImageBackground
-            source={{ uri: item.senderID!==users?.id?getFileUrlForInternalReceiver(item):getFileUrlForInternal(item)}}
-
-            
-            style={{height:70,width:WIDTH/5,margin:10}}>
-                            <TouchableOpacity style={{flex:1}} onPress={()=>navigationMediaInfoPress(item)}/>
-
-            </ImageBackground>
-          );
+          if (item.messageType !== MESSAGE_TYPE.DOCUMENT) {
+            return (
+              <ImageBackground
+                source={{ uri: item.senderID !== users?.id ? getFileUrlForInternalReceiver(item) : getFileUrlForInternal(item) }}
+                style={{ height: 70, width: WIDTH / 5, margin: 10 }}>
+                <TouchableOpacity style={{ flex: 1 }} onPress={() => navigationMediaInfoPress(item)} />
+              </ImageBackground>
+            );
+          }
+          return null;
         }}
         keyExtractor={(item, index) => index.toString()}
       />

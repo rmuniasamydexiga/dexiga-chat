@@ -2,7 +2,6 @@ import React from 'react';
 import { Image} from 'react-native';
 
 import {HEIGHT, MESSAGE_TYPE, WIDTH} from '../../../Constant/Constant';
-import HeaderTwo from '../../../Components/chat/header/header-two';
 import Video from 'react-native-video';
 
 import {
@@ -10,11 +9,8 @@ import {
   getFileUrlForInternalReceiver,
 } from '../../../chat-services/MediaHelper';
 import { showLog } from '../../../chat-services/common';
-import { PageContainer } from 'react-native-dex-moblibs';
-interface User {
-  name: string;
-  email: string;
-}
+import { PageContainer,HeaderTwo } from 'react-native-dex-moblibs';
+
 
 interface IPlayerListViewer {
   data: any;

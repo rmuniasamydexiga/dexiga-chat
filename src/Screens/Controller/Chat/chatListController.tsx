@@ -15,7 +15,6 @@ import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 import {Col, Grid, Row} from 'react-native-easy-grid';
 import {channelManager, firebaseUser} from '../../../chat-firebase';
-import {dayDate, dayFormatwithUnix} from '../../../chat-services/DayHelper';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   resetChat,
@@ -28,7 +27,6 @@ import {
   setUser,
   setUserList,
 } from '../../../redux/chatSlice';
-import HeaderFour from '../../../Components/chat/header/header-four';
 import {useAuth} from '../../../Router/Context/Auth';
 import {
   CHAT_DETAILS_CONFIGURE,
@@ -39,7 +37,6 @@ import {
 
 import {IUser} from '../../../Interfaces/Chat';
 import {readFileName, readInternalFileName} from '../../../chat-services/MediaHelper';
-import chatStyles from '../../Style/ChatListStyle';
 import {requestPerMissions, showLog} from '../../../chat-services/common';
 
 import ActionSheet from 'react-native-actionsheet';
@@ -48,7 +45,7 @@ import {launchCamera} from 'react-native-image-picker';
 import ImagePicker from 'react-native-image-crop-picker';
 import {getAllUserList} from '../../../chat-firebase/user';
 
-import { clearAll, getData, PageContainer ,ContactsFloatingIcon, useStylesheet, VectorIcon} from 'react-native-dex-moblibs';
+import { clearAll, getData, PageContainer ,ContactsFloatingIcon, useStylesheet, VectorIcon, useAssets, dayFormatwithUnix, dayDate,HeaderFour,chatStyles} from 'react-native-dex-moblibs';
 // import {
 //   decrypt,
 //   diffieHellManAlgorthim,
@@ -64,6 +61,7 @@ const ChatList: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [showTextInput, setShowTextInput] = useState<boolean>(false);
 const {theme}=useStylesheet()
+const{images}=useAssets()
   const dispatch = useDispatch();
   const chatList = useSelector(selectChatList);
 
@@ -587,7 +585,7 @@ const {theme}=useStylesheet()
                         height: 65,
                         borderRadius: 65,
                       }}
-                      source={require('../../../Assets/Images/user.png')}
+                      source={images['chat-user']}
                       resizeMode="cover"
                     />
                   </Col>

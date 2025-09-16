@@ -85,7 +85,6 @@ import {
   requestAudioPermission,
   requestPerMissions,
   showLog,
-  snackBarMessage,
 } from '../../../chat-services/common';
 
 import {useAuth} from '../../../Router/Context/Auth';
@@ -96,11 +95,7 @@ import {
 } from '../../../chat-services/NotificationHelper';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {encrypt, sharedKeyAlgorthim} from '../../../chat-services/EndToEndEncryption';
-import ActionSheet from 'react-native-actionsheet';
-import MessageThread from '../../../Components/chat/message-thread';
-import HeaderThree from '../../../Components/chat/header/header-three';
-import HeaderOne from '../../../Components/chat/header/header-one';
-import dynamicStyles from '../../Viewer/Chat/styles';
+import { snackBarMessage } from 'react-native-dex-moblibs';
 
 const audioRecorderPlayer = new AudioRecorderPlayer();
 

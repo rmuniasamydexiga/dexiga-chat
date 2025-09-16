@@ -1,19 +1,10 @@
 import React from 'react';
 import { View, Text,FlatList,Image,TouchableOpacity} from 'react-native';
 import { Col, Grid, Row } from 'react-native-easy-grid';
-import chatStyles from '../../Style/ChatListStyle';
-import { verticalScale } from '../../../Constant/Metrics';
 import { WIDTH } from '../../../Constant/Constant';
-import ThreadItem from '../../../Components/chat/thread-item';
-import { dayDate } from '../../../chat-services/DayHelper';
 import { getNameWithList } from '../../../chat-services/common';
 import { PageContainer } from '../../../../libs/moblibs/lib/module';
-import { useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
-
-interface User {
-  name: string;
-  email: string;
-}
+import { dayDate, useAssets, useStylesheet, VectorIcon, verticalScale,ThreadItem } from 'react-native-dex-moblibs';
 
 interface IPlayerListViewer {
   mode: string;
@@ -32,9 +23,9 @@ interface IPlayerListViewer {
 const MessageInfoViewer: React.FC <IPlayerListViewer>= (props) => {
 
 
-  const styles =chatStyles()
 const {theme}=useStylesheet()
-  const {message,user,internalFileList,fileList,navigationBack,channel,groupParticiants,allUser}=props
+const {images}=useAssets()
+const {message,user,internalFileList,fileList,navigationBack,channel,allUser,onFriendItemPress}=props
 
 const Messagestatus=({title,time,tickColor,isGroupOrBoardCast,messageListeners}:any)=>{
 
@@ -64,7 +55,7 @@ return <View style={{borderBottomWidth:0.5,margin:10 }}>
         height: 65,
         borderRadius: 65,
       }}
-      source={require("../../../Assets/Images/user.png")
+      source={images['chat-user']
       }
       resizeMode="cover"
     />

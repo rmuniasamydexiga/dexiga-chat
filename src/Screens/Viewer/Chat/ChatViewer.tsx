@@ -5,12 +5,7 @@ import {
   Alert,
   KeyboardAvoidingView,
 } from 'react-native';
-import dynamicStyles from './styles';
-import MessageThread from '../../../Components/chat/message-thread';
-import BottomInput from '../../../Components/chat/bottom-input';
 import ActionSheet from 'react-native-actionsheet';
-import HeaderOne from '../../../Components/chat/header/header-one';
-import HeaderThree from '../../../Components/chat/header/header-three';
 
 import {
   ERROR_MESSAGE_CONTENT,
@@ -18,7 +13,7 @@ import {
   MESSAGE_TYPE,
   WIDTH,
 } from '../../../Constant/Constant';
-import { PageContainer, useStylesheet } from 'react-native-dex-moblibs';
+import { BottomInput, MessageThread, PageContainer, useStylesheet,HeaderOne, HeaderThree} from 'react-native-dex-moblibs';
 
 interface IChatViewer {
   disPlayName: string;
@@ -130,7 +125,6 @@ const ChatViewer: React.FC<IChatViewer> = props => {
     sharedKey,
   } = props;
   const TrackInteractive = true;
-  const styles = dynamicStyles(null);
   const photoUploadDialogRef = useRef<any>();
   const longPressActionSheetRef = useRef<any>();
   const longPressAudioVideoActionSheetRef = useRef<any>();

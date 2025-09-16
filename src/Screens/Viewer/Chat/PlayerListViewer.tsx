@@ -2,22 +2,16 @@ import React from 'react';
 import {
   View,
   Text,
-  FlatList,
   Image,
   TouchableOpacity,
-  Alert,
   KeyboardAvoidingView,
 } from 'react-native';
 
-import chatStyles from '../../Style/ChatListStyle';
 
-import ChatUserList from '../../../Components/chat/chat-user-list-card';
 import {SCREEN_NAMES} from '../../../Constant/ScreenName';
 
 import dynamicStyles from './styles';
-import { PageContainer } from 'react-native-dex-moblibs';
-import ChatHeader from '../../../Components/chat/header/chat-header';
-import HeaderFive from '../../../Components/chat/header/header-five';
+import { PageContainer, useAssets,HeaderFive ,ChatUserList,chatStyles} from 'react-native-dex-moblibs';
 
 interface IPlayerListViewer {
   users: any;
@@ -55,9 +49,7 @@ const PlayerListViewer: React.FC<IPlayerListViewer> = props => {
   const styles = chatStyles();
   const bottomStyles = dynamicStyles(null);
 
-  const assets = {
-    send: require('../../../Assets/Images/send.png'),
-  };
+  const {images}=useAssets()
 
   return (
     <PageContainer>
@@ -112,7 +104,7 @@ const PlayerListViewer: React.FC<IPlayerListViewer> = props => {
             <TouchableOpacity
               onPress={onSend}
               style={[bottomStyles.inputIconContainer]}>
-              <Image style={bottomStyles.inputIcon} source={assets.send} />
+              <Image style={bottomStyles.inputIcon} source={images.send} />
             </TouchableOpacity>
           </View>
         </View>

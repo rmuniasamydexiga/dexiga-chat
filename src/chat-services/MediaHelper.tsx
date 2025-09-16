@@ -11,13 +11,8 @@ import {
 } from '../Constant/Constant';
 import {FFmpegKit} from 'ffmpeg-kit-react-native';
 
-export const isUrlValid = (userInput: string) => {
-  return userInput && userInput.startsWith('http');
-};
 
-export const isGetImage = (imagePath: string) => {
-  return /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(imagePath);
-};
+
 
 export const getFileUrlForInternal = (item: any) => {
   let result = '';
@@ -313,25 +308,3 @@ const downloadAndConvertVideo = async (FILE_URL: string, data: any) => {
   }
 };
 
-// const downloadAndConvertVideo = async (FILE_URL:string) => {
-//   try {
-
-//     const response = await fetch(FILE_URL);
-//     const blob :any= await response.blob();
-//     const mp4FilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/video.mp4`;
-//     const base64Data = await RNFetchBlob.fs.readFile(blob, 'base64');
-
-//     // Save MP4 file
-//     await RNFetchBlob.fs.writeFile(mp4FilePath, base64Data, 'base64');
-
-//     // Convert MP4 to MOV
-//     const movFilePath = `${RNFetchBlob.fs.dirs.DocumentDir}/video11.mov`;
-//     await FFmpegKit.executeAsync(`-i ${mp4FilePath} ${movFilePath}`);
-//     console.error('downloading, converting, and saving video:');
-
-// return true
-//   } catch (error) {
-
-//     console.error('Error downloading, converting, and saving video:', error);
-//   }
-// };

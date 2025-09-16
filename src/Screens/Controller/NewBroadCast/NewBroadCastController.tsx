@@ -16,7 +16,7 @@ import {
 } from '../../../redux/chatSlice';
 import AddNewBroadCastViewer from '../../Viewer/Newbroadcast/Newbroadcast';
 import {CHAT_DETAILS_CONFIGURE} from '../../../Constant/Constant';
-import {creatNewBroadCast} from '../../../chat-firebase/channel';
+import {createNewBroadCast} from '../../../chat-firebase/channel';
 import {BackHandler, Keyboard} from 'react-native';
 import {STORAGE} from '../../../chat-services/StorageHelper';
 
@@ -96,7 +96,7 @@ const AddNewBroadCastController: React.FC = () => {
   const createBroadCast = async () => {
     // selectedBroadCast
     console.log('Chanel', broadcastName);
-    let result = await creatNewBroadCast(
+    let result = await createNewBroadCast(
       selectedBroadCast,
       user?.userId || user?.userID || user?.id,
       broadcastName,

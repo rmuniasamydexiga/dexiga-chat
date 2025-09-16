@@ -801,6 +801,101 @@ export const getUserParticipants = async (channelId: any, userId: any) => {
   }
 };
 
+export const createNewBroadCast = async (
+  dataArray: any,
+  userId: string | null,
+  channelName: string,
+) => {
+  const channelID = uuidv4();
+  console.log('Channel name ih', channelName);
+  const channelData = {
+    creator_id: userId,
+    creatorID: userId,
+    id: channelID,
+    channelID,
+    is_broadCast: true,
+    lastMessageDate: currentTimestamp(),
+    name: channelName,
+  };
+  let broadCastList: any = [];
+  let broadCastUserList: any = [];
+
+  await persistChannelParticipations([{ userId: userId }], channelID, false);
+
+  const channelDocRef = doc(db, 'channels', channelID);
+  await setDoc(channelDocRef, channelData);
+
+  const createThreadPromises = dataArray.map(async (data: any) => {
+    const id1: any = userId;
+    let id = null;
+    const id2 = data.userId;
+    if (id1 == id2) {
+      return;
+    } else {
+      id = id1 < id2 ? id1 + id2 : id2 + id1;
+    }
+    if (id) {
+      broadCastList.push({ channelID: id, userId: id2 });
+      broadCastUserList.push({
+        channelID: id,
+        userId: id2,
+        name: data.name,
+      });
+      const participantRef = collection(db, 'channels', channelID, 'participant');
+      await addDoc(participantRef, { channelID: id, broadCastUserId: id2 });
+    }
+  });
+  await Promise.all(createThreadPromises);
+  return {
+    status: true,
+    data: {
+      ...channelData,
+      broadCastUserChannels: broadCastUserList,
+    },
+  };
+};
+
+export const updateBroadCast = async (
+  dataArray: any,
+  userId: string | null,
+  channelID: any,
+) => {
+  let broadCastList: any = [];
+  let broadCastUserList: any = [];
+  const participantCollectionRef = collection(db, 'channels', channelID, 'participant');
+  const querySnapshot = await getDocs(participantCollectionRef);
+  const deletePromises = querySnapshot.docs.map((docSnap) => deleteDoc(docSnap.ref));
+  await Promise.all(deletePromises);
+
+  const createThreadPromises = dataArray.map(async (data: any) => {
+    const id1: any = userId;
+    let id = null;
+    const id2 = data.userId;
+    if (id1 == id2) {
+      return;
+    } else {
+      id = id1 < id2 ? id1 + id2 : id2 + id1;
+    }
+    if (id) {
+      broadCastUserList.push({
+        name: data?.name,
+        channelID: id,
+        userId: id2,
+      });
+      broadCastList.push({ channelID: id, userId: id2 });
+      const participantRef = collection(db, 'channels', channelID, 'participant');
+      await addDoc(participantRef, { channelID: id, broadCastUserId: id2 });
+    }
+  });
+  await Promise.all(createThreadPromises);
+  return {
+    status: true,
+    data: {
+      broadCastUserChannels: broadCastUserList,
+    },
+  };
+};
+
 export const currentTimestamp = () => {
   return Timestamp.now().toDate();
 };

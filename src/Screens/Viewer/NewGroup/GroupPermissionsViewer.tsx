@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, Text, FlatList,Switch} from 'react-native';
 import {  HEIGHT } from '../../../Constant/Constant';
-import HeaderSeven from '../../../Components/chat/header/header-seven';
-import { PageContainer, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
+import {HeaderSeven, PageContainer, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
 interface User {
   name: string;

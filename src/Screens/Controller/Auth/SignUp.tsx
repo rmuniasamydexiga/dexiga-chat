@@ -9,11 +9,10 @@ import {SNACKBAR_MESSAGE_LENGTH, USER_TYPE} from '../../../Constant/Constant';
 import {signUpValidationSchema, validation} from '../../../chat-services/validation';
 import {
   showLog,
-  snackBarMessage,
   validateMobileNumber,
 } from '../../../chat-services/common';
 import { checkIfEmailExists, createUser } from '../../../chat-firebase/auth';
-import { Button,PageContainer,RadioButton,SpinnerModal, useStylesheet } from 'react-native-dex-moblibs';
+import { Button,PageContainer,RadioButton,snackBarMessage,SpinnerModal, useStylesheet } from 'react-native-dex-moblibs';
 
 interface ISignup {
   name: string;

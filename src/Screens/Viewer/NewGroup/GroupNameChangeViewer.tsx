@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity, ImageBackground, TextInput, } from 'react-native';
 
-import HeaderSeven from '../../../Components/chat/header/header-seven';
-import { Button, useStylesheet, wp } from 'react-native-dex-moblibs';
+import {HeaderSeven, Button, useAssets, useStylesheet, wp } from 'react-native-dex-moblibs';
 
 
 
@@ -16,6 +15,8 @@ interface IGroupChangeViewer {
 
 const GroupChangeViewer: React.FC<IGroupChangeViewer> = (props) => {
   const {theme}=useStylesheet()
+  const {images}=useAssets();
+
   const {groupName,updateGroup,setgroupName, navigationGoback,} = props
 
   return (
@@ -42,8 +43,8 @@ const GroupChangeViewer: React.FC<IGroupChangeViewer> = (props) => {
                 height: 45,
                 borderRadius: 45,
               }}
-              source={require("../../../Assets/Images/user.png")
-              }
+              source={images['chat-user']}
+              
               resizeMode="cover"
             />
             

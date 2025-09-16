@@ -31,10 +31,9 @@ import {useAuth} from '../../../Router/Context/Auth';
 import {
   checkPlayerBlockOrNot,
   getFileSizeLimit,
-  snackBarMessage,
 } from '../../../chat-services/common';
 import Snackbar from 'react-native-snackbar';
-import { getData } from 'react-native-dex-moblibs';
+import { getData, snackBarMessage } from 'react-native-dex-moblibs';
 
 interface Props {
   user: any;
