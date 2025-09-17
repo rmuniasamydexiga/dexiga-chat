@@ -12,9 +12,9 @@ import {
   Platform,
 } from 'react-native';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {Paths} from '../../../Constant/ScreenName';
+import {Paths} from '../../chat-services/constant/ScreenName';
 import {Col, Grid, Row} from 'react-native-easy-grid';
-import {channelManager, firebaseUser} from '../../../chat-firebase';
+import {channelManager, firebaseUser} from '../../chat-firebase';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   resetChat,
@@ -26,26 +26,27 @@ import {
   setInternalFileList,
   setUser,
   setUserList,
-} from '../../../redux/chatSlice';
-import {useAuth} from '../../../Router/Context/Auth';
+} from '../../redux/chatSlice';
+import {useAuth} from '../../chat-context/chat-auth';
 import {
   CHAT_DETAILS_CONFIGURE,
   CHAT_OPTIONS,
   FROM_NAVIGATION,
   IS_ANDROID,
-} from '../../../Constant/Constant';
+} from '../../chat-services/constant/constant';
 
-import {IUser} from '../../../Interfaces/Chat';
-import {readFileName, readInternalFileName} from '../../../chat-services/MediaHelper';
-import {requestPerMissions, showLog} from '../../../chat-services/common';
+import {IUser} from '../../chat-firebase/Interfaces/Chat';
+import {readFileName, readInternalFileName} from '../../chat-services/MediaHelper';
+import {requestPerMissions, showLog} from '../../chat-services/common';
 
 import ActionSheet from 'react-native-actionsheet';
 
 import {launchCamera} from 'react-native-image-picker';
 import ImagePicker from 'react-native-image-crop-picker';
-import {getAllUserList} from '../../../chat-firebase/user';
+import {getAllUserList} from '../../chat-firebase/user';
 
-import { clearAll, getData, PageContainer ,ContactsFloatingIcon, useStylesheet, VectorIcon, useAssets, dayFormatwithUnix, dayDate,HeaderFour,chatStyles} from 'react-native-dex-moblibs';
+import { clearAll, getData, PageContainer ,ContactsFloatingIcon, useStylesheet, VectorIcon, useAssets, dayFormatwithUnix, dayDate,HeaderFour,chatStyles, UserImage} from 'react-native-dex-moblibs';
+import { channelMessageStatus, subscribeChannelParticipation, subscribeChannels } from '../../chat-firebase/channel';
 // import {
 //   decrypt,
 //   diffieHellManAlgorthim,
@@ -61,9 +62,8 @@ const ChatList: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [showTextInput, setShowTextInput] = useState<boolean>(false);
 const {theme}=useStylesheet()
-const{images}=useAssets()
   const dispatch = useDispatch();
-  const chatList = useSelector(selectChatList);
+  const chatUserList = useSelector(selectChatList);
 
   const [menuVisible, setMenuVisible] = useState(false);
   const {
@@ -128,11 +128,33 @@ const{images}=useAssets()
   useEffect(() => {
     requestforPerMissions();
     // getUsers()
-    setChanneFilter(chatList);
+    setChanneFilter(chatUserList);
   }, []);
   useEffect(() => {
-    setChanneFilter(chatList);
-  }, [chatList]);
+    setChanneFilter(chatUserList);
+  }, [chatUserList]);
+
+  useEffect(() => {
+  if (!userId) return;
+
+  const unsubChannels = subscribeChannels((channels) => {
+    setOrUpdateChannelsSubscribe(channels);
+  });
+
+  const unsubParticipation = subscribeChannelParticipation(userId, (participations) => {
+    setOrUpdateChannelParticipants(participations);
+  });
+
+  const unsubMessageStatus = channelMessageStatus(userId, (counts) => {
+    setChannelCount(counts);
+  });
+
+  return () => {
+    unsubChannels();
+    unsubParticipation();
+    unsubMessageStatus();
+  };
+}, [userId]);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -146,28 +168,30 @@ const{images}=useAssets()
           setOrUpdateUsers(data);
         },
       );
+      
 
-      const channelParticipationSubscription: any =
-        channelManager.subscribeChannelParticipation(userId, participations => {
-          setOrUpdateChannelParticipants(participations);
-        });
+      // const channelParticipationSubscription: any =
+      //   channelManager.subscribeChannelParticipation(userId, participations => {
+      //     console.log("participations",participations)
+      //     setOrUpdateChannelParticipants(participations);
+      //   });
 
-      const channelsSubscription: any = channelManager.subscribeChannels(
-        (data: any) => {
-          setOrUpdateChannelsSubscribe(data);
-          const messageCountSubscription = channelManager.channelMessageStatus(
-            userId,
-            (messageCount: any) => {
-              setChannelCount(messageCount);
-            },
-          );
-        },
-      );
+      // const channelsSubscription: any = channelManager.subscribeChannels(
+      //   (data: any) => {
+      //     setOrUpdateChannelsSubscribe(data);
+      //     const messageCountSubscription = channelManager.channelMessageStatus(
+      //       userId,
+      //       (messageCount: any) => {
+      //         setChannelCount(messageCount);
+      //       },
+      //     );
+      //   },
+      // );
 
       return () => {
         usersSubscription.unsubscribe(); // Adjust this based on how you unsubscribe from Firebase
-        channelParticipationSubscription.unsubscribe();
-        channelsSubscription.unsubscribe();
+        // channelParticipationSubscription.unsubscribe();
+        // channelsSubscription.unsubscribe();
       };
     };
 
@@ -278,13 +302,16 @@ const{images}=useAssets()
 
   const hydrateChannelsIfNeeded = async (
     userData: {data: any},
-    channelsUnsubscribe: any,
+    channelSubscribe: any,
     channelParticipantUnsubscribe: any,
   ) => {
     try {
       const userID = (await getData('USERID')) || '';
+
       const allUsers = userData?.data;
-      let channels = channelsUnsubscribe;
+      let channels = channelSubscribe;
+                  console.log("channelSubscribe",channels)
+
       let participations = channelParticipantUnsubscribe;
       if (!channels || !allUsers || !participations) {
         return;
@@ -407,7 +434,7 @@ const{images}=useAssets()
             }
           },
         );
-
+console.log("hydratedChannelhydratedChannel",JSON.stringify(hydratedChannel))
         updateChannelsStore(hydratedChannel);
       });
     } catch (e) {
@@ -433,7 +460,6 @@ const{images}=useAssets()
       dispatch(setChatList(sortedChannels));
     }
   };
-
   const onFriendItemPress = (friend: any) => {
     console.log('Friend Data--', JSON.stringify(friend));
     if (searchValue !== '') {
@@ -476,7 +502,7 @@ const{images}=useAssets()
   };
   const searchText = (txt: any) => {
     setSearchValue(txt);
-    let userFilter = chatList.filter((ele: {name: any}) => {
+    let userFilter = chatUserList.filter((ele: {name: any}) => {
       if (
         ele.name.search(txt.toUpperCase()) !== -1 ||
         ele.name.toUpperCase().search(txt.toUpperCase()) !== -1
@@ -579,7 +605,8 @@ const{images}=useAssets()
                       alignItems: 'center',
                       justifyContent: 'center',
                     }}>
-                    <Image
+                      <UserImage></UserImage>
+                    {/* <Image
                       style={{
                         width: 65,
                         height: 65,
@@ -587,7 +614,7 @@ const{images}=useAssets()
                       }}
                       source={images['chat-user']}
                       resizeMode="cover"
-                    />
+                    /> */}
                   </Col>
                   <Col style={{marginLeft: 10}}>
                     <Row style={{alignItems: 'center'}}>

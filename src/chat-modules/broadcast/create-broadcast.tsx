@@ -6,17 +6,17 @@ import {
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import {Paths} from '../../../Constant/ScreenName';
+import {Paths} from '../../chat-services/constant/ScreenName';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   selectChatList,
   selectUser,
   selectUserList,
   setChatChanneDetails,
-} from '../../../redux/chatSlice';
-import {CHAT_DETAILS_CONFIGURE} from '../../../Constant/Constant';
-import {createNewBroadCast} from '../../../chat-firebase/channel';
-import {BackHandler, Keyboard} from 'react-native';
+} from '../../redux/chatSlice';
+import {CHAT_DETAILS_CONFIGURE} from '../../chat-services/constant/constant';
+import {createNewBroadCast} from '../../chat-firebase/channel';
+import {BackHandler} from 'react-native';
 import {HeaderSix, PageContainer,ContactsFloatingIcon, useStylesheet, VectorIcon, useAssets,chatStyles } from 'react-native-dex-moblibs';
 import {
   View,
@@ -28,8 +28,8 @@ import {
   TextInput,
 } from 'react-native';
 import {Col, Grid, Row} from 'react-native-easy-grid';
-import {getName} from '../../../chat-services/common';
-import {ERROR_MESSAGE_CONTENT} from '../../../Constant/Constant';
+import {getName} from '../../chat-services/common';
+import {ERROR_MESSAGE_CONTENT} from '../../chat-services/constant/constant';
 interface User {
   name: string;
   email: string;

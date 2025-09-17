@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {View, Text, TextInput, Dimensions} from 'react-native';
 
-import {USER_TYPE} from '../../../Constant/Constant';
+import {USER_TYPE} from '../../../chat-services/constant/constant';
 import {useNavigation} from '@react-navigation/native';
 import authStyles from './LoginStyle';
 import { Button, PageContainer, wp,SpinnerModal, useStylesheet, RadioButton } from 'react-native-dex-moblibs';
@@ -85,7 +85,7 @@ const Login: FC<props> = props => {
                 key={ele.key}
                 label={ele.value}
                 selected={props.selectedOption === ele.value}
-                onSelect={() => props.setOption(ele.value)}
+                onToggle={() => props.setOption(ele.value)}
               />
             ))}
           </View>

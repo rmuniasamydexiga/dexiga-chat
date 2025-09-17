@@ -2,13 +2,13 @@ import {  Alert, Platform, PermissionsAndroid } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import { selectDocumentList, selectMediaList, selectUser, selectedChannelDetails } from '../../../redux/chatSlice';
-import { Paths } from '../../../Constant/ScreenName';
-import { MESSAGE_TYPE } from '../../../Constant/Constant';
-import { getFileUrlForInternal, getFileViewer } from '../../../chat-services/MediaHelper';
+import { selectDocumentList, selectMediaList, selectUser, selectedChannelDetails } from '../../redux/chatSlice';
+import { Paths } from '../../chat-services/constant/ScreenName';
+import { MESSAGE_TYPE } from '../../chat-services/constant/constant';
+import { getFileUrlForInternal, getFileViewer } from '../../chat-services/MediaHelper';
 import { View, Text,FlatList,TouchableOpacity, ImageBackground} from 'react-native';
 import { dayDate, ListEmptyComponent, useStylesheet, VectorIcon, verticalScale,HeaderSeven,chatStyles } from 'react-native-dex-moblibs';
-import { getName } from '../../../chat-services/common';
+import { getName } from '../../chat-services/common';
 
 
 

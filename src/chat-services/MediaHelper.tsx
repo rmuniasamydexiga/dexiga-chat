@@ -8,7 +8,7 @@ import {
   IS_ANDROID,
   IS_IOS,
   MESSAGE_TYPE,
-} from '../Constant/Constant';
+} from './constant/constant';
 import {FFmpegKit} from 'ffmpeg-kit-react-native';
 
 
@@ -308,3 +308,62 @@ const downloadAndConvertVideo = async (FILE_URL: string, data: any) => {
   }
 };
 
+
+
+// utils/storage.ts
+
+export interface UploadResult {
+  downloadURL: string;
+  metadata: any;
+  fullPath: string;
+}
+
+export const uploadFileToStorage = async (
+  localPath: string,
+  folder: string,
+  fileName?: string,
+  onProgress?: (progress: number) => void,
+): Promise<UploadResult> => {
+  try {
+    // Create filename if not passed
+    const finalName =
+      fileName || localPath.split('/').pop() || `file_${Date.now()}`;
+
+    const firebasePath = `${folder}/${finalName}`;
+    const ref = storage().ref(firebasePath);
+
+    // Upload task
+    const task = ref.putFile(localPath);
+
+    return new Promise((resolve, reject) => {
+      task.on(
+        'state_changed',
+        snapshot => {
+          if (onProgress) {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            onProgress(progress);
+          }
+        },
+        error => {
+          reject(error);
+        },
+        async () => {
+          try {
+            const downloadURL = await ref.getDownloadURL();
+            const metadata = await ref.getMetadata();
+            resolve({
+              downloadURL,
+              metadata,
+              fullPath: firebasePath,
+            });
+          } catch (err) {
+            reject(err);
+          }
+        },
+      );
+    });
+  } catch (error) {
+    throw error;
+  }
+};

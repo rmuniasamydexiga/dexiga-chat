@@ -6,28 +6,28 @@ import {
 } from '@react-navigation/native';
 import {TransitionPresets, createStackNavigator} from '@react-navigation/stack';
 import 'react-native-gesture-handler';
-import {Paths} from '../../Constant/ScreenName';
+import {Paths} from '../../chat-services/constant/ScreenName';
 
 import LoginController from '../../Screens/Controller/Auth/LoginController';
-import ChatController from '../../Screens/Controller/chat/chat-inbox';
+import ChatController from '../../chat-modules/chat/chat-inbox';
 import Signup from '../../Screens/Controller/Auth/SignUp';
-import ChatList from '../../Screens/Controller/chat/chat-list';
-import PlayerListController from '../../Screens/Controller/chat/player-list';
+import ChatList from '../../chat-modules/chat/chat-list';
+import PlayerListController from '../../chat-modules/chat/player-list';
 import {MenuProvider} from 'react-native-popup-menu';
-import MediaViewingController from '../../Screens/Controller/chat/media-viewer';
+import MediaViewingController from '../../chat-modules/chat/media-viewer';
 import {Provider} from 'react-redux';
 import {store} from '../../redux/store';
-import {AuthProvider, useAuth} from '../Context/Auth';
+import {AuthProvider, useAuth} from '../../chat-context/chat-auth';
 import SplashScreenController from '../../Screens/Controller/Auth/Splash';
-import AddNewBroadCastController from '../../Screens/Controller/broadcast/create-broadcast';
-import AddNewGroupController from '../../Screens/Controller/group/create-group';
-import AddNewGroupProfileController from '../../Screens/Controller/group/group-profile';
-import GroupPermissionsController from '../../Screens/Controller/group/group-permissions';
-import GroupInfoController from '../../Screens/Controller/group/group-info';
-import BroadCastInfoController from '../../Screens/Controller/broadcast/broadcast-info';
-import MessageInfoController from '../../Screens/Controller/chat/message-info';
-import MediaListController from '../../Screens/Controller/chat/media-list';
-import IndividualChatInfoController from '../../Screens/Controller/chat/individual-chat-info';
+import AddNewBroadCastController from '../../chat-modules/broadcast/create-broadcast';
+import AddNewGroupController from '../../chat-modules/group/create-group';
+import AddNewGroupProfileController from '../../chat-modules/group/group-profile';
+import GroupPermissionsController from '../../chat-modules/group/group-permissions';
+import GroupInfoController from '../../chat-modules/group/group-info';
+import BroadCastInfoController from '../../chat-modules/broadcast/broadcast-info';
+import MessageInfoController from '../../chat-modules/chat/message-info';
+import MediaListController from '../../chat-modules/chat/media-list';
+import IndividualChatInfoController from '../../chat-modules/chat/individual-chat-info';
 
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -35,9 +35,10 @@ const Stack = createStackNavigator<RootStackParamList>();
 export const navigationRef = createNavigationContainerRef();
 import messaging from '@react-native-firebase/messaging';
 import NetInfo from '@react-native-community/netinfo';
-import GroupNameChangeController from '../../Screens/Controller/group/group-name-change';
+import GroupNameChangeController from '../../chat-modules/group/group-name-change';
 import {showLog} from '../../chat-services/common';
 import { ThemeProviderWrapper } from '../ThemeProviderWrapper';
+import { AssetsProvider } from 'react-native-dex-moblibs';
 
 const App = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -93,6 +94,10 @@ const App = () => {
     <NavigationContainer ref={navigationRef}>
       <Provider store={store}>
                     <ThemeProviderWrapper>
+                      <AssetsProvider assets={{
+            images: {},
+            svgs: {}
+          }}>
 
         <AuthProvider>
           <MenuProvider>
@@ -111,6 +116,7 @@ const App = () => {
                 component={LoginController}
               />
               <Stack.Screen name={Paths.SIGNUP} component={Signup} />
+              
               <Stack.Screen
                 name={Paths.ChatList}
                 component={ChatList}
@@ -174,6 +180,7 @@ const App = () => {
             </Stack.Navigator>
           </MenuProvider>
         </AuthProvider>
+        </AssetsProvider>
         </ThemeProviderWrapper>
       </Provider>
     </NavigationContainer>

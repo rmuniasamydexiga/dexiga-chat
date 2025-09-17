@@ -25,60 +25,120 @@ import {
   MESSAGE_CONTENT,
   MESSAGE_STATUS,
   MESSAGE_TYPE,
-} from '../Constant/Constant';
-import { IUser } from '../Interfaces/Chat';
-import { notificationManager } from '.';
-import { indiviualPushNotifications } from '../chat-services/NotificationHelper';
+} from '../chat-services/constant/constant';
 import { showLog } from '../chat-services/common';
-import { stat } from 'react-native-fs';
+import { COLLECTION_NAME } from './collection-name';
+import { notificationManager } from '.';
 
 const app = getApp();
 const db = getFirestore(app);
 
-const channelsRef = collection(db, 'channels');
-const messageInfoRef = collection(db, 'messageInfo');
-const channelPaticipationRef = collection(db, 'channel_participation');
 
-export const subscribeChannelParticipation = async (userId: any, callback: any) => {
-  if(!userId) return  undefined
-  //{status:false};
-  const q = query(channelPaticipationRef, where('user', '==', userId));
-  return onSnapshot(q, (querySnapshot) => {
-    const participations = querySnapshot?.docs?.map((doc) => doc.data());
-    callback(participations);
+const channelsRef = collection(db, COLLECTION_NAME.CHANNELS);
+const messageInfoRef = collection(db, COLLECTION_NAME.MESSAGE_INFO);
+const channelPaticipationRef = collection(db, COLLECTION_NAME.CHANNEL_PARTICIPATIONS);
+
+// export const subscribeChannelParticipation = async (userId: any, callback: any) => {
+//   if(!userId) return  undefined
+//   //{status:false};
+//   const q = query(channelPaticipationRef, where('user', '==', userId));
+//   return onSnapshot(q, (querySnapshot) => {
+//     const participations = querySnapshot?.docs?.map((doc) => doc.data());
+//     callback(participations);
+//   });
+// };
+
+// export const channelMessageStatus = async (userId: any, callback: any) => {
+//     if(!userId) return  undefined
+//     //{status:false};
+
+//   const q = query(
+//     messageInfoRef,
+//     where('receiverId', '==', userId),
+//     where('messageStatus', '==', '1')
+//   );
+//   return onSnapshot(q, (querySnapshot) => {
+//     const messageCounts: any = {};
+//     querySnapshot.docs.forEach((doc) => {
+//       const data = doc?.data();
+//       if (data) {
+//         const channel = data.channel;
+//         if (messageCounts[channel]) {
+//           messageCounts[channel]++;
+//         } else {
+//           messageCounts[channel] = 1;
+//         }
+//       }
+//     });
+//     callback(messageCounts);
+//   });
+// };
+
+// export const subscribeChannels = async (callback: any) => {
+//   return onSnapshot(channelsRef, (snapshot) =>
+//     callback(snapshot.docs.map((doc) => doc?.data()))
+//   );
+// };
+
+export const subscribeChannels = (callback: (channels: any[]) => void) => {
+  const unsubscribe = onSnapshot(channelsRef, (snapshot) => {
+    const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    callback(data);
   });
+
+  return unsubscribe;
 };
 
-export const channelMessageStatus = async (userId: any, callback: any) => {
-    if(!userId) return  undefined
-    //{status:false};
+/**
+ * Subscribe to channel participation for a specific user
+ */
+export const subscribeChannelParticipation = (
+  userId: string,
+  callback: (participations: any[]) => void
+) => {
+  if (!userId) return () => {};
+
+  const q = query(channelPaticipationRef, where("user", "==", userId));
+
+  const unsubscribe = onSnapshot(q, (snapshot) => {
+    const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    callback(data);
+  });
+
+  return unsubscribe;
+};
+
+/**
+ * Subscribe to unread message count per channel for a specific user
+ */
+export const channelMessageStatus = (
+  userId: string,
+  callback: (messageCounts: Record<string, number>) => void
+) => {
+  if (!userId) return () => {};
 
   const q = query(
     messageInfoRef,
-    where('receiverId', '==', userId),
-    where('messageStatus', '==', '1')
+    where("receiverId", "==", userId),
+    where("messageStatus", "==", "1")
   );
-  return onSnapshot(q, (querySnapshot) => {
-    const messageCounts: any = {};
-    querySnapshot.docs.forEach((doc) => {
-      const data = doc?.data();
-      if (data) {
-        const channel = data.channel;
-        if (messageCounts[channel]) {
-          messageCounts[channel]++;
-        } else {
-          messageCounts[channel] = 1;
-        }
+
+  const unsubscribe = onSnapshot(q, (snapshot) => {
+    const messageCounts: Record<string, number> = {};
+
+    snapshot.docs.forEach((doc) => {
+      const data: any = doc.data();
+      const channelId = data.channel;
+
+      if (channelId) {
+        messageCounts[channelId] = (messageCounts[channelId] || 0) + 1;
       }
     });
+
     callback(messageCounts);
   });
-};
 
-export const subscribeChannels = async (callback: any) => {
-  return onSnapshot(channelsRef, (snapshot) =>
-    callback(snapshot.docs.map((doc) => doc?.data()))
-  );
+  return unsubscribe;
 };
 
 export const deleteBraodCast = async (
@@ -170,7 +230,7 @@ export const fetchChannelParticipantIDs = async (
           //{status:false};
 
   else if (channel.is_broadCast) {
-    const participantsRef = collection(db, 'channels', channel.id, 'participant');
+    const participantsRef = collection(db, COLLECTION_NAME.CHANNELS, channel.id, 'participant');
     const snapshot = await getDocs(participantsRef);
     const data = snapshot.docs.map((doc) => doc.data());
     callback(data);
@@ -221,7 +281,7 @@ export const createChannel = async (
     };
     console.log('channelData', channelData);
 
-    const channelRef = doc(collection(db, 'channels'), channelID);
+    const channelRef = doc(collection(db, COLLECTION_NAME.CHANNELS), channelID);
     const res = await getDoc(channelRef);
 
     if (res.exists) {
@@ -279,7 +339,7 @@ export const fetchBroadCastuserDetails = async (
   channel: { id: any },
   callback: (participantIDs: any[]) => void
 ) => {
-  const participantsRef = collection(db, 'channels', channel.id, 'participant');
+  const participantsRef = collection(db,COLLECTION_NAME.CHANNELS , channel.id, 'participant');
   const snapshot = await getDocs(participantsRef);
   const data = snapshot.docs.map((doc) => doc.data());
   callback(data);
@@ -290,7 +350,7 @@ export const subscribeThreadSnapshot = (
   callback: any
 ) => {
   if (!channel.id) return;
-  const threadRef = collection(db, 'channels', channel.id, 'thread');
+  const threadRef = collection(db, COLLECTION_NAME.CHANNELS, channel.id, 'thread');
   const q = query(threadRef, orderBy('created', 'desc'));
   return onSnapshot(q, callback);
 };
@@ -300,7 +360,7 @@ export const subscribeChanelSnapshot = (
   callback: any
 ) => {
   if (!channel.id) return;
-  const channelDoc = doc(db, 'channels', channel.id);
+  const channelDoc = doc(db, COLLECTION_NAME.CHANNELS, channel.id);
   return onSnapshot(channelDoc, callback);
 };
 
@@ -375,9 +435,9 @@ export const sendMessage = async (
       data.duration = fileInfo.recordTime || '';
     }
     const channelID = channel.id;
-    const threadRef = collection(db, 'channels', channelID, 'thread');
+    const threadRef = collection(db,COLLECTION_NAME.CHANNELS , channelID, 'thread');
     let messageResult = await addDoc(threadRef, { ...data });
-    const channelDoc = doc(db, 'channels', channelID);
+    const channelDoc = doc(db, COLLECTION_NAME.CHANNELS, channelID);
     await updateDoc(channelDoc, {
       lastMessage: message && message.length > 0 ? message : downloadURL,
       lastMessageDate: timestamp,
@@ -443,7 +503,7 @@ export const blockChat = async (channel: any, userId: string, type: string) => {
       }
     }
 
-    const channelRef = doc(db, 'channels', channel?.id);
+    const channelRef = doc(db,COLLECTION_NAME.CHANNELS , channel?.id);
     await updateDoc(channelRef, {
       blockedBy,
       isBlocked,
@@ -484,7 +544,7 @@ export const muteChat = async (channel: any, userId: string, type: string) => {
     }
   }
 
-  const channelRef = doc(db, 'channels', channel?.id);
+  const channelRef = doc(db, COLLECTION_NAME.CHANNELS, channel?.id);
   await updateDoc(channelRef, {
     mutedBy,
     isMute,
@@ -500,7 +560,7 @@ export const deleteChat = async (
   userId: string | null,
   isGroup: boolean,
 ) => {
-  const threadRef = collection(db, 'channels', channelID, 'thread');
+  const threadRef = collection(db, COLLECTION_NAME.CHANNELS, channelID, 'thread');
 
   for (const ele of messages) {
     let newData: any = null;
@@ -758,7 +818,7 @@ export const sendMessageForBroadCast = async (
     }
 
     const channelID = String(channel.id);
-    const channelRef = doc(db, 'channels', channelID);
+    const channelRef = doc(db, COLLECTION_NAME.CHANNELS, channelID);
     const threadRef = doc(collection(channelRef, 'thread'), broadCastMessageData?.messageId);
 
     const res = await getDoc(channelRef);
@@ -838,7 +898,7 @@ export const createNewBroadCast = async (
 
   await persistChannelParticipations([{ userId: userId }], channelID, false);
 
-  const channelDocRef = doc(db, 'channels', channelID);
+  const channelDocRef = doc(db, COLLECTION_NAME.CHANNELS, channelID);
   await setDoc(channelDocRef, channelData);
 
   const createThreadPromises = dataArray.map(async (data: any) => {
@@ -857,7 +917,7 @@ export const createNewBroadCast = async (
         userId: id2,
         name: data.name,
       });
-      const participantRef = collection(db, 'channels', channelID, 'participant');
+      const participantRef = collection(db, COLLECTION_NAME.CHANNELS, channelID, 'participant');
       await addDoc(participantRef, { channelID: id, broadCastUserId: id2 });
     }
   });
@@ -878,7 +938,7 @@ export const updateBroadCast = async (
 ) => {
   let broadCastList: any = [];
   let broadCastUserList: any = [];
-  const participantCollectionRef = collection(db, 'channels', channelID, 'participant');
+  const participantCollectionRef = collection(db, COLLECTION_NAME.CHANNELS, channelID, 'participant');
   const querySnapshot = await getDocs(participantCollectionRef);
   const deletePromises = querySnapshot.docs.map((docSnap) => deleteDoc(docSnap.ref));
   await Promise.all(deletePromises);
@@ -899,7 +959,7 @@ export const updateBroadCast = async (
         userId: id2,
       });
       broadCastList.push({ channelID: id, userId: id2 });
-      const participantRef = collection(db, 'channels', channelID, 'participant');
+      const participantRef = collection(db, COLLECTION_NAME.CHANNELS, channelID, 'participant');
       await addDoc(participantRef, { channelID: id, broadCastUserId: id2 });
     }
   });
@@ -1070,6 +1130,54 @@ export const creatNewGroup = async (
     console.error("Error creating new group:", error);
     return { status: false, error };
   }
+};
+
+export const broadcastPushNotificationsforGroup = (
+  inputValue: string,
+  downloadURL: {mime: string} | null,
+  participants: {id: string}[],
+  channel: {name: string | any[]},
+  user: IUser | undefined,
+) => {
+  if (!participants || participants.length == 0) {
+    return;
+  }
+  const sender: IUser | undefined = user;
+  const isGroupChat = channel.name && channel.name.length > 0;
+  const fromTitle = isGroupChat ? channel.name : sender?.name;
+  var message: string;
+  if (isGroupChat) {
+    if (downloadURL) {
+      if (downloadURL.mime && downloadURL.mime.startsWith('video')) {
+        message = sender?.name + ' ' + 'sent a video.';
+      } else {
+        message = sender?.name + +' ' + 'sent a photo.';
+      }
+    } else {
+      message = (sender?.name || '') + ' ' + ': ' + inputValue;
+    }
+  } else {
+    if (downloadURL) {
+      if (downloadURL.mime && downloadURL.mime.startsWith('video')) {
+        message = sender?.name + ' ' + 'sent you a video.';
+      } else {
+        message = sender?.name + ' ' + 'sent you a photo.';
+      }
+    } else {
+      message = inputValue;
+    }
+  }
+  participants.forEach((participant: {id: string}) => {
+    if (participant.id != user?.id) {
+      notificationManager.sendPushNotification(
+        participant,
+        fromTitle,
+        message,
+        'chat_message',
+        {outBound: sender},
+      );
+    }
+  });
 };
 
 export const currentTimestamp = () => {

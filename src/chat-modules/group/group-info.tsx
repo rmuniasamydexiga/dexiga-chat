@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { CHAT_DETAILS_CONFIGURE, ERROR_MESSAGE_CONTENT, GROUP_PERMISSIONS, MESSAGE_CONTENT } from '../../../Constant/Constant';
+import { CHAT_DETAILS_CONFIGURE, ERROR_MESSAGE_CONTENT, GROUP_PERMISSIONS, MESSAGE_CONTENT } from '../../chat-services/constant/constant';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectChannelGroupParticipants, selectDocumentList, selectMediaList, selectUser, selectedChannelDetails, setChatChanneDetails, setParticipantsList, setPermssions } from '../../../redux/chatSlice';
-import { Paths } from '../../../Constant/ScreenName';
-import { currentTimestamp, exitTheGroup, makeAdmin, onLeaveGroup, persistChannelParticipations, sendInfoMessage } from '../../../chat-firebase/channel';
-import { channelManager } from '../../../chat-firebase';
-import { useAuth } from '../../../Router/Context/Auth';
+import { selectChannelGroupParticipants, selectDocumentList, selectMediaList, selectUser, selectedChannelDetails, setChatChanneDetails, setParticipantsList, setPermssions } from '../../redux/chatSlice';
+import { Paths } from '../../chat-services/constant/ScreenName';
+import { currentTimestamp, exitTheGroup, makeAdmin, onLeaveGroup, persistChannelParticipations, sendInfoMessage } from '../../chat-firebase/channel';
+import { channelManager } from '../../chat-firebase';
+import { useAuth } from '../../chat-context/chat-auth';
 
 import {View, Text,  FlatList, Image, TouchableOpacity, ImageBackground,Alert} from 'react-native';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import ActionSheet from 'react-native-actionsheet';
-import {  MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
-import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
+import {  MESSAGE_TYPE, WIDTH } from '../../chat-services/constant/constant';
+import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../chat-services/MediaHelper';
 import {HeaderFive, PageContainer, useAssets, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 
 

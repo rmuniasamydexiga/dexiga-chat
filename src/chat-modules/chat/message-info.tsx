@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import { selectChannelGroupParticipants, selectFlieList, selectInternalFlieList, selectUser, selectedChannelDetails } from '../../../redux/chatSlice';
-import { getMessageInformation } from '../../../chat-firebase/channel';
-import { useAuth } from '../../../Router/Context/Auth';
+import { selectChannelGroupParticipants, selectFlieList, selectInternalFlieList, selectUser, selectedChannelDetails } from '../../redux/chatSlice';
+import { getMessageInformation } from '../../chat-firebase/channel';
+import { useAuth } from '../../chat-context/chat-auth';
 import { PageContainer,dayDate, useAssets, useStylesheet, VectorIcon, verticalScale,ThreadItem } from 'react-native-dex-moblibs';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import { View, Text,FlatList,Image,TouchableOpacity} from 'react-native';
-import { WIDTH } from '../../../Constant/Constant';
-import { getNameWithList } from '../../../chat-services/common';
+import { WIDTH } from '../../chat-services/constant/constant';
+import { getNameWithList } from '../../chat-services/common';
 
 
   

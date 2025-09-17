@@ -4,7 +4,7 @@ import {
   ERROR_MESSAGE_CONTENT,
   IS_ANDROID,
   MAXIMUM_FILE_SIZE,
-} from '../Constant/Constant';
+} from './constant/constant';
 import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
 
 

@@ -1,19 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
-import {Paths} from '../../../Constant/ScreenName';
+import {Paths} from '../../chat-services/constant/ScreenName';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   CHAT_DETAILS_CONFIGURE,
   ERROR_MESSAGE_CONTENT,
-} from '../../../Constant/Constant';
-import {STORAGE} from '../../../chat-services/StorageHelper';
+} from '../../chat-services/constant/constant';
+import {STORAGE} from '../../chat-services/StorageHelper';
 import {
   selectChatList,
   selectUser,
   selectUserList,
-} from '../../../redux/chatSlice';
+} from '../../redux/chatSlice';
 import {Alert} from 'react-native';
-import {checkPlayerBlockOrNot} from '../../../chat-services/common';
+import {checkPlayerBlockOrNot} from '../../chat-services/common';
 import { getData } from 'react-native-dex-moblibs';
 import {HeaderSix, PageContainer,ContactsFloatingIcon, useStylesheet, VectorIcon, useAssets,chatStyles } from 'react-native-dex-moblibs';
 import {
@@ -26,7 +26,7 @@ import {
   TextInput,
 } from 'react-native';
 import {Col, Grid, Row} from 'react-native-easy-grid';
-import {getName} from '../../../chat-services/common';
+import {getName} from '../../chat-services/common';
 
 
 interface User {
@@ -150,14 +150,14 @@ const {images}=useAssets()
     setUserFilter(userFilter);
   };
 const groupParticpantsList=route?.params?.groupParticpantsList||null
-  
+  const title=route?.params?.formNavigation === Paths.GroupInfo
+          ? 'Add Participants'
+          : CHAT_DETAILS_CONFIGURE.NEW_GROUP
     return (
       <PageContainer>
         <KeyboardAvoidingView style={[styles.container]}>
           <HeaderSix
-            title={route?.params?.formNavigation === Paths.GroupInfo
-          ? 'Add Participants'
-          : CHAT_DETAILS_CONFIGURE.NEW_GROUP}
+            title={title}
             searchValue={searchValue}
             subTitle={
               title === 'Add Participants'

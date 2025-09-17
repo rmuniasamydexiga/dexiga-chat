@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import { MESSAGE_TYPE, WIDTH} from '../../../Constant/Constant';
+import { MESSAGE_TYPE, WIDTH} from '../../chat-services/constant/constant';
 import {
   useFocusEffect,
   useNavigation,
@@ -13,16 +13,16 @@ import {
   selectUser,
   selectedChannelDetails,
   setChatChanneDetails,
-} from '../../../redux/chatSlice';
-import {Paths} from '../../../Constant/ScreenName';
+} from '../../redux/chatSlice';
+import {Paths} from '../../chat-services/constant/ScreenName';
 import {
   blockChat,
   updateBroadCast,
-} from '../../../chat-firebase/channel';
+} from '../../chat-firebase/channel';
 import {BackHandler} from 'react-native';
 import {View, Text,  FlatList, TouchableOpacity, ImageBackground} from 'react-native';
 import { HeaderSix, PageContainer, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
-import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
+import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../chat-services/MediaHelper';
 
 
 

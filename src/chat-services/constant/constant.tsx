@@ -34,8 +34,6 @@ export const MESSAGE_TYPE = {
 export const FILE_PATH={
   DEFAULT:'default',
   PICTURE_DIRECTORY:'picture_directory',
-  
-
 }
 export const MESSAGE_STATUS = {
   SENT: '1',

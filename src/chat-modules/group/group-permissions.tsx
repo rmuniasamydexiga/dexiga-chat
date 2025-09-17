@@ -1,11 +1,11 @@
 import React, {  useEffect, useState } from 'react';
-import { GROUP_PERMISSIONS } from '../../../Constant/Constant';
+import { GROUP_PERMISSIONS } from '../../chat-services/constant/constant';
 import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import {  selectGroupPermission, selectedChannelDetails, setChatChanneDetails, setPermssions } from '../../../redux/chatSlice';
-import { channelPermissionUpdate } from '../../../chat-firebase/channel';
+import {  selectGroupPermission, selectedChannelDetails, setChatChanneDetails, setPermssions } from '../../redux/chatSlice';
+import { channelPermissionUpdate } from '../../chat-firebase/channel';
 import { View, Text, FlatList,Switch, BackHandler} from 'react-native';
-import {  HEIGHT } from '../../../Constant/Constant';
+import {  HEIGHT } from '../../chat-services/constant/constant';
 
 import {HeaderSeven, PageContainer, useStylesheet, VectorIcon } from 'react-native-dex-moblibs';
 

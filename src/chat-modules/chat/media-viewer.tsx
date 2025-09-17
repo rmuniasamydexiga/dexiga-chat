@@ -1,13 +1,13 @@
 import {Alert, Platform, PermissionsAndroid,Image} from 'react-native';
 import React from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {downloadFile, getFileUrlForInternal, getFileUrlForInternalReceiver} from '../../../chat-services/MediaHelper';
+import {downloadFile, getFileUrlForInternal, getFileUrlForInternalReceiver} from '../../chat-services/MediaHelper';
 import {useSelector} from 'react-redux';
-import {selectUser} from '../../../redux/chatSlice';
-import {showLog} from '../../../chat-services/common';
+import {selectUser} from '../../redux/chatSlice';
+import {showLog} from '../../chat-services/common';
 import { PageContainer,HeaderTwo } from 'react-native-dex-moblibs';
 import Video from 'react-native-video';
-import { HEIGHT, MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
+import { HEIGHT, MESSAGE_TYPE, WIDTH } from '../../chat-services/constant/constant';
 
 const MediaViewingController: React.FC = () => {
   const navigation = useNavigation();

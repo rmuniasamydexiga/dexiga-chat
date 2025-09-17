@@ -13,17 +13,17 @@ import {
   selectedChannelDetails,
   setChatChanneDetails,
   setChatList,
-} from '../../../redux/chatSlice';
-import {Paths} from '../../../Constant/ScreenName';
-import {deleteBraodCast, updateBroadCast} from '../../../chat-firebase/channel';
+} from '../../redux/chatSlice';
+import {Paths} from '../../chat-services/constant/ScreenName';
+import {deleteBraodCast, updateBroadCast} from '../../chat-firebase/channel';
 
 import {HeaderFive, PageContainer, useStylesheet,SpinnerModal, VectorIcon, useAssets } from 'react-native-dex-moblibs';
 import {View, Text,  FlatList, Image, TouchableOpacity, ImageBackground,BackHandler} from 'react-native';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import BroadCastInfoViewer from '../../Viewer/Newbroadcast/BroadCastInfoViewer';
-import {showLog} from '../../../chat-services/common';
-import { MESSAGE_TYPE, WIDTH } from '../../../Constant/Constant';
-import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../../chat-services/MediaHelper';
+import {showLog} from '../../chat-services/common';
+import { MESSAGE_TYPE, WIDTH } from '../../chat-services/constant/constant';
+import { getFileUrlForInternal, getFileUrlForInternalReceiver } from '../../chat-services/MediaHelper';
 
 
 const BroadCastInfoController: React.FC = () => {

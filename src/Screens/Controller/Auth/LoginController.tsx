@@ -1,15 +1,15 @@
 import React, {FC, useEffect, useState} from 'react';
 import {Alert, BackHandler} from 'react-native';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
-import {Paths} from '../../../Constant/ScreenName';
+import {Paths} from '../../../chat-services/constant/ScreenName';
 import Login from './Login';
 import {firebaseAuth} from '../../../chat-firebase';
-import {USER_TYPE} from '../../../Constant/Constant';
+import {USER_TYPE} from '../../../chat-services/constant/constant';
 import {STORAGE} from '../../../chat-services/StorageHelper';
 import {setChatList, setUser, setUserList} from '../../../redux/chatSlice';
 import {useDispatch} from 'react-redux';
 import {signInValidationSchema, validation} from '../../../chat-services/validation';
-import {useAuth} from '../../../Router/Context/Auth';
+import {useAuth} from '../../../chat-context/chat-auth';
 import {channelManager, firebaseUser} from '../../../chat-firebase';
 import {showLog} from '../../../chat-services/common';
 import {getAllUserList} from '../../../chat-firebase/user';
@@ -25,8 +25,8 @@ const LoginController: FC = props => {
   const [userInputs, setUserInputs] = useState({
     // email: 'sruveena@gmail.com',
     // password: 'Sruveena@123',
-    email: 'maanvi@gmail.com',
-    password: 'Maani1#+678',
+    email: 'muni120@gmail.com',
+    password: 'Muni1@123',
     userType: USER_TYPE.HOST,
   });
 

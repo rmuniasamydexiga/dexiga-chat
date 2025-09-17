@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {Paths} from '../../../Constant/ScreenName';
+import {Paths} from '../../../chat-services/constant/ScreenName';
 
 import SplashScreen from 'react-native-splash-screen';
 import {STORAGE} from '../../../chat-services/StorageHelper';
 import {setChatList, setUser, setUserList} from '../../../redux/chatSlice';
 import {useDispatch} from 'react-redux';
 import {channelManager, firebaseStorage, firebaseUser} from '../../../chat-firebase';
-import {useAuth} from '../../../Router/Context/Auth';
+import {useAuth} from '../../../chat-context/chat-auth';
 import {showLog} from '../../../chat-services/common';
 import {getAllUserList} from '../../../chat-firebase/user';
 import { dayDate, getData, PageContainer } from 'react-native-dex-moblibs';

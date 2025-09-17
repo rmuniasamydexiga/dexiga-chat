@@ -18,7 +18,6 @@ import {
 } from '@react-navigation/native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import RNFetchBlob from 'rn-fetch-blob';
-import storage from '@react-native-firebase/storage';
 import AudioRecorderPlayer, {
   AVEncoderAudioQualityIOSType,
   AVEncodingOption,
@@ -27,8 +26,7 @@ import AudioRecorderPlayer, {
   AudioSourceAndroidType,
   OutputFormatAndroidType,
 } from 'react-native-audio-recorder-player';
-import {channelManager, firebaseStorage} from '../../../chat-firebase';
-import ChatViewer from './ChatViewer';
+import {channelManager, firebaseStorage} from '../../chat-firebase';
 import {
   CHAT_DETAILS_CONFIGURE,
   CHAT_OPTIONS,
@@ -40,8 +38,8 @@ import {
   WIDTH,
   MESSAGE_TYPE,
   SNACKBAR_MESSAGE_LENGTH,
-} from '../../../Constant/Constant';
-import {Paths} from '../../../Constant/ScreenName';
+} from '../../chat-services/constant/constant';
+import {Paths} from '../../chat-services/constant/ScreenName';
 import {
   blockChat,
   muteChat,
@@ -52,7 +50,7 @@ import {
   makeAdmin,
   onLeaveGroup,
   updateMessageStatusThread,
-} from '../../../chat-firebase/channel';
+} from '../../chat-firebase/channel';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   selectChannelGroupParticipants,
@@ -71,7 +69,7 @@ import {
   setMediaList,
   setParticipantsList,
   setThread,
-} from '../../../redux/chatSlice';
+} from '../../redux/chatSlice';
 import DocumentPicker from 'react-native-document-picker';
 import {
   checkFileOrDirectoryExists,
@@ -85,23 +83,24 @@ import {
   readFileName,
   readFileNameMedia,
   readInternalFileName,
-} from '../../../chat-services/MediaHelper';
+  uploadFileToStorage,
+} from '../../chat-services/MediaHelper';
 import {
   getFileSizeLimit,
   requestAudioPermission,
   requestPerMissions,
   showLog,
-} from '../../../chat-services/common';
+} from '../../chat-services/common';
 
 
-import {useAuth} from '../../../Router/Context/Auth';
+import {useAuth} from '../../chat-context/chat-auth';
 import {
-  broadCastPushNotifications,
+  broadcastPushNotifications,
   groupPushNotifications,
   indiviualPushNotifications,
-} from '../../../chat-services/NotificationHelper';
+} from '../../chat-services/NotificationHelper';
 import Clipboard from '@react-native-clipboard/clipboard';
-import { sharedKeyAlgorthim} from '../../../chat-services/EndToEndEncryption';
+import { sharedKeyAlgorthim} from '../../chat-services/EndToEndEncryption';
 import {   } from 'react-native-dex-moblibs';
 import { BottomInput, MessageThread, PageContainer, useStylesheet,HeaderOne, HeaderThree,snackBarMessage} from 'react-native-dex-moblibs';
 import ActionSheet from 'react-native-actionsheet';
@@ -626,7 +625,7 @@ const ChatController: React.FC = () => {
                 threadData.channel = ele.channelID;
                 threadData.masterChannel = channel?.id;
                 channelManager.addMessageInfo(threadData);
-                broadCastPushNotifications(
+                broadcastPushNotifications(
                   channel,
                   user,
                   inputValue,
@@ -1047,7 +1046,7 @@ const ChatController: React.FC = () => {
       },
       (error: any) => {
         setUploadProgress(0);
-
+console.log(JSON.stringify(error.message))
         Alert.alert('Oops! An error has occured. Please try again.');
       },
     );
@@ -1223,122 +1222,192 @@ const ChatController: React.FC = () => {
     return minuteAndSeconds;
   };
 
+  // const recordStop = async (type: string) => {
+  //   try {
+  //     if (type === 'finish') {
+  //       const record = await audioRecorderPlayer.stopRecorder();
+
+  //       let splitFileName = record.split('/');
+  //       let fileName = splitFileName[splitFileName.length - 1]
+  //         ? IS_IOS
+  //           ? new Date().getSeconds() + splitFileName[splitFileName.length - 1]
+  //           : splitFileName[splitFileName.length - 1]
+  //         : '';
+
+  //       let audioRef = 'Audio/' + fileName;
+  //       let store = storage().ref(audioRef);
+  //       let task = store.putFile(`${record}`);
+  //       let participants = channel?.participants[0];
+  //       const threadDataList = [
+  //         {
+  //           content: '',
+  //           created: currentTimestamp(),
+  //           recipientFirstName: '',
+  //           recipientID: '',
+  //           recipientLastName: '',
+  //           recipientProfilePictureURL: '',
+  //           senderFirstName:
+  //             user?.firstName || user?.fullname || user?.name || '',
+  //           senderID: user?.id,
+  //           senderLastName: '',
+  //           senderProfilePictureURL: '',
+  //           url: record,
+  //           inReplyToItem: inReplyToItem,
+  //           messageType: MESSAGE_TYPE.AUDIO,
+  //           fileName: fileName || '',
+  //           isBlocked: participants?.isBlocked || false,
+  //           blockedBy: participants?.blockedBy || null,
+  //           isAudio: true,
+  //         },
+  //       ];
+
+  //       let tempData = thread;
+  //       let list = threadDataList.concat(tempData);
+  //       dispatch(setThread(list));
+  //       let recordData = recorderDetails;
+  //       setRecorderDetails({
+  //         ...recordData,
+  //         isRecording: false,
+  //         isAudio: false,
+  //         firebasePath: audioRef,
+  //       });
+
+  //       task.on(
+  //         'state_changed',
+  //         snapshot => {
+  //           const uploadProgress1 =
+  //             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+  //           setUploadProgress(uploadProgress1);
+  //         },
+  //         error => {
+  //           return {error: error};
+  //         },
+  //         async () => {
+  //           let result = await saveFileData({
+  //             source: record,
+  //             fileName: fileName,
+  //             messageType: MESSAGE_TYPE.AUDIO,
+  //             url: audioRef,
+  //           });
+
+  //           task.snapshot.ref.getMetadata().then((res: any) => {
+  //             let audioRequest = {
+  //               ...recordData,
+  //               ...res,
+  //             };
+
+  //             setInputValue(audioRef);
+  //             if (thread.length > 0 || channel?.participants?.length > 1) {
+  //               sendMessage(
+  //                 MESSAGE_TYPE.AUDIO,
+  //                 audioRef,
+  //                 fileName,
+  //                 // splitFileName[splitFileName.length - 1],
+  //                 audioRequest,
+  //               );
+
+  //               return;
+  //             }
+
+  //             // If we don't have a chat id, we need to create it first together with the participations
+  //             createOne2OneChannel().then(_response => {
+  //               sendMessage(
+  //                 MESSAGE_TYPE.AUDIO,
+  //                 audioRef,
+  //                 fileName,
+  //                 // splitFileName[splitFileName.length - 1],
+  //                 audioRequest,
+  //               );
+  //             });
+  //           });
+  //         },
+  //       );
+  //     } else if (type === 'cancel') {
+  //       const record = await audioRecorderPlayer.stopRecorder();
+  //       audioRecorderPlayer.removeRecordBackListener();
+  //       setRecorderDetails({
+  //         ...recorderDetails,
+  //         isRecording: false,
+  //         isAudio: false,
+  //         firebasePath: '',
+  //       });
+  //     }
+  //   } catch {
+  //     (err: any) => {
+  //       showLog('Record stop error', err);
+  //     };
+  //   }
+  // };
+
   const recordStop = async (type: string) => {
-    try {
-      if (type === 'finish') {
-        const record = await audioRecorderPlayer.stopRecorder();
+  try {
+    if (type === 'finish') {
+      const record = await audioRecorderPlayer.stopRecorder();
 
-        let splitFileName = record.split('/');
-        let fileName = splitFileName[splitFileName.length - 1]
-          ? IS_IOS
-            ? new Date().getSeconds() + splitFileName[splitFileName.length - 1]
-            : splitFileName[splitFileName.length - 1]
-          : '';
-
-        let audioRef = 'Audio/' + fileName;
-        let store = storage().ref(audioRef);
-        let task = store.putFile(`${record}`);
-        let participants = channel?.participants[0];
-        const threadDataList = [
-          {
-            content: '',
-            created: currentTimestamp(),
-            recipientFirstName: '',
-            recipientID: '',
-            recipientLastName: '',
-            recipientProfilePictureURL: '',
-            senderFirstName:
-              user?.firstName || user?.fullname || user?.name || '',
-            senderID: user?.id,
-            senderLastName: '',
-            senderProfilePictureURL: '',
-            url: record,
-            inReplyToItem: inReplyToItem,
-            messageType: MESSAGE_TYPE.AUDIO,
-            fileName: fileName || '',
-            isBlocked: participants?.isBlocked || false,
-            blockedBy: participants?.blockedBy || null,
-            isAudio: true,
-          },
-        ];
-
-        let tempData = thread;
-        let list = threadDataList.concat(tempData);
-        dispatch(setThread(list));
-        let recordData = recorderDetails;
-        setRecorderDetails({
-          ...recordData,
-          isRecording: false,
-          isAudio: false,
-          firebasePath: audioRef,
-        });
-
-        task.on(
-          'state_changed',
-          snapshot => {
-            const uploadProgress1 =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            setUploadProgress(uploadProgress1);
-          },
-          error => {
-            return {error: error};
-          },
-          async () => {
-            let result = await saveFileData({
-              source: record,
-              fileName: fileName,
-              messageType: MESSAGE_TYPE.AUDIO,
-              url: audioRef,
-            });
-
-            task.snapshot.ref.getMetadata().then((res: any) => {
-              let audioRequest = {
-                ...recordData,
-                ...res,
-              };
-
-              setInputValue(audioRef);
-              if (thread.length > 0 || channel?.participants?.length > 1) {
-                sendMessage(
-                  MESSAGE_TYPE.AUDIO,
-                  audioRef,
-                  fileName,
-                  // splitFileName[splitFileName.length - 1],
-                  audioRequest,
-                );
-
-                return;
-              }
-
-              // If we don't have a chat id, we need to create it first together with the participations
-              createOne2OneChannel().then(_response => {
-                sendMessage(
-                  MESSAGE_TYPE.AUDIO,
-                  audioRef,
-                  fileName,
-                  // splitFileName[splitFileName.length - 1],
-                  audioRequest,
-                );
-              });
-            });
-          },
-        );
-      } else if (type === 'cancel') {
-        const record = await audioRecorderPlayer.stopRecorder();
-        audioRecorderPlayer.removeRecordBackListener();
-        setRecorderDetails({
-          ...recorderDetails,
-          isRecording: false,
-          isAudio: false,
-          firebasePath: '',
-        });
+      let splitFileName = record.split('/');
+      let fileName = splitFileName[splitFileName.length - 1] || '';
+      if (IS_IOS) {
+        fileName = new Date().getSeconds() + fileName;
       }
-    } catch {
-      (err: any) => {
-        showLog('Record stop error', err);
-      };
+
+      const participants = channel?.participants?.[0];
+
+      // update UI immediately
+      const threadDataList = [
+        {
+          content: '',
+          created: currentTimestamp(),
+          senderFirstName: user?.firstName || user?.fullname || user?.name || '',
+          senderID: user?.id,
+          url: record,
+          inReplyToItem,
+          messageType: MESSAGE_TYPE.AUDIO,
+          fileName,
+          isBlocked: participants?.isBlocked || false,
+          blockedBy: participants?.blockedBy || null,
+          isAudio: true,
+        },
+      ];
+      dispatch(setThread([...threadDataList, ...thread]));
+
+      setRecorderDetails({
+        ...recorderDetails,
+        isRecording: false,
+        isAudio: false,
+      });
+
+      // ✅ use utility
+      const { downloadURL, fullPath, metadata } = await uploadFileToStorage(
+        record,
+        'Audio',
+        fileName,
+        setUploadProgress, // pass progress updater
+      );
+
+      const audioRequest = { ...recorderDetails, ...metadata };
+
+      setInputValue(fullPath);
+
+      if (thread.length > 0 || channel?.participants?.length > 1) {
+        sendMessage(MESSAGE_TYPE.AUDIO, fullPath, fileName, audioRequest);
+      } else {
+        await createOne2OneChannel();
+        sendMessage(MESSAGE_TYPE.AUDIO, fullPath, fileName, audioRequest);
+      }
+    } else if (type === 'cancel') {
+      const record = await audioRecorderPlayer.stopRecorder();
+      audioRecorderPlayer.removeRecordBackListener();
+      setRecorderDetails({
+        ...recorderDetails,
+        isRecording: false,
+        isAudio: false,
+        firebasePath: '',
+      });
     }
-  };
+  } catch (err) {
+    showLog('Record stop error', err);
+  }
+};
   const recordStart = async () => {
     try {
       // Request audio recording permissions

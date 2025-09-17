@@ -3,18 +3,18 @@ import React, {useEffect, useState} from 'react';
 
 import {useNavigation, useRoute} from '@react-navigation/native';
 
-import {Paths} from '../../../Constant/ScreenName';
+import {Paths} from '../../chat-services/constant/ScreenName';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   selectGroupPermission,
   selectUser,
   setChatChanneDetails,
-} from '../../../redux/chatSlice';
+} from '../../redux/chatSlice';
 import {
   broadcastPushNotificationsforGroup,
   creatNewGroup,
-} from '../../../chat-firebase/channel';
-import {STORAGE} from '../../../chat-services/StorageHelper';
+} from '../../chat-firebase/channel';
+import {STORAGE} from '../../chat-services/StorageHelper';
 import {
   View,
   Text,
@@ -25,9 +25,9 @@ import {
 } from 'react-native';
 import {Col, Grid} from 'react-native-easy-grid';
 
-import {WIDTH} from '../../../Constant/Constant';
+import {WIDTH} from '../../chat-services/constant/constant';
 
-import {getName} from '../../../chat-services/common';
+import {getName} from '../../chat-services/common';
 import { HeaderSeven,PageContainer,ContactsFloatingIcon, VectorIcon, useStylesheet, useAssets, getData } from 'react-native-dex-moblibs';
 
 interface Props {

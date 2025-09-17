@@ -1,5 +1,5 @@
 import {showLog} from './common';
-import {IUser} from '../Interfaces/Chat';
+import {IUser} from '../chat-firebase/Interfaces/Chat';
 import {notificationManager} from '../chat-firebase';
 
 export const indiviualPushNotifications = (
@@ -61,7 +61,7 @@ export const indiviualPushNotifications = (
   }
 };
 
-export const broadCastPushNotifications = (
+export const broadcastPushNotifications = (
   channel: any,
   user: any,
   inputValue: string,

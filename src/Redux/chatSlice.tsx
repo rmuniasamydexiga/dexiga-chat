@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { SELECTED_PERMISSION } from '../Constant/Constant';
+import { SELECTED_PERMISSION } from '../chat-services/constant/constant';
 
 
 const chatSlice = createSlice({
