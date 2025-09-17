@@ -29,13 +29,14 @@ import VoipPushNotification from 'react-native-voip-push-notification';
 import { Platform } from 'react-native';
 import { currentTimestamp } from './channel';
 import { showLog } from '../chat-services/common';
-import { ErrorCode } from '../chat-services/Helpers';
+import { ErrorCode } from '../chat-services/helpers';
+import { COLLECTION_NAME } from './collection-name';
 
 // Initialize
 const app = getApp();
 const auth = getAuth(app);
 const db = getFirestore(app);
-const usersRef = collection(db, 'users');
+const usersRef = collection(db, COLLECTION_NAME.USERS);
 
 
 // ---------------- AUTH ----------------

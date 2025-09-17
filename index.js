@@ -16,7 +16,7 @@ RNFetchBlob.config({
 import {name as appName} from './app.json';
 import messaging from '@react-native-firebase/messaging';
 import {channelThreadUpdate} from './src/chat-firebase/channel';
-import {MESSAGE_STATUS} from './src/Constant/Constant';
+import {MESSAGE_STATUS} from './src/chat-services/constant/constant';
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
   console.log(
